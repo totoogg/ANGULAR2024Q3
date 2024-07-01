@@ -17,6 +17,7 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
+        "no-console": 0,
         "linebreak-style": 0,
         "import/prefer-default-export": 0,
         "@typescript-eslint/no-explicit-any": "error",
