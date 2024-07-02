@@ -11,5 +11,13 @@ import { FormsModule } from '@angular/forms';
 export class HeaderComponent {
   value = '';
 
+  extraValue = '';
+
   user = 'Your Name';
+
+  showSort = true;
+
+  handleShowSort() {
+    this.showSort = !this.showSort;
+  }
 }

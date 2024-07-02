@@ -1,16 +1,29 @@
 <header>
   <div></div>
-  <div class="header__search">
-    <div class="search__logo"></div>
-    <div class="search__controls">
-      <input
-        type="text"
-        [(ngModel)]="value"
-        placeholder="What are you want to find out?"
-      />
-      <button>search</button>
+  <div class="header__search_block">
+    <div class="header__search">
+      <div class="search__logo"></div>
+      <div class="search__controls">
+        <input
+          type="text"
+          [(ngModel)]="value"
+          placeholder="What are you want to find out?"
+        />
+        <button>search</button>
+      </div>
+      <button class="search__setting" (click)="handleShowSort()">
+        <div class="setting__icon"></div>
+      </button>
     </div>
-    <div class="search__setting"></div>
+    @if (showSort) {
+    <div class="header__sort">
+      Sorting by: <button>date</button><button>count of views</button>
+      <div class="sort__filter_content">
+        <label for="filter">by word or sentance</label>
+        <input type="text" id="filter" [(ngModel)]="extraValue" />
+      </div>
+    </div>
+    }
   </div>
   <div class="header__user">
     <p class="user__text">
