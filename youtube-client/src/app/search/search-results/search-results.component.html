@@ -1,5 +1,6 @@
 <div class="main__results">
-  @for (video of videos | filterVideos:term; track video.id) {
+  @for (video of videos | filterVideos:term | sortVideos:sortVideoArr; track
+  video.id) {
   <app-search-item [video]="video"></app-search-item>
   }
 </div>

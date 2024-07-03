@@ -1,5 +1,11 @@
-<app-header (addTerm)="addTerm($event)"></app-header>
+<app-header
+  (addTermEvent)="addTerm($event)"
+  (sortVideoEvent)="sortVideo($event)"
+></app-header>
 
-<app-search-results [term]="term"></app-search-results>
+<app-search-results
+  [term]="term"
+  [sortVideoArr]="sortVideoArr"
+></app-search-results>
 
 <router-outlet />

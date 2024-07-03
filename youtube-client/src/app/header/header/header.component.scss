@@ -129,7 +129,7 @@ form {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 479px;
+  max-width: 570px;
 
   button {
     border: none;
@@ -143,6 +143,26 @@ form {
 
     &:hover {
       color: #4338ca;
+    }
+
+    &.active {
+      color: #4338ca;
+    }
+
+    &.desc::after {
+      content: "↓";
+      font-weight: 300;
+      margin-left: 3px;
+      display: inline-block;
+      font-size: 12px;
+    }
+
+    &.asc::after {
+      content: "↑";
+      font-weight: 300;
+      margin-left: 3px;
+      display: inline-block;
+      font-size: 12px;
     }
   }
 
