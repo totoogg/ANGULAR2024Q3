@@ -4,12 +4,15 @@
     <div class="header__search">
       <div class="search__logo"></div>
       <div class="search__controls">
-        <input
-          type="text"
-          [(ngModel)]="value"
-          placeholder="What are you want to find out?"
-        />
-        <button>search</button>
+        <form (submit)="handleFind()">
+          <input
+            name="search"
+            type="text"
+            [(ngModel)]="value"
+            placeholder="What are you want to find out?"
+          />
+          <button type="submit">search</button>
+        </form>
       </div>
       <button class="search__setting" (click)="handleShowSort()">
         <div class="setting__icon"></div>

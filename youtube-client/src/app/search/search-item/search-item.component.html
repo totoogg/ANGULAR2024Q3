@@ -1,1 +1,35 @@
-<p>search-item works!</p>
+<div class="item">
+  <div class="item__poster">
+    <img
+      [src]="video.snippet.thumbnails.default.url"
+      [alt]="video.snippet.title"
+    />
+  </div>
+  <div class="item__statistics">
+    <div class="statistics__view stat">
+      <div class="view__icon"></div>
+      {{ video.statistics.viewCount }}
+    </div>
+    <div class="statistics__like stat">
+      <div class="like__icon"></div>
+      {{ video.statistics.likeCount }}
+    </div>
+    <div class="statistics__dislike stat">
+      <div class="dislike__icon"></div>
+      {{ video.statistics.dislikeCount }}
+    </div>
+    <div class="statistics__comments stat">
+      <div class="comment__icon"></div>
+      {{ video.statistics.commentCount }}
+    </div>
+  </div>
+  <p class="item__title" [title]="video.snippet.title">
+    {{ video.snippet.title | sliceTitle }}
+  </p>
+  <button class="item__button">more...</button>
+  <div
+    class="item__line"
+    appColorLine
+    [publishedAt]="video.snippet.publishedAt"
+  ></div>
+</div>

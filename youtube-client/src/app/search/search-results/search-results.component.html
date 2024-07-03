@@ -1,1 +1,5 @@
-<p>search-results works!</p>
+<div class="main__results">
+  @for (video of videos | filterVideos:term; track video.id) {
+  <app-search-item [video]="video"></app-search-item>
+  }
+</div>

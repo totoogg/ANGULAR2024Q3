@@ -1,3 +1,5 @@
-<app-header></app-header>
+<app-header (addTerm)="addTerm($event)"></app-header>
+
+<app-search-results [term]="term"></app-search-results>
 
 <router-outlet />

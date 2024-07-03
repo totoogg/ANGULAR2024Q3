@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  @Output() addTerm = new EventEmitter<string>();
+
   value = '';
 
   extraValue = '';
@@ -19,5 +21,9 @@ export class HeaderComponent {
 
   handleShowSort() {
     this.showSort = !this.showSort;
+  }
+
+  handleFind() {
+    this.addTerm.emit(this.value);
   }
 }

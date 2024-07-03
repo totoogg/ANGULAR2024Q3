@@ -1,6 +1,6 @@
 import { IItem } from './search-item.model';
 
-export interface Root {
+export interface IData {
   kind: string;
   etag: string;
   pageInfo: IPageInfo;
