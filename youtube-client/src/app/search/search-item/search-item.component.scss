@@ -82,9 +82,12 @@
     text-align: right;
   }
 
-  .item__button {
+  .item__button-block {
     position: absolute;
     bottom: 15px;
+  }
+
+  .item__button {
     width: 120px;
     height: 32px;
     cursor: pointer;

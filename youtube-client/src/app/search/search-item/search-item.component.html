@@ -26,7 +26,9 @@
   <p class="item__title" [title]="video.snippet.title">
     {{ video.snippet.title | sliceTitle }}
   </p>
-  <button class="item__button">more...</button>
+  <app-custom-button class="item__button-block">
+    <button class="item__button">more...</button>
+  </app-custom-button>
   <div
     class="item__line"
     appColorLine
