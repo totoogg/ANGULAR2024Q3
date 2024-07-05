@@ -1,6 +1,16 @@
+@if (!term.start && term.value && (videos |
+filterVideos:term.value:findWord).length) {
 <div class="main__results">
-  @for (video of videos | filterVideos:term | sortVideos:sortVideoArr; track
-  video.id) {
+  @for (video of videos | filterVideos:term.value:findWord |
+  sortVideos:sortVideoArr; track video.id) {
   <app-search-item [video]="video"></app-search-item>
   }
 </div>
+} @if (!term.start && term.value && (videos |
+filterVideos:term.value:findWord).length === 0) {
+<p class="main__start">
+  Unfortunately, there are no results for your request “{{ term.value }}”.
+</p>
+} @if (term.start || (!term.start && !term.value)) {
+<p class="main__start">Enter something search query</p>
+}

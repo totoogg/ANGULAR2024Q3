@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header/header.component';
 import { SearchResultsComponent } from './search/search-results/search-results.component';
 import { ISort } from './models/ISort';
+import { IFind } from './models/IFind';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,12 @@ import { ISort } from './models/ISort';
 export class AppComponent {
   title = 'youtube-client';
 
-  term: string = '';
+  term: IFind = {
+    value: '',
+    start: true,
+  };
+
+  findWord: string = '';
 
   sortVideoArr: ISort = {
     activeSortDate: false,
@@ -25,8 +31,12 @@ export class AppComponent {
     descView: false,
   };
 
-  addTerm(item: string) {
+  addTerm(item: IFind) {
     this.term = item;
+  }
+
+  addFindWord(item: string) {
+    this.findWord = item;
   }
 
   sortVideo(item: ISort) {

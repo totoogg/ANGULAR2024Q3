@@ -12,22 +12,22 @@ export class SortVideosPipe implements PipeTransform {
     if (sort.activeSortDate) {
       if (sort.ascDate) {
         return products.sort(
-          (a, b) => new Date(b.snippet.publishedAt).getTime()
-            - new Date(a.snippet.publishedAt).getTime(),
+          (a, b) => new Date(a.snippet.publishedAt).getTime()
+            - new Date(b.snippet.publishedAt).getTime(),
         );
       }
       return products.sort(
-        (a, b) => new Date(a.snippet.publishedAt).getTime()
-          - new Date(b.snippet.publishedAt).getTime(),
+        (a, b) => new Date(b.snippet.publishedAt).getTime()
+          - new Date(a.snippet.publishedAt).getTime(),
       );
     }
     if (sort.ascView) {
       return products.sort(
-        (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
+        (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
       );
     }
     return products.sort(
-      (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
+      (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
     );
   }
 }

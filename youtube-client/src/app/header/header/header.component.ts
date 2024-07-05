@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ISort } from '../../models/ISort';
+import { IFind } from '../../models/IFind';
 
 @Component({
   selector: 'app-header',
@@ -11,17 +12,21 @@ import { ISort } from '../../models/ISort';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Output() addTermEvent = new EventEmitter<string>();
+  @Output() addTermEvent = new EventEmitter<IFind>();
+
+  @Output() addFindWordEvent = new EventEmitter<string>();
 
   @Output() sortVideoEvent = new EventEmitter<ISort>();
 
   value = '';
 
+  start = true;
+
   extraValue = '';
 
   user = 'Your Name';
 
-  showSort = true;
+  showSort = false;
 
   activeSortDate = false;
 
@@ -59,10 +64,23 @@ export class HeaderComponent {
 
   handleShowSort() {
     this.showSort = !this.showSort;
+    if (!this.showSort) {
+      this.extraValue = '';
+      this.handleInputWord();
+    }
   }
 
   handleFind() {
-    this.addTermEvent.emit(this.value);
+    if (this.value && this.start) {
+      this.start = !this.start;
+    }
+    if (!this.start) {
+      this.addTermEvent.emit({ value: this.value, start: this.start });
+    }
+  }
+
+  handleInputWord() {
+    this.addFindWordEvent.emit(this.extraValue);
   }
 
   handleSort() {

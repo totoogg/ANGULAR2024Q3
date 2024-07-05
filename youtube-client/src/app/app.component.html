@@ -1,10 +1,12 @@
 <app-header
   (addTermEvent)="addTerm($event)"
+  (addFindWordEvent)="addFindWord($event)"
   (sortVideoEvent)="sortVideo($event)"
 ></app-header>
 
 <app-search-results
   [term]="term"
+  [findWord]="findWord"
   [sortVideoArr]="sortVideoArr"
 ></app-search-results>
 

@@ -5,6 +5,7 @@ import { SearchItemComponent } from '../search-item/search-item.component';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
 import { ISort } from '../../models/ISort';
 import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
+import { IFind } from '../../models/IFind';
 
 @Component({
   selector: 'app-search-results',
@@ -14,7 +15,9 @@ import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
   imports: [SearchItemComponent, FilterVideosPipe, SortVideosPipe],
 })
 export class SearchResultsComponent implements OnInit {
-  @Input() term!: string;
+  @Input() term!: IFind;
+
+  @Input() findWord!: string;
 
   @Input() sortVideoArr!: ISort;
 

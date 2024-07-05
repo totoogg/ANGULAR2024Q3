@@ -8,6 +8,11 @@ header {
   padding: 15px;
   box-sizing: border-box;
   background-color: #e5e5e5;
+
+  @media (max-width: 590px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .header__search_block {
@@ -31,6 +36,11 @@ header {
   background: url(../../assets/logo.svg) center no-repeat;
   background-size: contain;
   flex-shrink: 0;
+
+  @media (max-width: 590px) {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .search__setting {
@@ -76,6 +86,10 @@ form {
     font-size: 12px;
     padding: 5px;
     box-sizing: border-box;
+
+    @media (max-width: 590px) {
+      width: calc(100% - 50px);
+    }
   }
 
   button {
@@ -90,6 +104,10 @@ form {
 
     &:hover {
       background-color: #60a5fa;
+    }
+
+    @media (max-width: 590px) {
+      width: 50px;
     }
   }
 }
@@ -130,6 +148,10 @@ form {
   justify-content: space-between;
   width: 100%;
   max-width: 570px;
+
+  @media (max-width: 590px) {
+    flex-wrap: wrap;
+  }
 
   button {
     border: none;
@@ -181,6 +203,10 @@ form {
       &:hover {
         color: #4338ca;
       }
+    }
+
+    label {
+      flex-shrink: 0;
     }
 
     input {

@@ -43,7 +43,7 @@
       </button>
       <div class="sort__filter_content">
         <label for="filter">by word or sentance</label>
-        <input type="text" id="filter" [(ngModel)]="extraValue" />
+        <input type="text" id="filter" [(ngModel)]="extraValue" (input)="handleInputWord()" />
       </div>
     </div>
     }
