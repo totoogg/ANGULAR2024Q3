@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { IItem } from '../search-item.model';
+import { IItem } from '../../models/search-item.model';
 import { SliceTitlePipe } from '../../pipes/slice-title.pipe';
 import { ColorLineDirective } from '../../directives/color-line.directive';
-import { CustomButtonComponent } from '../custom-button/custom-button.component';
+import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-search-item',

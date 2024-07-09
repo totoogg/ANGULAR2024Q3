@@ -33,7 +33,7 @@ header {
 .search__logo {
   width: 50px;
   height: 50px;
-  background: url(../../assets/logo.svg) center no-repeat;
+  background: url(../../../assets/logo.svg) center no-repeat;
   background-size: contain;
   flex-shrink: 0;
 
@@ -62,7 +62,7 @@ header {
   .setting__icon {
     width: 24px;
     height: 24px;
-    background: url(../../assets/search_settings.svg) center no-repeat;
+    background: url(../../../assets/search_settings.svg) center no-repeat;
   }
 }
 
@@ -130,7 +130,7 @@ form {
     width: 24px;
     height: 24px;
     cursor: pointer;
-    background: url(../../assets/user_icon.svg) center no-repeat;
+    background: url(../../../assets/user_icon.svg) center no-repeat;
     border-radius: 5px;
     box-shadow: 1px 0px 3px #2f80ed;
     flex-shrink: 0;

@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './header/header/header.component';
-import { SearchResultsComponent } from './search/search-results/search-results.component';
-import { ISort } from './models/ISort';
-import { IFind } from './models/IFind';
+import { IFind } from './youtube/models/IFind';
+import { ISort } from './youtube/models/ISort';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  imports: [RouterOutlet, HeaderComponent, SearchResultsComponent],
 })
 export class AppComponent {
   title = 'youtube-client';

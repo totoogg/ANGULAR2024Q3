@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ISort } from '../../models/ISort';
-import { IFind } from '../../models/IFind';
+import { IFind } from '../../../youtube/models/IFind';
+import { ISort } from '../../../youtube/models/ISort';
 
 @Component({
   selector: 'app-header',

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { IItem } from '../search/search-item.model';
 import { ISort } from '../models/ISort';
+import { IItem } from '../models/search-item.model';
 
 @Pipe({
   name: 'sortVideos',

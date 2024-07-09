@@ -1,4 +1,4 @@
-import { IData } from '../search/search-response.model';
+import { IData } from '../youtube/models/search-response.model';
 
 export const data: IData = {
   kind: 'youtube#videoListResponse',
