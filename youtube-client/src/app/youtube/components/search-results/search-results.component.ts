@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IFind } from '../../models/IFind';
-import { ISort } from '../../models/ISort';
-import { IItem } from '../../models/search-item.model';
+import { Component, inject } from '@angular/core';
 import { SearchItemComponent } from '../search-item/search-item.component';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
 import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
-import { data } from '../../../data/data';
+import { VideosService } from '../../services/videos.service';
+import { FindService } from '../../../core/services/find.service';
+import { FindWordService } from '../../../core/services/find-word.service';
+import { SortVideoService } from '../../../core/services/sort-video.service';
 
 @Component({
   selector: 'app-search-results',
@@ -14,16 +14,12 @@ import { data } from '../../../data/data';
   styleUrl: './search-results.component.scss',
   imports: [SearchItemComponent, FilterVideosPipe, SortVideosPipe],
 })
-export class SearchResultsComponent implements OnInit {
-  @Input() term!: IFind;
+export class SearchResultsComponent {
+  videoService = inject(VideosService);
 
-  @Input() findWord!: string;
+  findService = inject(FindService);
 
-  @Input() sortVideoArr!: ISort;
+  findWordService = inject(FindWordService);
 
-  videos: IItem[] = [];
-
-  ngOnInit(): void {
-    this.videos = data.items;
-  }
+  sortVideoService = inject(SortVideoService);
 }

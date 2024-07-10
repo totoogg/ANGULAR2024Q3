@@ -1,16 +1,23 @@
-@if (!term.start && term.value && (videos |
-filterVideos:term.value:findWord).length) {
+@if (!findService.start && findService.value && (videoService.videos|
+filterVideos:findService.value:findWordService.word).length) {
 <div class="main__results">
-  @for (video of videos | filterVideos:term.value:findWord |
-  sortVideos:sortVideoArr; track video.id) {
+  @for (video of videoService.videos |
+  filterVideos:findService.value:findWordService.word |
+  sortVideos:sortVideoService.sort; track video.id) {
   <app-search-item [video]="video"></app-search-item>
   }
 </div>
-} @if (!term.start && term.value && (videos |
-filterVideos:term.value:findWord).length === 0) {
+} @if (!findService.start && findService.value && (videoService.videos |
+filterVideos:findService.value:findWordService.word).length === 0) {
 <p class="main__start">
-  Unfortunately, there are no results for your request “{{ term.value }}”.
+  Unfortunately, there are no results for your request “{{
+    findService.value
+  }}”{{
+    findWordService.word
+      ? " and by word or sentence “" + findWordService.word + "”"
+      : ""
+  }}
 </p>
-} @if (term.start || (!term.start && !term.value)) {
+} @if (findService.start || (!findService.start && !findService.value)) {
 <p class="main__start">Enter something search query</p>
 }

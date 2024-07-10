@@ -23,9 +23,9 @@
       Sorting by:
       <button
         [ngClass]="{
-          active: activeSortDate,
-          asc: ascDate,
-          desc: descDate
+          active: sortVideoService.sort.activeSortDate,
+          asc: sortVideoService.sort.ascDate,
+          desc: sortVideoService.sort.descDate
         }"
         (click)="handleClickSortDate()"
       >
@@ -33,16 +33,16 @@
       </button>
       <button
         [ngClass]="{
-          active: activeSortView,
-          asc: ascView,
-          desc: descView
+          active: sortVideoService.sort.activeSortView,
+          asc: sortVideoService.sort.ascView,
+          desc: sortVideoService.sort.descView
         }"
         (click)="handleClickSortView()"
       >
         count of views
       </button>
       <div class="sort__filter_content">
-        <label for="filter">by word or sentance</label>
+        <label for="filter">by word or sentence</label>
         <input type="text" id="filter" [(ngModel)]="extraValue" (input)="handleInputWord()" />
       </div>
     </div>

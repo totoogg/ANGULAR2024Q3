@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ISort } from '../models/ISort';
+import { ISort } from '../../shared/models/ISort';
 import { IItem } from '../models/search-item.model';
 
 @Pipe({

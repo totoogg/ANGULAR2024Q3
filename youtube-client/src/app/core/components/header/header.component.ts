@@ -1,8 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IFind } from '../../../youtube/models/IFind';
-import { ISort } from '../../../youtube/models/ISort';
+import { IFind } from '../../../shared/models/IFind';
+import { ISort } from '../../../shared/models/ISort';
+import { VideosService } from '../../../youtube/services/videos.service';
+import { FindService } from '../../services/find.service';
+import { FindWordService } from '../../services/find-word.service';
+import { SortVideoService } from '../../services/sort-video.service';
 
 @Component({
   selector: 'app-header',
@@ -12,15 +16,15 @@ import { ISort } from '../../../youtube/models/ISort';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Output() addTermEvent = new EventEmitter<IFind>();
+  videoService = inject(VideosService);
 
-  @Output() addFindWordEvent = new EventEmitter<string>();
+  findService = inject(FindService);
 
-  @Output() sortVideoEvent = new EventEmitter<ISort>();
+  findWordService = inject(FindWordService);
+
+  sortVideoService = inject(SortVideoService);
 
   value = '';
-
-  start = true;
 
   extraValue = '';
 
@@ -28,38 +32,44 @@ export class HeaderComponent {
 
   showSort = false;
 
-  activeSortDate = false;
-
-  ascDate = false;
-
-  descDate = true;
-
-  activeSortView = false;
-
-  ascView = false;
-
-  descView = true;
-
   handleClickSortDate() {
-    if (this.activeSortDate) {
-      this.ascDate = !this.ascDate;
-      this.descDate = !this.descDate;
+    const sort: ISort = {
+      activeSortDate: this.sortVideoService.sort.activeSortDate,
+      ascDate: this.sortVideoService.sort.ascDate,
+      descDate: this.sortVideoService.sort.descDate,
+      activeSortView: this.sortVideoService.sort.activeSortView,
+      ascView: this.sortVideoService.sort.ascView,
+      descView: this.sortVideoService.sort.descView,
+    };
+
+    if (this.sortVideoService.sort.activeSortDate) {
+      sort.ascDate = !sort.ascDate;
+      sort.descDate = !sort.descDate;
     }
 
-    this.activeSortDate = true;
-    this.activeSortView = false;
-    this.handleSort();
+    sort.activeSortDate = true;
+    sort.activeSortView = false;
+    this.sortVideoService.changeSortOption(sort);
   }
 
   handleClickSortView() {
-    if (this.activeSortView) {
-      this.ascView = !this.ascView;
-      this.descView = !this.descView;
+    const sort: ISort = {
+      activeSortDate: this.sortVideoService.sort.activeSortDate,
+      ascDate: this.sortVideoService.sort.ascDate,
+      descDate: this.sortVideoService.sort.descDate,
+      activeSortView: this.sortVideoService.sort.activeSortView,
+      ascView: this.sortVideoService.sort.ascView,
+      descView: this.sortVideoService.sort.descView,
+    };
+
+    if (this.sortVideoService.sort.activeSortView) {
+      sort.ascView = !sort.ascView;
+      sort.descView = !sort.descView;
     }
 
-    this.activeSortDate = false;
-    this.activeSortView = true;
-    this.handleSort();
+    sort.activeSortDate = false;
+    sort.activeSortView = true;
+    this.sortVideoService.changeSortOption(sort);
   }
 
   handleShowSort() {
@@ -71,27 +81,24 @@ export class HeaderComponent {
   }
 
   handleFind() {
-    if (this.value && this.start) {
-      this.start = !this.start;
+    if (this.value && this.findService.start) {
+      const obj: IFind = {
+        value: this.value,
+        start: !this.findService.start,
+      };
+      this.findService.changeOption(obj);
     }
-    if (!this.start) {
-      this.addTermEvent.emit({ value: this.value, start: this.start });
+    if (!this.findService.start) {
+      const obj: IFind = {
+        value: this.value,
+        start: this.findService.start,
+      };
+      this.findService.changeOption(obj);
+      this.videoService.getAll();
     }
   }
 
   handleInputWord() {
-    this.addFindWordEvent.emit(this.extraValue);
-  }
-
-  handleSort() {
-    const sort: ISort = {
-      activeSortDate: this.activeSortDate,
-      ascDate: this.ascDate,
-      descDate: this.descDate,
-      activeSortView: this.activeSortView,
-      ascView: this.ascView,
-      descView: this.descView,
-    };
-    this.sortVideoEvent.emit(sort);
+    this.findWordService.changeWord(this.extraValue);
   }
 }
