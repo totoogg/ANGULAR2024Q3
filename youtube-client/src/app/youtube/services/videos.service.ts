@@ -11,4 +11,8 @@ export class VideosService {
   getAll() {
     this.videos = data.items;
   }
+
+  getById(id: string) {
+    return this.videos.find((el) => el.id === id);
+  }
 }

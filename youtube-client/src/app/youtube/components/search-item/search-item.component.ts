@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { IItem } from '../../models/search-item.model';
 import { SliceTitlePipe } from '../../pipes/slice-title.pipe';
 import { ColorLineDirective } from '../../directives/color-line.directive';
@@ -13,4 +14,10 @@ import { CustomButtonComponent } from '../../../shared/components/custom-button/
 })
 export class SearchItemComponent {
   @Input() video!: IItem;
+
+  router = inject(Router);
+
+  handleClickButton(id: string) {
+    this.router.navigate(['main', id]);
+  }
 }

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IFind } from '../../../shared/models/IFind';
 import { ISort } from '../../../shared/models/ISort';
 import { VideosService } from '../../../youtube/services/videos.service';
@@ -23,6 +24,8 @@ export class HeaderComponent {
   findWordService = inject(FindWordService);
 
   sortVideoService = inject(SortVideoService);
+
+  router = inject(Router);
 
   value = '';
 

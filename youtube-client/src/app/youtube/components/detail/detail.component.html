@@ -1,0 +1,49 @@
+<div class="wrapper">
+  <div class="container">
+    <button class="detail__button" (click)="handleClickBack()"><div class="button__icon"></div></button>
+    <div class="detail__content">
+      <div class="content__image">
+        <img
+          class="image"
+          [src]="video.snippet.thumbnails.standard.url"
+          [alt]="video.snippet.title"
+        />
+      </div>
+      <div class="content__description">
+        <div class="description__header">
+          <p class="header__title">{{ video.snippet.title }}</p>
+          <p class="header__date">
+            {{ video.snippet.publishedAt | formatDateCustom }}
+          </p>
+        </div>
+        <div class="description__main">
+          <p class="main__title">Description:</p>
+          <p class="main__text">{{ video.snippet.description }}</p>
+        </div>
+        <div class="main__statistics">
+          <div class="statistics__view stat">
+            <div class="view__icon"></div>
+            {{ video.statistics.viewCount }}
+          </div>
+          <div class="statistics__like stat">
+            <div class="like__icon"></div>
+            {{ video.statistics.likeCount }}
+          </div>
+          <div class="statistics__dislike stat">
+            <div class="dislike__icon"></div>
+            {{ video.statistics.dislikeCount }}
+          </div>
+          <div class="statistics__comments stat">
+            <div class="comment__icon"></div>
+            {{ video.statistics.commentCount }}
+          </div>
+        </div>
+        <div
+          class="item__line"
+          appColorLine
+          [publishedAt]="video.snippet.publishedAt"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
