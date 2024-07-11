@@ -1,0 +1,27 @@
+.not-found {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  top: 330px;
+  transform: translate(-50%, -50%);
+
+  .not-found__icon {
+    width: 100px;
+    height: 100px;
+    background: url(../../../assets/404.svg) center no-repeat;
+    background-size: contain;
+  }
+
+  .not-found__text {
+    color: #828282;
+    font-weight: bold;
+    font-size: 24px;
+    width: 230px;
+    margin-bottom: 0;
+  }
+}
