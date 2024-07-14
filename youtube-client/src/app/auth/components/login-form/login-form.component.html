@@ -1,0 +1,24 @@
+<form [formGroup]="form" class="form" (submit)="handleSubmit()">
+  <h2 class="form__title">Login</h2>
+  <div class="form__login">
+    <label for="login" class="login__label">login</label>
+    <input
+      type="text"
+      id="login"
+      class="login__input"
+      formControlName="login"
+    />
+  </div>
+  <div class="form__password">
+    <label for="password" class="password__label">password</label>
+    <input
+      type="password"
+      id="password"
+      class="password__input"
+      formControlName="password"
+    />
+  </div>
+  <button type="submit" class="form__button" [disabled]="form.invalid">
+    Login
+  </button>
+</form>
