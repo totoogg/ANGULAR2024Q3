@@ -98,6 +98,7 @@
 
     &:disabled {
       background-color: #85b9ff;
+      box-shadow: 1px 0px 3px #85b9ff;
       cursor: default;
     }
   }

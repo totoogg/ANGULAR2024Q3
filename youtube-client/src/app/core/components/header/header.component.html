@@ -43,15 +43,23 @@
       </button>
       <div class="sort__filter_content">
         <label for="filter">by word or sentence</label>
-        <input type="text" id="filter" [(ngModel)]="extraValue" (input)="handleInputWord()" />
+        <input
+          type="text"
+          id="filter"
+          [(ngModel)]="extraValue"
+          (input)="handleInputWord()"
+        />
       </div>
     </div>
     }
   </div>
   <div class="header__user">
-    <p class="user__text">
-      {{ user }}
+    <p class="user__text" [title]="loginService.user">
+      {{ loginService.user | sliceTitle : 9 }}
     </p>
     <div class="user__icon"></div>
+    @if (loginService.stor) {
+    <button class="user__logout" (click)="handleClickLogout()">Logout</button>
+    }
   </div>
 </header>

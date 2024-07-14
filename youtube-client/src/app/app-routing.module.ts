@@ -1,19 +1,29 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { permissionGuard } from './core/guards/permission.guard';
+import { loginGuard } from './core/guards/login.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
   {
     path: 'login',
+    title: 'LoginPage',
+    canActivate: [loginGuard],
     loadChildren: () => import('./auth/pages/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'main',
+    title: 'MainPage',
+    canActivate: [permissionGuard],
     loadChildren: () => import('./youtube/pages/main.module').then((m) => m.PagesModule),
   },
 
-  { path: '**', component: NotFoundComponent },
+  { path: '**', canActivate: [permissionGuard], component: NotFoundComponent },
 ];
 
 @NgModule({

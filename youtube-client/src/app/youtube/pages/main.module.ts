@@ -8,8 +8,8 @@ import { ColorLineDirective } from '../directives/color-line.directive';
 import { FormatDateCustomPipe } from '../pipes/format-date-custom.pipe';
 
 const routes: Routes = [
-  { path: '', component: MainComponent },
-  { path: ':id', component: DetailPageComponent },
+  { path: '', title: 'MainPage', component: MainComponent },
+  { path: ':id', title: 'DetailPage', component: DetailPageComponent },
 ];
 
 @NgModule({

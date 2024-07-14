@@ -8,9 +8,9 @@ describe('DetailPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DetailPageComponent]
+      imports: [DetailPageComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DetailPageComponent);
     component = fixture.componentInstance;

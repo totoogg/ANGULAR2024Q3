@@ -8,11 +8,13 @@ import { VideosService } from '../../../youtube/services/videos.service';
 import { FindService } from '../../services/find.service';
 import { FindWordService } from '../../services/find-word.service';
 import { SortVideoService } from '../../services/sort-video.service';
+import { LoginService } from '../../../auth/services/login.service';
+import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SliceTitlePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -27,11 +29,11 @@ export class HeaderComponent {
 
   router = inject(Router);
 
+  loginService = inject(LoginService);
+
   value = '';
 
   extraValue = '';
-
-  user = 'Your Name';
 
   showSort = false;
 
@@ -98,10 +100,16 @@ export class HeaderComponent {
       };
       this.findService.changeOption(obj);
       this.videoService.getAll();
+
+      this.router.navigate(['main']);
     }
   }
 
   handleInputWord() {
     this.findWordService.changeWord(this.extraValue);
+  }
+
+  handleClickLogout() {
+    this.loginService.userLogout();
   }
 }
