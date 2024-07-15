@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IUser } from '../models/IUser';
+import { LoggerService } from '../../core/services/LoggerService';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,10 @@ export class LoginService {
 
   stor: string | null;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    @Inject('Logger') private logger: LoggerService,
+  ) {
     this.stor = localStorage.getItem('token-ANGULAR2024Q3');
     this.repeatedLoginUser();
   }
@@ -20,6 +24,7 @@ export class LoginService {
     this.user = 'Your Name';
     localStorage.removeItem('token-ANGULAR2024Q3');
     this.router.navigate(['login']);
+    this.logger.logMessage('User logout');
   }
 
   repeatedLoginUser() {
@@ -27,6 +32,7 @@ export class LoginService {
       const result = this.decoder(JSON.parse(this.stor));
 
       this.userName(result.login);
+      this.logger.logMessage('User login');
     }
   }
 
@@ -40,6 +46,7 @@ export class LoginService {
     localStorage.setItem('token-ANGULAR2024Q3', JSON.stringify(result));
 
     this.router.navigate(['main']);
+    this.logger.logMessage('User login');
   }
 
   userName(login: string) {
