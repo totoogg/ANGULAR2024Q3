@@ -19,7 +19,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activeRouter.snapshot.paramMap.get('id') as string;
-    this.videoService.getAll();
+    // this.videoService.getAll();
     const item = this.videoService.getById(id);
     if (item) {
       this.video = this.videoService.getById(id) as IItem;

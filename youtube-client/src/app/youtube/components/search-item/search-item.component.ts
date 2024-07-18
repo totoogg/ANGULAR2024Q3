@@ -20,4 +20,8 @@ export class SearchItemComponent {
   handleClickButton(id: string) {
     this.router.navigate(['main', id]);
   }
+
+  randomDislike() {
+    return Math.round(Number(this.video.statistics.likeCount) / 100);
+  }
 }

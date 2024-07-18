@@ -1,6 +1,7 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/components/header/header.component';
 import { SearchResultsComponent } from './youtube/components/search-results/search-results.component';
@@ -21,6 +22,7 @@ function myFactory() {
     ReactiveFormsModule,
     HeaderComponent,
     SearchResultsComponent,
+    HttpClientModule,
     AppRoutingModule,
   ],
   providers: [{ provide: 'Logger', useFactory: myFactory }],

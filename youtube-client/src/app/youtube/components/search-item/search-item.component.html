@@ -1,7 +1,7 @@
 <div class="item">
   <div class="item__poster">
     <img
-      [src]="video.snippet.thumbnails.standard.url"
+      [src]="video.snippet.thumbnails.high.url"
       [alt]="video.snippet.title"
     />
   </div>
@@ -16,7 +16,7 @@
     </div>
     <div class="statistics__dislike stat">
       <div class="dislike__icon"></div>
-      {{ video.statistics.dislikeCount }}
+      {{ randomDislike() }}
     </div>
     <div class="statistics__comments stat">
       <div class="comment__icon"></div>

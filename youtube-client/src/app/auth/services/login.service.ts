@@ -1,5 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  EMPTY, forkJoin, of, timer,
+} from 'rxjs';
 import { IUser } from '../models/IUser';
 import { LoggerService } from '../../core/services/LoggerService';
 
@@ -17,6 +20,8 @@ export class LoginService {
   ) {
     this.stor = localStorage.getItem('token-ANGULAR2024Q3');
     this.repeatedLoginUser();
+
+    forkJoin([timer(500, 1000), of(1, 2, 3), EMPTY]).subscribe((res) => console.log(`res${res}`));
   }
 
   userLogout() {

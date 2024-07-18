@@ -99,7 +99,13 @@ export class HeaderComponent {
         start: this.findService.start,
       };
       this.findService.changeOption(obj);
-      this.videoService.getAll();
+
+      if (this.value.trim().length > 2) {
+        this.videoService.loadingChange(true);
+        this.videoService.getAll(this.value.trim()).subscribe(() => {
+          this.videoService.loadingChange(false);
+        });
+      }
 
       this.router.navigate(['main']);
     }
