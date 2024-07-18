@@ -118,4 +118,8 @@ export class HeaderComponent {
   handleClickLogout() {
     this.loginService.userLogout();
   }
+
+  handleClickLogin() {
+    this.router.navigate(['login']);
+  }
 }

@@ -1,8 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  EMPTY, forkJoin, of, timer,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { IUser } from '../models/IUser';
 import { LoggerService } from '../../core/services/LoggerService';
 
@@ -14,14 +12,14 @@ export class LoginService {
 
   stor: string | null;
 
+  isLogin = new BehaviorSubject<boolean>(false);
+
   constructor(
     private router: Router,
     @Inject('Logger') private logger: LoggerService,
   ) {
     this.stor = localStorage.getItem('token-ANGULAR2024Q3');
     this.repeatedLoginUser();
-
-    forkJoin([timer(500, 1000), of(1, 2, 3), EMPTY]).subscribe((res) => console.log(`res${res}`));
   }
 
   userLogout() {
@@ -29,6 +27,7 @@ export class LoginService {
     this.user = 'Your Name';
     localStorage.removeItem('token-ANGULAR2024Q3');
     this.router.navigate(['login']);
+    this.isLogin.next(false);
     this.logger.logMessage('User logout');
   }
 
@@ -37,6 +36,7 @@ export class LoginService {
       const result = this.decoder(JSON.parse(this.stor));
 
       this.userName(result.login);
+      this.isLogin.next(true);
       this.logger.logMessage('User login');
     }
   }
@@ -51,6 +51,7 @@ export class LoginService {
     localStorage.setItem('token-ANGULAR2024Q3', JSON.stringify(result));
 
     this.router.navigate(['main']);
+    this.isLogin.next(true);
     this.logger.logMessage('User login');
   }
 
