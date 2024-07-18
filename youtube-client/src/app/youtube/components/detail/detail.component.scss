@@ -83,7 +83,6 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: 366px;
 
     @media (max-width: 590px) {
       flex-direction: column-reverse;
@@ -147,7 +146,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 202px;
+  max-width: 300px;
   margin-bottom: 15px;
   position: absolute;
   bottom: 0px;
@@ -195,4 +194,10 @@
       margin-right: 3px;
     }
   }
+}
+
+.main__start {
+  padding-top: 50px;
+  text-align: center;
+  font-size: 30px;
 }

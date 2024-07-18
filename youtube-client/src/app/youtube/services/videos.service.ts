@@ -28,6 +28,8 @@ export class VideosService {
 
   videos: IItem[] = [];
 
+  video: IItem | undefined;
+
   getAll(str: string): Observable<IData | string> {
     return this.http
       .get<IDataVideo>('https://www.googleapis.com/youtube/v3/search', {
@@ -70,11 +72,31 @@ export class VideosService {
       );
   }
 
-  getById(id: string) {
-    return this.videos.find((el) => el.id === id);
+  getById(id: string): Observable<IData | string> {
+    return this.http
+      .get<IData>('https://www.googleapis.com/youtube/v3/videos', {
+      params: new HttpParams({
+        fromObject: {
+          key: 'AIzaSyDCTITxmwZEvabIToN4n2cRc0xHcVX_FZM',
+          part: 'snippet,statistics',
+          id,
+        },
+      }),
+    })
+      .pipe(
+        retry(2),
+        tap((videos) => {
+          [this.video] = videos.items;
+        }),
+        catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
+      );
   }
 
   loadingChange(state: boolean) {
     this.loading = state;
+  }
+
+  cleanVideo() {
+    this.video = undefined;
   }
 }

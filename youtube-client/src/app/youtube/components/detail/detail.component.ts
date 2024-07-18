@@ -19,16 +19,19 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activeRouter.snapshot.paramMap.get('id') as string;
-    // this.videoService.getAll();
-    const item = this.videoService.getById(id);
-    if (item) {
-      this.video = this.videoService.getById(id) as IItem;
-    } else {
-      this.router.navigate(['notFound']);
-    }
+    this.videoService.getById(id).subscribe(() => {
+      this.videoService.loadingChange(false);
+      if (!this.videoService.video) {
+        this.router.navigate(['notFound']);
+      }
+    });
   }
 
   handleClickBack() {
     this.router.navigate(['main']);
+  }
+
+  randomDislike(str: string) {
+    return Math.round(Number(str) / 100);
   }
 }

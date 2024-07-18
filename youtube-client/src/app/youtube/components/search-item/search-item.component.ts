@@ -4,6 +4,7 @@ import { IItem } from '../../models/search-item.model';
 import { SliceTitlePipe } from '../../pipes/slice-title.pipe';
 import { ColorLineDirective } from '../../directives/color-line.directive';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
+import { VideosService } from '../../services/videos.service';
 
 @Component({
   selector: 'app-search-item',
@@ -17,7 +18,10 @@ export class SearchItemComponent {
 
   router = inject(Router);
 
+  videoService = inject(VideosService);
+
   handleClickButton(id: string) {
+    this.videoService.cleanVideo();
     this.router.navigate(['main', id]);
   }
 
