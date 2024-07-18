@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   catchError,
-  delay,
+  debounceTime,
   map,
   Observable,
   of,
@@ -42,7 +42,7 @@ export class VideosService {
       }),
     })
       .pipe(
-        delay(500),
+        debounceTime(500),
         retry(2),
         map((v) => v.items.map((el) => el.id.videoId).join(',')),
         switchMap((id) => this.getAllById(id)),
