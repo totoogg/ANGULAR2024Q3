@@ -122,4 +122,8 @@ export class HeaderComponent {
   handleClickLogin() {
     this.router.navigate(['login']);
   }
+
+  handleClickLogo() {
+    this.router.navigate(['main']);
+  }
 }

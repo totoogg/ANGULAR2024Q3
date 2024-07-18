@@ -32,10 +32,9 @@ export class VideosService {
 
   getAll(str: string): Observable<IData | string> {
     return this.http
-      .get<IDataVideo>('https://www.googleapis.com/youtube/v3/search', {
+      .get<IDataVideo>('search', {
       params: new HttpParams({
         fromObject: {
-          key: 'AIzaSyDCTITxmwZEvabIToN4n2cRc0xHcVX_FZM',
           type: 'video',
           part: 'snippet',
           maxResults: 15,
@@ -54,10 +53,9 @@ export class VideosService {
 
   getAllById(str: string): Observable<IData | string> {
     return this.http
-      .get<IData>('https://www.googleapis.com/youtube/v3/videos', {
+      .get<IData>('videos', {
       params: new HttpParams({
         fromObject: {
-          key: 'AIzaSyDCTITxmwZEvabIToN4n2cRc0xHcVX_FZM',
           part: 'snippet,statistics',
           id: str,
         },
@@ -74,10 +72,9 @@ export class VideosService {
 
   getById(id: string): Observable<IData | string> {
     return this.http
-      .get<IData>('https://www.googleapis.com/youtube/v3/videos', {
+      .get<IData>('videos', {
       params: new HttpParams({
         fromObject: {
-          key: 'AIzaSyDCTITxmwZEvabIToN4n2cRc0xHcVX_FZM',
           part: 'snippet,statistics',
           id,
         },
