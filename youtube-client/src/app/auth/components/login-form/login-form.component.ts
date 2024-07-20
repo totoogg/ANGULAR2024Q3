@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,6 +14,7 @@ import { LoginService } from '../../services/login.service';
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   loginService = inject(LoginService);

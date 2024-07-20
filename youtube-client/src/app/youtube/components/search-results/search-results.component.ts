@@ -1,4 +1,7 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, inject,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { SearchItemComponent } from '../search-item/search-item.component';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
 import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
@@ -12,7 +15,8 @@ import { SortVideoService } from '../../../core/services/sort-video.service';
   standalone: true,
   templateUrl: './search-results.component.html',
   styleUrl: './search-results.component.scss',
-  imports: [SearchItemComponent, FilterVideosPipe, SortVideosPipe],
+  imports: [SearchItemComponent, FilterVideosPipe, SortVideosPipe, CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchResultsComponent {
   videoService = inject(VideosService);
@@ -22,4 +26,6 @@ export class SearchResultsComponent {
   findWordService = inject(FindWordService);
 
   sortVideoService = inject(SortVideoService);
+
+  changeDetection = inject(ChangeDetectorRef);
 }

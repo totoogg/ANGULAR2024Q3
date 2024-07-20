@@ -1,23 +1,23 @@
-@if (videoService.loading) {
+@if (videoService.loading | async) {
 <p class="main__start">Loading...</p>
-} @else if (findService.value.length < 3) {
+} @else if (((findService.valuePush | async) || '').length < 3) {
   <p class="main__start">Enter a search term of at least 3 characters</p>
-} @else if (!findService.start && findService.value && (videoService.videos|
-filterVideos:findWordService.word).length) {
+} @else if ((findService.startPush | async) === false && (findService.valuePush | async) && ((videoService.videos | async) || [] |
+filterVideos:((findWordService.word | async) || '')).length) {
 <div class="main__results">
-  @for (video of videoService.videos | filterVideos:findWordService.word |
-  sortVideos:sortVideoService.sort; track video.id) {
+  @for (video of (videoService.videos | async) || []  | filterVideos:((findWordService.word | async) || '') |
+  sortVideos:((sortVideoService.sortPush | async) || sortVideoService.sort); track video.id) {
   <app-search-item [video]="video"></app-search-item>
   }
 </div>
-} @else ifd (!findService.start && findService.value && (videoService.videos |
-filterVideos:findWordService.word).length === 0) {
+} @else if ((findService.startPush | async) === false && (findService.valuePush | async) && ((videoService.videos | async) || [] |
+filterVideos:((findWordService.word | async) || '')).length === 0) {
 <p class="main__start">
   Unfortunately, there are no results for your request “{{
-    findService.value
+    (findService.valuePush | async)
   }}”{{
     findWordService.word
-      ? " and by word or sentence “" + findWordService.word + "”"
+      ? " and by word or sentence “" + (findWordService.word | async) + "”"
       : ""
   }}
 </p>

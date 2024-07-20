@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  BehaviorSubject,
   catchError,
   debounceTime,
   map,
@@ -24,11 +25,11 @@ import { IDataVideo } from '../models/seach-video';
 export class VideosService {
   constructor(private http: HttpClient) {}
 
-  loading = false;
+  loading = new BehaviorSubject<boolean>(false);
 
-  videos: IItem[] = [];
+  videos = new BehaviorSubject<IItem[]>([]);
 
-  video: IItem | undefined;
+  video = new BehaviorSubject<IItem | undefined>(undefined);
 
   getAll(str: string): Observable<IData | string> {
     return this.http
@@ -64,7 +65,7 @@ export class VideosService {
       .pipe(
         retry(2),
         tap((videos) => {
-          this.videos = videos.items;
+          this.videos.next(videos.items);
         }),
         catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
       );
@@ -83,17 +84,21 @@ export class VideosService {
       .pipe(
         retry(2),
         tap((videos) => {
-          [this.video] = videos.items;
+          this.video.next(videos.items[0]);
         }),
         catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
       );
   }
 
+  addVideo() {
+
+  }
+
   loadingChange(state: boolean) {
-    this.loading = state;
+    this.loading.next(state);
   }
 
   cleanVideo() {
-    this.video = undefined;
+    this.video.next(undefined);
   }
 }

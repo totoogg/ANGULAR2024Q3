@@ -1,4 +1,6 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy, Component, inject, Input,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IItem } from '../../models/search-item.model';
 import { SliceTitlePipe } from '../../pipes/slice-title.pipe';
@@ -12,6 +14,7 @@ import { VideosService } from '../../services/videos.service';
   templateUrl: './search-item.component.html',
   styleUrl: './search-item.component.scss',
   imports: [SliceTitlePipe, ColorLineDirective, CustomButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchItemComponent {
   @Input() video!: IItem;

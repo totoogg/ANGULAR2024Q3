@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IFind } from '../../../shared/models/IFind';
@@ -17,6 +17,7 @@ import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
   imports: [FormsModule, CommonModule, SliceTitlePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
   videoService = inject(VideosService);

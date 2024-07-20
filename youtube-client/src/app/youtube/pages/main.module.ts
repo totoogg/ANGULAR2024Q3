@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { MainComponent } from './main/main.component';
 import { SearchResultsComponent } from '../components/search-results/search-results.component';
 import { DetailComponent } from '../components/detail/detail.component';
@@ -19,6 +20,7 @@ const routes: Routes = [
     SearchResultsComponent,
     ColorLineDirective,
     FormatDateCustomPipe,
+    CommonModule,
   ],
 })
 export class PagesModule {}

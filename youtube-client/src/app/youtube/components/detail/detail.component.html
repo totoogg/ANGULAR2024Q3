@@ -1,55 +1,64 @@
-@if (videoService.video) {
-  <div class="wrapper">
-    <div class="container">
-      <button class="detail__button" (click)="handleClickBack()">
-        <div class="button__icon"></div>
-      </button>
-      <div class="detail__content">
-        <div class="content__image">
-          <img
-            class="image"
-            [src]="videoService.video.snippet.thumbnails.high.url"
-            [alt]="videoService.video.snippet.title"
-          />
+@if (videoService.loading | async) {
+<p class="main__start">Loading...</p>
+} @else if (videoService.video | async) {
+<div class="wrapper">
+  <div class="container">
+    <button class="detail__button" (click)="handleClickBack()">
+      <div class="button__icon"></div>
+    </button>
+    <div class="detail__content">
+      <div class="content__image">
+        <img
+          class="image"
+          [src]="(videoService.video | async)!.snippet.thumbnails.high.url"
+          [alt]="(videoService.video | async)!.snippet.title"
+        />
+      </div>
+      <div class="content__description">
+        <div class="description__header">
+          <p class="header__title">
+            {{ (videoService.video | async)!.snippet.title }}
+          </p>
+          <p class="header__date">
+            {{
+              (videoService.video | async)!.snippet.publishedAt
+                | formatDateCustom
+            }}
+          </p>
         </div>
-        <div class="content__description">
-          <div class="description__header">
-            <p class="header__title">{{ videoService.video.snippet.title }}</p>
-            <p class="header__date">
-              {{ videoService.video.snippet.publishedAt | formatDateCustom }}
-            </p>
-          </div>
-          <div class="description__main">
-            <p class="main__title">Description:</p>
-            <p class="main__text">{{ videoService.video.snippet.description }}</p>
-          </div>
-          <div class="main__statistics">
-            <div class="statistics__view stat">
-              <div class="view__icon"></div>
-              {{ videoService.video.statistics.viewCount }}
-            </div>
-            <div class="statistics__like stat">
-              <div class="like__icon"></div>
-              {{ videoService.video.statistics.likeCount }}
-            </div>
-            <div class="statistics__dislike stat">
-              <div class="dislike__icon"></div>
-              {{ randomDislike(videoService.video.statistics.likeCount) }}
-            </div>
-            <div class="statistics__comments stat">
-              <div class="comment__icon"></div>
-              {{ videoService.video.statistics.commentCount }}
-            </div>
-          </div>
-          <div
-            class="item__line"
-            appColorLine
-            [publishedAt]="videoService.video.snippet.publishedAt"
-          ></div>
+        <div class="description__main">
+          <p class="main__title">Description:</p>
+          <p class="main__text">
+            {{ (videoService.video | async)!.snippet.description }}
+          </p>
         </div>
+        <div class="main__statistics">
+          <div class="statistics__view stat">
+            <div class="view__icon"></div>
+            {{ (videoService.video | async)!.statistics.viewCount }}
+          </div>
+          <div class="statistics__like stat">
+            <div class="like__icon"></div>
+            {{ (videoService.video | async)!.statistics.likeCount }}
+          </div>
+          <div class="statistics__dislike stat">
+            <div class="dislike__icon"></div>
+            {{
+              randomDislike((videoService.video | async)!.statistics.likeCount)
+            }}
+          </div>
+          <div class="statistics__comments stat">
+            <div class="comment__icon"></div>
+            {{ (videoService.video | async)!.statistics.commentCount }}
+          </div>
+        </div>
+        <div
+          class="item__line"
+          appColorLine
+          [publishedAt]="(videoService.video | async)!.snippet.publishedAt"
+        ></div>
       </div>
     </div>
   </div>
-} @else {
-  <p class="main__start">Loading...</p>
+</div>
 }
