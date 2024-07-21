@@ -1,18 +1,18 @@
 <div class="item">
   <div class="item__poster">
     <img
-      [src]="video.snippet.thumbnails.high.url"
-      [alt]="video.snippet.title"
+      [src]="video?.snippet?.thumbnails?.high?.url"
+      [alt]="video?.snippet?.title"
     />
   </div>
   <div class="item__statistics">
     <div class="statistics__view stat">
       <div class="view__icon"></div>
-      {{ video.statistics.viewCount }}
+      {{ video?.statistics?.viewCount }}
     </div>
     <div class="statistics__like stat">
       <div class="like__icon"></div>
-      {{ video.statistics.likeCount }}
+      {{ video?.statistics?.likeCount }}
     </div>
     <div class="statistics__dislike stat">
       <div class="dislike__icon"></div>
@@ -20,20 +20,18 @@
     </div>
     <div class="statistics__comments stat">
       <div class="comment__icon"></div>
-      {{ video.statistics.commentCount }}
+      {{ video?.statistics?.commentCount }}
     </div>
   </div>
-  <p class="item__title" [title]="video.snippet.title">
-    {{ video.snippet.title | sliceTitle }}
+  <p class="item__title" [title]="video?.snippet?.title">
+    {{ video?.snippet?.title || "" | sliceTitle }}
   </p>
-  <app-custom-button class="item__button-block">
-    <button class="item__button" (click)="handleClickButton(video.id)">
-      more...
-    </button>
+  <app-custom-button class="item__button-block" [id]="video?.id">
+    more...
   </app-custom-button>
   <div
     class="item__line"
     appColorLine
-    [publishedAt]="video.snippet.publishedAt"
+    [publishedAt]="video?.snippet?.publishedAt || ''"
   ></div>
 </div>

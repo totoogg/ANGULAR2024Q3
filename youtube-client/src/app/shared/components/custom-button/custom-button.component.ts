@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
+import { VideosService } from '../../../youtube/services/videos.service';
 
 @Component({
   selector: 'app-custom-button',
@@ -9,4 +11,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomButtonComponent {
+  @Input() id: string | undefined = '';
+
+  constructor(
+    private router: Router,
+    private videoService: VideosService,
+  ) {}
+
+  handleClickButton() {
+    if (this.id) {
+      this.videoService.cleanVideo();
+      this.router.navigate(['main', this.id]);
+    }
+  }
 }

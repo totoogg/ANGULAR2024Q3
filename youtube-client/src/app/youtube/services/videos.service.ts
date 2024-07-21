@@ -90,9 +90,7 @@ export class VideosService {
       );
   }
 
-  addVideo() {
-
-  }
+  addVideo() {}
 
   loadingChange(state: boolean) {
     this.loading.next(state);

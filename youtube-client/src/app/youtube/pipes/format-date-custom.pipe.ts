@@ -36,6 +36,5 @@ export class FormatDateCustomPipe implements PipeTransform {
     return `${days[date.getDay()]}, ${
       month[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()}`;
-    // Thursday, December 20, 2019
   }
 }

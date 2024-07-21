@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IFind } from '../../../shared/models/IFind';
@@ -20,17 +20,14 @@ import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  videoService = inject(VideosService);
-
-  findService = inject(FindService);
-
-  findWordService = inject(FindWordService);
-
-  sortVideoService = inject(SortVideoService);
-
-  router = inject(Router);
-
-  loginService = inject(LoginService);
+  constructor(
+    private router: Router,
+    public loginService: LoginService,
+    public sortVideoService: SortVideoService,
+    private findWordService: FindWordService,
+    private findService: FindService,
+    private videoService: VideosService,
+  ) {}
 
   value = '';
 

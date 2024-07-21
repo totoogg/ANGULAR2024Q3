@@ -1,9 +1,6 @@
-import {
-  ChangeDetectionStrategy, Component, inject, OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideosService } from '../../services/videos.service';
-import { IItem } from '../../models/search-item.model';
 
 @Component({
   selector: 'app-detail',
@@ -12,13 +9,11 @@ import { IItem } from '../../models/search-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailComponent implements OnInit {
-  videoService = inject(VideosService);
-
-  activeRouter = inject(ActivatedRoute);
-
-  router = inject(Router);
-
-  video!: IItem;
+  constructor(
+    private router: Router,
+    private activeRouter: ActivatedRoute,
+    public videoService: VideosService,
+  ) {}
 
   ngOnInit(): void {
     const id = this.activeRouter.snapshot.paramMap.get('id') as string;
@@ -35,7 +30,10 @@ export class DetailComponent implements OnInit {
     this.router.navigate(['main']);
   }
 
-  randomDislike(str: string) {
-    return Math.round(Number(str) / 100);
+  randomDislike(str?: string) {
+    if (str) {
+      return Math.round(Number(str) / 100);
+    }
+    return 0;
   }
 }

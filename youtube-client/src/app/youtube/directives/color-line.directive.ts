@@ -1,5 +1,6 @@
 import {
   Directive, ElementRef, Input, OnInit,
+  Renderer2,
 } from '@angular/core';
 
 @Directive({
@@ -9,19 +10,19 @@ import {
 export class ColorLineDirective implements OnInit {
   @Input() publishedAt = '';
 
-  constructor(private el: ElementRef) {}
+  constructor(private el: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit(): void {
     const time = this.getTimeDifferent();
 
     if (time < 7) {
-      this.el.nativeElement.classList.add('less-7-days');
+      this.renderer.addClass(this.el.nativeElement, 'less-7-days');
     } else if (time >= 7 && time < 31) {
-      this.el.nativeElement.classList.add('to-7-day-from-1-month');
+      this.renderer.addClass(this.el.nativeElement, 'to-7-day-from-1-month');
     } else if (time >= 31 && time < 181) {
-      this.el.nativeElement.classList.add('to-1-from-6-month');
+      this.renderer.addClass(this.el.nativeElement, 'to-1-from-6-month');
     } else {
-      this.el.nativeElement.classList.add('more-6-month');
+      this.renderer.addClass(this.el.nativeElement, 'more-6-month');
     }
   }
 

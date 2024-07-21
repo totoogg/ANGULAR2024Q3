@@ -2,7 +2,9 @@
   <div></div>
   <div class="header__search_block">
     <div class="header__search">
-      <button class="search__logo" (click)="handleClickLogo()"><div></div></button>
+      <button class="search__logo" (click)="handleClickLogo()">
+        <div></div>
+      </button>
       <div class="search__controls">
         <form>
           <input
@@ -19,47 +21,47 @@
       </button>
     </div>
     @if (showSort) {
-    <div class="header__sort">
-      Sorting by:
-      <button
-        [ngClass]="{
-          active: sortVideoService.sort.activeSortDate,
-          asc: sortVideoService.sort.ascDate,
-          desc: sortVideoService.sort.descDate
-        }"
-        (click)="handleClickSortDate()"
-      >
-        date
-      </button>
-      <button
-        [ngClass]="{
-          active: sortVideoService.sort.activeSortView,
-          asc: sortVideoService.sort.ascView,
-          desc: sortVideoService.sort.descView
-        }"
-        (click)="handleClickSortView()"
-      >
-        count of views
-      </button>
-      <div class="sort__filter_content">
-        <label for="filter">by word or sentence</label>
-        <input
-          type="text"
-          id="filter"
-          [(ngModel)]="extraValue"
-          (input)="handleInputWord()"
-        />
+      <div class="header__sort">
+        Sorting by:
+        <button
+          [ngClass]="{
+            active: sortVideoService.sort.activeSortDate,
+            asc: sortVideoService.sort.ascDate,
+            desc: sortVideoService.sort.descDate,
+          }"
+          (click)="handleClickSortDate()"
+        >
+          date
+        </button>
+        <button
+          [ngClass]="{
+            active: sortVideoService.sort.activeSortView,
+            asc: sortVideoService.sort.ascView,
+            desc: sortVideoService.sort.descView,
+          }"
+          (click)="handleClickSortView()"
+        >
+          count of views
+        </button>
+        <div class="sort__filter_content">
+          <label for="filter">by word or sentence</label>
+          <input
+            type="text"
+            id="filter"
+            [(ngModel)]="extraValue"
+            (input)="handleInputWord()"
+          />
+        </div>
       </div>
-    </div>
     }
   </div>
   <div class="header__user">
     <p class="user__text" [title]="loginService.user">
-      {{ loginService.user | sliceTitle : 9 }}
+      {{ loginService.user | sliceTitle: 9 }}
     </p>
     <div class="user__icon"></div>
     @if (loginService.isLogin | async) {
-    <button class="user__logout" (click)="handleClickLogout()">Logout</button>
+      <button class="user__logout" (click)="handleClickLogout()">Logout</button>
     } @else {
       <button class="user__logout" (click)="handleClickLogin()">Login</button>
     }

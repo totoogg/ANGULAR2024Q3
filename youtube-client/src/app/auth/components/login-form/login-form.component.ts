@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -17,7 +17,7 @@ import { LoginService } from '../../services/login.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
-  loginService = inject(LoginService);
+  constructor(private loginService: LoginService) {}
 
   form = new FormGroup({
     login: new FormControl('', [Validators.required]),
