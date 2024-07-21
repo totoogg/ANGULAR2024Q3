@@ -14,16 +14,16 @@ const routes: Routes = [
     path: 'login',
     title: 'LoginPage',
     canActivate: [loginGuard],
-    loadChildren: () => import('./auth/pages/login.module').then((m) => m.LoginModule),
+    loadChildren: () => import('./auth/login.module').then((m) => m.LoginModule),
   },
   {
     path: 'main',
     title: 'MainPage',
     canActivate: [permissionGuard],
-    loadChildren: () => import('./youtube/pages/main.module').then((m) => m.PagesModule),
+    loadChildren: () => import('./youtube/main.module').then((m) => m.PagesModule),
   },
 
-  { path: '**', canActivate: [permissionGuard], component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

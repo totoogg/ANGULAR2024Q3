@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, CommonModule, SliceTitlePipe],
+  imports: [FormsModule, NgClass, NgIf, AsyncPipe, SliceTitlePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

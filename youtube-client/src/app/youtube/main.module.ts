@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
-import { SearchResultsComponent } from '../components/search-results/search-results.component';
-import { DetailComponent } from '../components/detail/detail.component';
-import { DetailPageComponent } from './detail-page/detail-page.component';
-import { ColorLineDirective } from '../directives/color-line.directive';
-import { FormatDateCustomPipe } from '../pipes/format-date-custom.pipe';
+import { MainComponent } from './pages/main/main.component';
+import { DetailComponent } from './components/detail/detail.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { ColorLineDirective } from './directives/color-line.directive';
+import { DetailPageComponent } from './pages/detail-page/detail-page.component';
+import { FormatDateCustomPipe } from './pipes/format-date-custom.pipe';
 
 const routes: Routes = [
   { path: '', title: 'MainPage', component: MainComponent },

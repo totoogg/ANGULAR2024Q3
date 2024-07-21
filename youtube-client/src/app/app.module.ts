@@ -1,5 +1,5 @@
 import { isDevMode, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {
   HttpClientModule,
@@ -23,7 +23,6 @@ function myFactory() {
   declarations: [AppComponent, NotFoundComponent],
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
     HeaderComponent,
     SearchResultsComponent,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { SearchItemComponent } from '../search-item/search-item.component';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
 import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
@@ -17,7 +17,9 @@ import { SortVideoService } from '../../../core/services/sort-video.service';
     SearchItemComponent,
     FilterVideosPipe,
     SortVideosPipe,
-    CommonModule,
+    NgIf,
+    AsyncPipe,
+    NgFor,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
