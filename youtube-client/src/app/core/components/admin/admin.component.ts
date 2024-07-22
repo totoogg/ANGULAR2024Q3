@@ -67,15 +67,23 @@ export class AdminComponent {
     return this.form.controls.tags.length > 4;
   }
 
+  reset() {
+    this.form.reset({
+      title: '',
+      description: '',
+      img: '',
+      link: '',
+      createDate: this.startValueDate(),
+    });
+    (<FormArray> this.form.controls.tags).clear();
+    (<FormArray> this.form.controls.tags).push(
+      new FormControl('', Validators.required),
+    );
+  }
+
   handleSubmit() {
     if (this.form.valid) {
-      console.log(2);
+      console.log(this.form.value);
     }
-    /* if (this.form.value.login && this.form.value.password) {
-      this.loginService.userLogin(
-        this.form.value.login,
-        this.form.value.password,
-      );
-    } */
   }
 }
