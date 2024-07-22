@@ -16,119 +16,70 @@
           invalid: form.controls.title.invalid && form.controls.title.touched,
         }"
       ></div>
-      <!-- @if (form.controls["login"].value?.length === 0) {
-        <div class="start">Please enter a login email</div>
+      @if (form.controls["title"].value?.length === 0) {
+        <div class="start">Please enter a title</div>
       }
-      @if (form.controls["login"].errors?.["pattern"]) {
-        <div class="alert">The login email is invalid</div>
-      } -->
+      @if (form.controls["title"].errors?.["minlength"]) {
+        <div class="alert">The title is too short</div>
+      }
+      @if (form.controls["title"].errors?.["maxlength"]) {
+        <div class="alert">The title is too long</div>
+      }
     </div>
     <div class="form__line">
       <label for="description" class="line__label">Description</label>
-      <input
-        type="text"
+      <textarea
         id="description"
-        class="line__input"
+        class="line__input textarea"
         formControlName="description"
-      />
+      ></textarea>
       <div
         class="line"
         [ngClass]="{
-          valid: form.controls.description.valid && form.controls.description.touched,
+          valid:
+            form.controls.description.valid &&
+            form.controls.description.touched,
           invalid:
-            form.controls.description.invalid && form.controls.description.touched,
+            form.controls.description.invalid &&
+            form.controls.description.touched,
         }"
       ></div>
-     <!--  @if (form.controls["password"].value?.length === 0) {
-        <div class="start">Please enter a password</div>
+      @if (form.controls["description"].errors?.["maxlength"]) {
+        <div class="alert">The description is too long</div>
       }
-      @if (form.controls["password"].errors?.["minlength"]) {
-        <div class="alert">
-          Your password isn't strong enough at least 8 characters
-        </div>
-      }
-      @if (
-        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-        form.controls["password"].value
-      ) {
-        <div class="alert">
-          Your password isn't strong enough a mixture of both uppercase and
-          lowercase letters
-        </div>
-      } -->
     </div>
     <div class="form__line">
       <label for="img" class="line__label">Img</label>
-      <input
-        type="text"
-        id="img"
-        class="line__input"
-        formControlName="img"
-      />
+      <input type="text" id="img" class="line__input" formControlName="img" />
       <div
         class="line"
         [ngClass]="{
           valid: form.controls.img.valid && form.controls.img.touched,
-          invalid:
-            form.controls.img.invalid && form.controls.img.touched,
+          invalid: form.controls.img.invalid && form.controls.img.touched,
         }"
       ></div>
-     <!--  @if (form.controls["password"].value?.length === 0) {
-        <div class="start">Please enter a password</div>
+      @if (form.controls["img"].value?.length === 0) {
+        <div class="start">Please enter a link to the image</div>
       }
-      @if (form.controls["password"].errors?.["minlength"]) {
-        <div class="alert">
-          Your password isn't strong enough at least 8 characters
-        </div>
-      }
-      @if (
-        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-        form.controls["password"].value
-      ) {
-        <div class="alert">
-          Your password isn't strong enough a mixture of both uppercase and
-          lowercase letters
-        </div>
-      } -->
     </div>
     <div class="form__line">
       <label for="link" class="line__label">Link video</label>
-      <input
-        type="text"
-        id="link"
-        class="line__input"
-        formControlName="link"
-      />
+      <input type="text" id="link" class="line__input" formControlName="link" />
       <div
         class="line"
         [ngClass]="{
           valid: form.controls.link.valid && form.controls.link.touched,
-          invalid:
-            form.controls.link.invalid && form.controls.link.touched,
+          invalid: form.controls.link.invalid && form.controls.link.touched,
         }"
       ></div>
-      <!-- @if (form.controls["password"].value?.length === 0) {
-        <div class="start">Please enter a password</div>
+      @if (form.controls["link"].value?.length === 0) {
+        <div class="start">Please enter a link to the video</div>
       }
-      @if (form.controls["password"].errors?.["minlength"]) {
-        <div class="alert">
-          Your password isn't strong enough at least 8 characters
-        </div>
-      }
-      @if (
-        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-        form.controls["password"].value
-      ) {
-        <div class="alert">
-          Your password isn't strong enough a mixture of both uppercase and
-          lowercase letters
-        </div>
-      } -->
     </div>
     <div class="form__line">
       <label for="createDate" class="line__label">Creation date</label>
       <input
-        type="text"
+        type="date"
         id="createDate"
         class="line__input"
         formControlName="createDate"
@@ -136,68 +87,64 @@
       <div
         class="line"
         [ngClass]="{
-          valid: form.controls.createDate.valid && form.controls.createDate.touched,
+          valid:
+            form.controls.createDate.valid && form.controls.createDate.touched,
           invalid:
-            form.controls.createDate.invalid && form.controls.createDate.touched,
+            form.controls.createDate.invalid &&
+            form.controls.createDate.touched,
         }"
       ></div>
-      <!-- @if (form.controls["password"].value?.length === 0) {
-        <div class="start">Please enter a password</div>
-      }
-      @if (form.controls["password"].errors?.["minlength"]) {
-        <div class="alert">
-          Your password isn't strong enough at least 8 characters
-        </div>
+      @if (form.controls["createDate"].value?.length === 0) {
+        <div class="start">Please enter a creation date</div>
       }
       @if (
-        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-        form.controls["password"].value
+        form.controls["createDate"].errors?.["dateValidator"] &&
+        form.controls["createDate"].value
       ) {
-        <div class="alert">
-          Your password isn't strong enough a mixture of both uppercase and
-          lowercase letters
-        </div>
-      } -->
+        <div class="alert">The date is invalid</div>
+      }
     </div>
     <div class="form__line_last">
-      <div class="line__label">Tags</div>
-      <input
-        type="text"
-        id="tags"
-        class="line__input"
-        formControlName="tags"
-      />
-      <div
-        class="line"
-        [ngClass]="{
-          valid: form.controls.tags.valid && form.controls.tags.touched,
-          invalid:
-            form.controls.tags.invalid && form.controls.tags.touched,
-        }"
-      ></div>
-      <!-- @if (form.controls["password"].value?.length === 0) {
-        <div class="start">Please enter a password</div>
-      }
-      @if (form.controls["password"].errors?.["minlength"]) {
-        <div class="alert">
-          Your password isn't strong enough at least 8 characters
-        </div>
-      }
-      @if (
-        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-        form.controls["password"].value
-      ) {
-        <div class="alert">
-          Your password isn't strong enough a mixture of both uppercase and
-          lowercase letters
-        </div>
-      } -->
+      <div class="line__tags">
+        <div class="line__label">Tags</div>
+        <button
+          class="button__add button"
+          (mouseup)="addTags()"
+          [disabled]="checkLengthTags()"
+        >
+          Add tag
+        </button>
+      </div>
+      <div formArrayName="tags">
+        @for (phone of getFormsControls()["controls"]; track $index) {
+          <div>
+            <input
+              type="text"
+              id="tags"
+              class="line__input"
+              formControlName="{{ $index }}"
+            />
+          </div>
+          <div
+            class="line"
+            [ngClass]="{
+              valid: form.controls.tags.controls[$index].valid && form.controls.tags.controls[$index].touched,
+              invalid: form.controls.tags.controls[$index].invalid && form.controls.tags.controls[$index].touched,
+            }"
+          ></div>
+          @if (form.controls.tags.controls[$index].value?.length === 0) {
+            <div class="start">Please enter a tag</div>
+          }
+        }
+      </div>
     </div>
     <div class="form__buttons">
-      <button type="submit" class="button__reset button">
-        Reset
-      </button>
-      <button type="submit" class="button__submit button" [disabled]="form.invalid">
+      <button class="button__reset button">Reset</button>
+      <button
+        type="submit"
+        class="button__submit button"
+        [disabled]="form.invalid"
+      >
         Create card
       </button>
     </div>
