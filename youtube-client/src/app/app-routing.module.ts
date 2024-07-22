@@ -22,6 +22,14 @@ const routes: Routes = [
     canActivate: [permissionGuard],
     loadChildren: () => import('./youtube/main.module').then((m) => m.PagesModule),
   },
+  {
+    path: 'admin',
+    title: 'AdminPage',
+    canActivate: [permissionGuard],
+    loadComponent: () => import('./core/components/admin/admin.component').then(
+      (m) => m.AdminComponent,
+    ),
+  },
 
   { path: '**', component: NotFoundComponent },
 ];

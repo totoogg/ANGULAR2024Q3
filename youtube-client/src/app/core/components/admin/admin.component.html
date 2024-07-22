@@ -1,0 +1,205 @@
+<main>
+  <form [formGroup]="form" class="form" (submit)="handleSubmit()">
+    <h2 class="form__title">Create new card</h2>
+    <div class="form__line">
+      <label for="title" class="line__label">Title</label>
+      <input
+        type="text"
+        id="title"
+        class="line__input"
+        formControlName="title"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.title.valid && form.controls.title.touched,
+          invalid: form.controls.title.invalid && form.controls.title.touched,
+        }"
+      ></div>
+      <!-- @if (form.controls["login"].value?.length === 0) {
+        <div class="start">Please enter a login email</div>
+      }
+      @if (form.controls["login"].errors?.["pattern"]) {
+        <div class="alert">The login email is invalid</div>
+      } -->
+    </div>
+    <div class="form__line">
+      <label for="description" class="line__label">Description</label>
+      <input
+        type="text"
+        id="description"
+        class="line__input"
+        formControlName="description"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.description.valid && form.controls.description.touched,
+          invalid:
+            form.controls.description.invalid && form.controls.description.touched,
+        }"
+      ></div>
+     <!--  @if (form.controls["password"].value?.length === 0) {
+        <div class="start">Please enter a password</div>
+      }
+      @if (form.controls["password"].errors?.["minlength"]) {
+        <div class="alert">
+          Your password isn't strong enough at least 8 characters
+        </div>
+      }
+      @if (
+        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
+        form.controls["password"].value
+      ) {
+        <div class="alert">
+          Your password isn't strong enough a mixture of both uppercase and
+          lowercase letters
+        </div>
+      } -->
+    </div>
+    <div class="form__line">
+      <label for="img" class="line__label">Img</label>
+      <input
+        type="text"
+        id="img"
+        class="line__input"
+        formControlName="img"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.img.valid && form.controls.img.touched,
+          invalid:
+            form.controls.img.invalid && form.controls.img.touched,
+        }"
+      ></div>
+     <!--  @if (form.controls["password"].value?.length === 0) {
+        <div class="start">Please enter a password</div>
+      }
+      @if (form.controls["password"].errors?.["minlength"]) {
+        <div class="alert">
+          Your password isn't strong enough at least 8 characters
+        </div>
+      }
+      @if (
+        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
+        form.controls["password"].value
+      ) {
+        <div class="alert">
+          Your password isn't strong enough a mixture of both uppercase and
+          lowercase letters
+        </div>
+      } -->
+    </div>
+    <div class="form__line">
+      <label for="link" class="line__label">Link video</label>
+      <input
+        type="text"
+        id="link"
+        class="line__input"
+        formControlName="link"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.link.valid && form.controls.link.touched,
+          invalid:
+            form.controls.link.invalid && form.controls.link.touched,
+        }"
+      ></div>
+      <!-- @if (form.controls["password"].value?.length === 0) {
+        <div class="start">Please enter a password</div>
+      }
+      @if (form.controls["password"].errors?.["minlength"]) {
+        <div class="alert">
+          Your password isn't strong enough at least 8 characters
+        </div>
+      }
+      @if (
+        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
+        form.controls["password"].value
+      ) {
+        <div class="alert">
+          Your password isn't strong enough a mixture of both uppercase and
+          lowercase letters
+        </div>
+      } -->
+    </div>
+    <div class="form__line">
+      <label for="createDate" class="line__label">Creation date</label>
+      <input
+        type="text"
+        id="createDate"
+        class="line__input"
+        formControlName="createDate"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.createDate.valid && form.controls.createDate.touched,
+          invalid:
+            form.controls.createDate.invalid && form.controls.createDate.touched,
+        }"
+      ></div>
+      <!-- @if (form.controls["password"].value?.length === 0) {
+        <div class="start">Please enter a password</div>
+      }
+      @if (form.controls["password"].errors?.["minlength"]) {
+        <div class="alert">
+          Your password isn't strong enough at least 8 characters
+        </div>
+      }
+      @if (
+        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
+        form.controls["password"].value
+      ) {
+        <div class="alert">
+          Your password isn't strong enough a mixture of both uppercase and
+          lowercase letters
+        </div>
+      } -->
+    </div>
+    <div class="form__line_last">
+      <div class="line__label">Tags</div>
+      <input
+        type="text"
+        id="tags"
+        class="line__input"
+        formControlName="tags"
+      />
+      <div
+        class="line"
+        [ngClass]="{
+          valid: form.controls.tags.valid && form.controls.tags.touched,
+          invalid:
+            form.controls.tags.invalid && form.controls.tags.touched,
+        }"
+      ></div>
+      <!-- @if (form.controls["password"].value?.length === 0) {
+        <div class="start">Please enter a password</div>
+      }
+      @if (form.controls["password"].errors?.["minlength"]) {
+        <div class="alert">
+          Your password isn't strong enough at least 8 characters
+        </div>
+      }
+      @if (
+        form.controls["password"].errors?.["passwordUpperLowValidator"] &&
+        form.controls["password"].value
+      ) {
+        <div class="alert">
+          Your password isn't strong enough a mixture of both uppercase and
+          lowercase letters
+        </div>
+      } -->
+    </div>
+    <div class="form__buttons">
+      <button type="submit" class="button__reset button">
+        Reset
+      </button>
+      <button type="submit" class="button__submit button" [disabled]="form.invalid">
+        Create card
+      </button>
+    </div>
+  </form>
+</main>

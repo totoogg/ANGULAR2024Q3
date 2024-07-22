@@ -8,6 +8,13 @@
       class="login__input"
       formControlName="login"
     />
+    <div
+      class="line"
+      [ngClass]="{
+        valid: form.controls.login.valid && form.controls.login.touched,
+        invalid: form.controls.login.invalid && form.controls.login.touched,
+      }"
+    ></div>
     @if (form.controls["login"].value?.length === 0) {
       <div class="start">Please enter a login email</div>
     }
@@ -23,6 +30,13 @@
       class="password__input"
       formControlName="password"
     />
+    <div
+      class="line"
+      [ngClass]="{
+        valid: form.controls.password.valid && form.controls.password.touched,
+        invalid: form.controls.password.invalid && form.controls.password.touched,
+      }"
+    ></div>
     @if (form.controls["password"].value?.length === 0) {
       <div class="start">Please enter a password</div>
     }
