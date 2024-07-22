@@ -60,7 +60,7 @@
       {{ loginService.user | sliceTitle: 9 }}
     </p>
     <div class="user__icon"></div>
-    @if (loginService.isLogin | async) {
+    @if (loginService.isLogin$| async) {
       <button class="user__logout" (click)="handleClickLogout()">Logout</button>
     } @else {
       <button class="user__logout" (click)="handleClickLogin()">Login</button>

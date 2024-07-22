@@ -1,7 +1,8 @@
 import { AsyncPipe, NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IFind } from '../../../shared/models/IFind';
 import { ISort } from '../../../shared/models/ISort';
 import { VideosService } from '../../../youtube/services/videos.service';
@@ -19,7 +20,7 @@ import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   constructor(
     private router: Router,
     public loginService: LoginService,
@@ -123,5 +124,11 @@ export class HeaderComponent {
 
   handleClickLogo() {
     this.router.navigate(['main']);
+  }
+
+  ngOnDestroy() {
+    (
+      this.videoService.getAll(this.value.trim()) as unknown as Subscription
+    ).unsubscribe();
   }
 }

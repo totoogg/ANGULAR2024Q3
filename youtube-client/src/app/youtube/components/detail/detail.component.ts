@@ -1,5 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { VideosService } from '../../services/videos.service';
 
 @Component({
@@ -8,7 +14,7 @@ import { VideosService } from '../../services/videos.service';
   styleUrl: './detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activeRouter: ActivatedRoute,
@@ -35,5 +41,10 @@ export class DetailComponent implements OnInit {
       return Math.round(Number(str) / 100);
     }
     return 0;
+  }
+
+  ngOnDestroy() {
+    this.videoService.video.unsubscribe();
+    (this.videoService.getById('1') as unknown as Subscription).unsubscribe();
   }
 }

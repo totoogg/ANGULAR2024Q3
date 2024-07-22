@@ -12,7 +12,9 @@ export class LoginService {
 
   stor: string | null;
 
-  isLogin = new BehaviorSubject<boolean>(false);
+  private isLogin = new BehaviorSubject<boolean>(false);
+
+  isLogin$ = this.isLogin.asObservable();
 
   constructor(
     private router: Router,
