@@ -40,37 +40,12 @@
     ></div>
     @if (form.controls["password"].value?.length === 0) {
       <div class="start">Please enter a password</div>
-    }
-    @if (form.controls["password"].errors?.["minlength"]) {
-      <div class="alert">
-        Your password isn't strong enough at least 8 characters
-      </div>
-    }
-    @if (
-      form.controls["password"].errors?.["passwordUpperLowValidator"] &&
-      form.controls["password"].value
-    ) {
-      <div class="alert">
-        Your password isn't strong enough a mixture of both uppercase and
-        lowercase letters
-      </div>
-    }
-    @if (
-      form.controls["password"].errors?.["passwordLetterNumberValidator"] &&
-      form.controls["password"].value
-    ) {
-      <div class="alert">
-        Your password isn't strong enough a mixture of letters and numbers
-      </div>
-    }
-    @if (
-      form.controls["password"].errors?.["passwordSpecialValidator"] &&
-      form.controls["password"].value
-    ) {
-      <div class="alert">
-        Your password isn't strong enough inclusion of at least one special
-        character, e.g., ! &#64; # ? ]
-      </div>
+    } @else {
+      @for (error of errorsMessage(); track error.errorValid) {
+        <div class="alert">
+          {{ error.message }}
+        </div>
+      }
     }
   </div>
   <app-custom-button

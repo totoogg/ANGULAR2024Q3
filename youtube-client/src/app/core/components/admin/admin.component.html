@@ -98,8 +98,7 @@
         <div class="start">Please enter a creation date</div>
       }
       @if (
-        form.controls["createDate"].errors?.["dateValidator"] &&
-        form.controls["createDate"].value
+        form.errors?.["dateValidator"] && form.controls["createDate"].value
       ) {
         <div class="alert">The date is invalid</div>
       }
@@ -142,7 +141,9 @@
       </div>
     </div>
     <div class="form__buttons">
-      <app-custom-button class="button__reset button" (clickCustomEvent)="reset()"
+      <app-custom-button
+        class="button__reset button"
+        (clickCustomEvent)="reset()"
         >Reset</app-custom-button
       >
       <app-custom-button

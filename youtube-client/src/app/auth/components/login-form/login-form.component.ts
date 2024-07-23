@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import {
+  passwordLetterNumberValidator,
+  passwordSpecialValidator,
+  passwordUpperLowValidator,
+} from '../../../shared/validators/passwordValidators';
 
 @Component({
   selector: 'app-login-form',
@@ -15,55 +16,58 @@ import { LoginService } from '../../services/login.service';
 export class LoginFormComponent {
   constructor(private loginService: LoginService) {}
 
-  form = new FormGroup({
-    login: new FormControl('', [
-      Validators.required,
-      Validators.pattern(
-        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-      ),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      this.passwordUpperLowValidator,
-      this.passwordLetterNumberValidator,
-      this.passwordSpecialValidator,
-    ]),
-  });
+  form = new FormGroup(
+    {
+      login: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+        ),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+      ]),
+    },
+    {
+      validators: [
+        passwordUpperLowValidator,
+        passwordLetterNumberValidator,
+        passwordSpecialValidator,
+      ],
+    },
+  );
 
-  passwordUpperLowValidator(
-    control: FormControl,
-  ): { [s: string]: boolean } | null {
-    const upper = String(control.value).toUpperCase() === String(control.value);
-    const low = String(control.value).toLowerCase() === String(control.value);
+  errorsMessage() {
+    const errors = [
+      {
+        errorValid: 'required',
+        message: 'Please enter a password',
+      },
+      {
+        errorValid: 'minlength',
+        message: "Your password isn't strong enough at least 8 characters",
+      },
+      {
+        errorValid: 'passwordUpperLowValidator',
+        message:
+          "Your password isn't strong enough a mixture of both uppercase and lowercase letters",
+      },
+      {
+        errorValid: 'passwordLetterNumberValidator',
+        message:
+          "Your password isn't strong enough a mixture of letters and numbers",
+      },
+      {
+        errorValid: 'passwordSpecialValidator',
+        message:
+          "Your password isn't strong enough inclusion of at least one special character, e.g., ! &#64; # ? ]",
+      },
+    ];
 
-    if (!upper && !low) {
-      return null;
-    }
-    return { passwordUpperLowValidator: true };
-  }
+    const currentErrors = Object.keys((this.form.errors as object) || {});
 
-  passwordLetterNumberValidator(
-    control: FormControl,
-  ): { [s: string]: boolean } | null {
-    const regexpLetter = /\w+/;
-    const regexpNumber = /\d+/;
-
-    if (regexpLetter.test(String(control.value)) && regexpNumber.test(String(control.value))) {
-      return null;
-    }
-    return { passwordLetterNumberValidator: true };
-  }
-
-  passwordSpecialValidator(
-    control: FormControl,
-  ): { [s: string]: boolean } | null {
-    const regexp = /!|@|\]|\?|#/gm;
-
-    if (regexp.test(String(control.value))) {
-      return null;
-    }
-    return { passwordSpecialValidator: true };
+    return errors.filter((el) => currentErrors.includes(el.errorValid));
   }
 
   handleSubmit() {
