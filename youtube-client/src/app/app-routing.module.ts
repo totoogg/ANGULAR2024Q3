@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { permissionGuard } from './core/guards/permission.guard';
 import { loginGuard } from './core/guards/login.guard';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -14,20 +14,20 @@ const routes: Routes = [
     path: 'login',
     title: 'LoginPage',
     canActivate: [loginGuard],
-    loadChildren: () => import('./auth/login.module').then((m) => m.LoginModule),
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: 'main',
     title: 'MainPage',
     canActivate: [permissionGuard],
-    loadChildren: () => import('./youtube/main.module').then((m) => m.PagesModule),
+    loadChildren: () => import('./youtube/youtube.module').then((m) => m.YoutubeModule),
   },
   {
     path: 'admin',
     title: 'AdminPage',
     canActivate: [permissionGuard],
-    loadComponent: () => import('./core/components/admin/admin.component').then(
-      (m) => m.AdminComponent,
+    loadChildren: () => import('./core/core.module').then(
+      (m) => m.CoreModule,
     ),
   },
 

@@ -1,6 +1,4 @@
-import { AsyncPipe, NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IFind } from '../../../shared/models/IFind';
@@ -10,13 +8,9 @@ import { FindService } from '../../services/find.service';
 import { FindWordService } from '../../services/find-word.service';
 import { SortVideoService } from '../../services/sort-video.service';
 import { LoginService } from '../../../auth/services/login.service';
-import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
-import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
-  imports: [FormsModule, NgClass, NgIf, AsyncPipe, SliceTitlePipe, CustomButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

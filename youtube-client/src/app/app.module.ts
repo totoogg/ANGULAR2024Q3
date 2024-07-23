@@ -7,27 +7,24 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './core/components/header/header.component';
-import { SearchResultsComponent } from './youtube/components/search-results/search-results.component';
 import { AppRoutingModule } from './app-routing.module';
-import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { DevLoggerService } from './core/services/dev-logger.service';
 import { ProdLoggerService } from './core/services/prod-logger.service';
 import { apiInterceptor } from './core/interceptor/api.interceptor';
+import { CoreModule } from './core/core.module';
 
 function myFactory() {
   return isDevMode() ? new DevLoggerService() : new ProdLoggerService();
 }
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HeaderComponent,
-    SearchResultsComponent,
     HttpClientModule,
     AppRoutingModule,
+    CoreModule,
   ],
   providers: [
     { provide: 'Logger', useFactory: myFactory },

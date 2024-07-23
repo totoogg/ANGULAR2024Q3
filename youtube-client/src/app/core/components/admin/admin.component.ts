@@ -1,28 +1,15 @@
-import { NgIf, NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  FormGroup,
-  FormControl,
-  Validators,
-  FormArray,
+  FormGroup, FormControl, Validators, FormArray,
 } from '@angular/forms';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { LoginService } from '../../../auth/services/login.service';
-import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass, CustomButtonComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
-  providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
-  constructor(private loginService: LoginService) {}
-
   form = new FormGroup({
     title: new FormControl('', [
       Validators.required,
