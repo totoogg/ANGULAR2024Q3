@@ -7,6 +7,7 @@ import { SearchResultsComponent } from './components/search-results/search-resul
 import { ColorLineDirective } from './directives/color-line.directive';
 import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { FormatDateCustomPipe } from './pipes/format-date-custom.pipe';
+import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 
 const routes: Routes = [
   { path: '', title: 'MainPage', component: MainComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
     ColorLineDirective,
     FormatDateCustomPipe,
     CommonModule,
+    CustomButtonComponent,
   ],
 })
 export class PagesModule {}

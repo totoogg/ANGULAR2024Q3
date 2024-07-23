@@ -26,8 +26,8 @@
   <p class="item__title" [title]="video?.snippet?.title">
     {{ video?.snippet?.title || "" | sliceTitle }}
   </p>
-  <app-custom-button class="item__button-block" [id]="video?.id">
-    more...
+  <app-custom-button class="item__button-block" (clickCustomEvent)="handleClickButton()">
+    <p class="content_button">more...</p>
   </app-custom-button>
   <div
     class="item__line"

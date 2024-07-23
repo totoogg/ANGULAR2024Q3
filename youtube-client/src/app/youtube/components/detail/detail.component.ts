@@ -21,10 +21,14 @@ export class DetailComponent implements OnInit, OnDestroy {
     public videoService: VideosService,
   ) {}
 
+  videoServiceIdSubscription: Subscription | undefined;
+
+  videoServiceVideoSubscription: Subscription | undefined;
+
   ngOnInit(): void {
     const id = this.activeRouter.snapshot.paramMap.get('id') as string;
-    this.videoService.getById(id).subscribe();
-    this.videoService.video.subscribe(() => {
+    this.videoServiceIdSubscription = this.videoService.getById(id).subscribe();
+    this.videoServiceVideoSubscription = this.videoService.video.subscribe(() => {
       this.videoService.loadingChange(false);
       if (!this.videoService.video) {
         this.router.navigate(['notFound']);
@@ -44,7 +48,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.videoService.video.unsubscribe();
-    (this.videoService.getById('1') as unknown as Subscription).unsubscribe();
+    this.videoServiceVideoSubscription?.unsubscribe();
+    this.videoServiceIdSubscription?.unsubscribe();
   }
 }

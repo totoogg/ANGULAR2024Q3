@@ -1,3 +1,3 @@
-<button class="item__button" (click)="handleClickButton()">
+<button [type]="type" class="button" (mouseup)="handleClickButton()" [disabled]="disabled">
   <ng-content></ng-content>
 </button>

@@ -11,11 +11,12 @@ import { FindWordService } from '../../services/find-word.service';
 import { SortVideoService } from '../../services/sort-video.service';
 import { LoginService } from '../../../auth/services/login.service';
 import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
+import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule, NgClass, NgIf, AsyncPipe, SliceTitlePipe],
+  imports: [FormsModule, NgClass, NgIf, AsyncPipe, SliceTitlePipe, CustomButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,8 @@ export class HeaderComponent implements OnDestroy {
     private findService: FindService,
     private videoService: VideosService,
   ) {}
+
+  videoServiceAllSubscription: Subscription | undefined;
 
   value = '';
 
@@ -101,9 +104,11 @@ export class HeaderComponent implements OnDestroy {
 
       if (this.value.trim().length > 2) {
         this.videoService.loadingChange(true);
-        this.videoService.getAll(this.value.trim()).subscribe(() => {
-          this.videoService.loadingChange(false);
-        });
+        this.videoServiceAllSubscription = this.videoService
+          .getAll(this.value.trim())
+          .subscribe(() => {
+            this.videoService.loadingChange(false);
+          });
       }
 
       this.router.navigate(['main']);
@@ -127,8 +132,6 @@ export class HeaderComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    (
-      this.videoService.getAll(this.value.trim()) as unknown as Subscription
-    ).unsubscribe();
+    this.videoServiceAllSubscription?.unsubscribe();
   }
 }

@@ -34,7 +34,8 @@
       class="line"
       [ngClass]="{
         valid: form.controls.password.valid && form.controls.password.touched,
-        invalid: form.controls.password.invalid && form.controls.password.touched,
+        invalid:
+          form.controls.password.invalid && form.controls.password.touched,
       }"
     ></div>
     @if (form.controls["password"].value?.length === 0) {
@@ -72,7 +73,10 @@
       </div>
     }
   </div>
-  <button type="submit" class="form__button" [disabled]="form.invalid">
-    Login
-  </button>
+  <app-custom-button
+    class="form__button"
+    [type]="'submit'"
+    [disabled]="form.invalid"
+    >Login</app-custom-button
+  >
 </form>

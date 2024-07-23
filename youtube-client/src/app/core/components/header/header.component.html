@@ -2,9 +2,11 @@
   <div></div>
   <div class="header__search_block">
     <div class="header__search">
-      <button class="search__logo" (click)="handleClickLogo()">
-        <div></div>
-      </button>
+      <app-custom-button
+        class="search__logo"
+        (clickCustomEvent)="handleClickLogo()"
+      >
+      </app-custom-button>
       <div class="search__controls">
         <form>
           <input
@@ -16,33 +18,39 @@
           />
         </form>
       </div>
-      <button class="search__setting" (click)="handleShowSort()">
-        <div class="setting__icon"></div>
-      </button>
+      <app-custom-button
+        class="search__setting"
+        (clickCustomEvent)="handleShowSort()"
+        ><div class="setting__icon"></div
+      ></app-custom-button>
     </div>
     @if (showSort) {
       <div class="header__sort">
         Sorting by:
-        <button
-          [ngClass]="{
-            active: sortVideoService.sort.activeSortDate,
-            asc: sortVideoService.sort.ascDate,
-            desc: sortVideoService.sort.descDate,
-          }"
-          (click)="handleClickSortDate()"
+        <app-custom-button class="button" (click)="handleClickSortDate()"
+          ><p
+            class="button__content"
+            [ngClass]="{
+              active: sortVideoService.sort.activeSortDate,
+              asc: sortVideoService.sort.ascDate,
+              desc: sortVideoService.sort.descDate,
+            }"
+          >
+            date
+          </p></app-custom-button
         >
-          date
-        </button>
-        <button
-          [ngClass]="{
-            active: sortVideoService.sort.activeSortView,
-            asc: sortVideoService.sort.ascView,
-            desc: sortVideoService.sort.descView,
-          }"
-          (click)="handleClickSortView()"
+        <app-custom-button class="button" (click)="handleClickSortView()"
+          ><p
+            class="button__content"
+            [ngClass]="{
+              active: sortVideoService.sort.activeSortView,
+              asc: sortVideoService.sort.ascView,
+              desc: sortVideoService.sort.descView,
+            }"
+          >
+            count of views
+          </p></app-custom-button
         >
-          count of views
-        </button>
         <div class="sort__filter_content">
           <label for="filter">by word or sentence</label>
           <input
@@ -59,11 +67,15 @@
     <p class="user__text" [title]="loginService.user">
       {{ loginService.user | sliceTitle: 9 }}
     </p>
-    <div class="user__icon"></div>
-    @if (loginService.isLogin$| async) {
-      <button class="user__logout" (click)="handleClickLogout()">Logout</button>
+    <app-custom-button class="user__icon"></app-custom-button>
+    @if (loginService.isLogin$ | async) {
+      <app-custom-button class="user__logout" (click)="handleClickLogout()"
+        >Logout</app-custom-button
+      >
     } @else {
-      <button class="user__logout" (click)="handleClickLogin()">Login</button>
+      <app-custom-button class="user__logout" (click)="handleClickLogin()"
+        >Login</app-custom-button
+      >
     }
   </div>
 </header>

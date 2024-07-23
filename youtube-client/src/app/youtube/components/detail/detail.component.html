@@ -3,9 +3,9 @@
 } @else if (videoService.video | async) {
   <div class="wrapper">
     <div class="container">
-      <button class="detail__button" (click)="handleClickBack()">
-        <div class="button__icon"></div>
-      </button>
+      <app-custom-button class="detail__button" (click)="handleClickBack()"
+        ><div class="button__icon"></div
+      ></app-custom-button>
       <div class="detail__content">
         <div class="content__image">
           <img

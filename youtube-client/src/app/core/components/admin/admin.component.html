@@ -107,13 +107,12 @@
     <div class="form__line_last">
       <div class="line__tags">
         <div class="line__label">Tags</div>
-        <button
+        <app-custom-button
           class="button__add button"
           (mouseup)="addTags()"
           [disabled]="checkLengthTags()"
+          >Add tag</app-custom-button
         >
-          Add tag
-        </button>
       </div>
       <div formArrayName="tags">
         @for (phone of getFormsControls()["controls"]; track $index) {
@@ -128,8 +127,12 @@
           <div
             class="line"
             [ngClass]="{
-              valid: form.controls.tags.controls[$index].valid && form.controls.tags.controls[$index].touched,
-              invalid: form.controls.tags.controls[$index].invalid && form.controls.tags.controls[$index].touched,
+              valid:
+                form.controls.tags.controls[$index].valid &&
+                form.controls.tags.controls[$index].touched,
+              invalid:
+                form.controls.tags.controls[$index].invalid &&
+                form.controls.tags.controls[$index].touched,
             }"
           ></div>
           @if (form.controls.tags.controls[$index].value?.length === 0) {
@@ -139,14 +142,15 @@
       </div>
     </div>
     <div class="form__buttons">
-      <button class="button__reset button" (mouseup)="reset()">Reset</button>
-      <button
-        type="submit"
-        class="button__submit button"
-        [disabled]="form.invalid"
+      <app-custom-button class="button__reset button" (mouseup)="reset()"
+        >Reset</app-custom-button
       >
-        Create card
-      </button>
+      <app-custom-button
+        class="button__submit button"
+        [type]="'submit'"
+        [disabled]="form.invalid"
+        >Create card</app-custom-button
+      >
     </div>
   </form>
 </main>

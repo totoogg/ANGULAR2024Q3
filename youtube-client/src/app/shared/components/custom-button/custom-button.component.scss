@@ -1,18 +1,19 @@
-.item__button {
-  width: 120px;
-  height: 32px;
+.button {
+  width: 100%;
+  height: 100%;
   cursor: pointer;
   padding: 0;
   margin: 0;
   border: none;
   border-radius: 5px;
-  box-shadow: 1px 0px 3px #2f80ed;
+  background-color: rgba($color: #000000, $alpha: 0.0);
   flex-shrink: 0;
-  background-color: #2f80ed;
   color: #ffffff;
   font-size: 12px;
 
-  &:hover {
-    background-color: #60a5fa;
+  &:disabled {
+    background-color: #85b9ff;
+    box-shadow: 1px 0px 3px #85b9ff;
+    cursor: default;
   }
 }

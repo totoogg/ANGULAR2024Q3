@@ -9,11 +9,12 @@ import {
 } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { LoginService } from '../../../auth/services/login.service';
+import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, CustomButtonComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
   providers: [provideNativeDateAdapter()],
