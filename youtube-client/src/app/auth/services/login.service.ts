@@ -10,7 +10,7 @@ import { LoggerService } from '../../core/services/LoggerService';
 export class LoginService {
   user = 'Your Name';
 
-  stor: string | null;
+  stor: string | null = '';
 
   private isLogin = new BehaviorSubject<boolean>(false);
 
@@ -37,8 +37,8 @@ export class LoginService {
     if (this.stor) {
       const result = this.decoder(JSON.parse(this.stor));
 
-      this.userName(result.login);
       this.isLogin.next(true);
+      this.userName(result.login);
       this.logger.logMessage('User login');
     }
   }
@@ -52,8 +52,9 @@ export class LoginService {
 
     localStorage.setItem('token-ANGULAR2024Q3', JSON.stringify(result));
 
-    this.router.navigate(['main']);
     this.isLogin.next(true);
+    this.router.navigate(['main']);
+
     this.logger.logMessage('User login');
   }
 

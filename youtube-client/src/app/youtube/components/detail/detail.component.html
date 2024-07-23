@@ -1,7 +1,7 @@
-@if (videoService.loading | async) {
+@if (videoService.loading$ | async) {
   <p class="main__start">Loading...</p>
 }
-@if (videoService.video | async; as video) {
+@if (videoService.video$ | async; as video) {
   <div class="wrapper">
     <div class="container">
       <app-custom-button

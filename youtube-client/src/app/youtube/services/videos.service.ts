@@ -25,11 +25,17 @@ import { IDataVideo } from '../models/seach-video';
 export class VideosService {
   constructor(private http: HttpClient) {}
 
-  loading = new BehaviorSubject<boolean>(false);
+  private loading = new BehaviorSubject<boolean>(false);
 
-  videos = new BehaviorSubject<IItem[]>([]);
+  loading$ = this.loading.asObservable();
 
-  video = new BehaviorSubject<IItem | undefined>(undefined);
+  private videos = new BehaviorSubject<IItem[]>([]);
+
+  videos$ = this.videos.asObservable();
+
+  private video = new BehaviorSubject<IItem | undefined>(undefined);
+
+  video$ = this.video.asObservable();
 
   getAll(str: string): Observable<IData | string> {
     return this.http

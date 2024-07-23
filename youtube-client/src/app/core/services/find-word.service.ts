@@ -5,7 +5,9 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class FindWordService {
-  word = new BehaviorSubject<string>('');
+  private word = new BehaviorSubject<string>('');
+
+  word$ = this.word.asObservable();
 
   changeWord(str: string) {
     this.word.next(str);

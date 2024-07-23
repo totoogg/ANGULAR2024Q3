@@ -15,7 +15,7 @@ export class SortVideoService {
     descView: true,
   };
 
-  sortPush = new BehaviorSubject<ISort>({
+  private sortPush = new BehaviorSubject<ISort>({
     activeSortDate: false,
     ascDate: false,
     descDate: true,
@@ -23,6 +23,8 @@ export class SortVideoService {
     ascView: false,
     descView: true,
   });
+
+  sortPush$ = this.sortPush.asObservable();
 
   changeSortOption(obj: ISort) {
     this.sort = { ...obj };

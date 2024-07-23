@@ -10,9 +10,13 @@ export class FindService {
 
   start = true;
 
-  valuePush = new BehaviorSubject<string>('');
+  private valuePush = new BehaviorSubject<string>('');
 
-  startPush = new BehaviorSubject<boolean>(true);
+  valuePush$ = this.valuePush.asObservable();
+
+  private startPush = new BehaviorSubject<boolean>(true);
+
+  startPush$ = this.startPush.asObservable();
 
   changeOption(obj: IFind) {
     this.value = obj.value;
