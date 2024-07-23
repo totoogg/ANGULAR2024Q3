@@ -3,10 +3,10 @@ import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 export const passwordUpperLowValidator: ValidatorFn = (
   control: AbstractControl,
 ): ValidationErrors | null => {
-  const upper = String(control.get('password')?.value).toUpperCase()
-    === String(control.get('password')?.value);
-  const low = String(control.get('password')?.value).toLowerCase()
-    === String(control.get('password')?.value);
+  const upper = String(control.value).toUpperCase()
+    === String(control.value);
+  const low = String(control.value).toLowerCase()
+    === String(control.value);
 
   if (!upper && !low) {
     return null;
@@ -21,8 +21,8 @@ export const passwordLetterNumberValidator: ValidatorFn = (
   const regexpNumber = /\d+/;
 
   if (
-    regexpLetter.test(String(control.get('password')?.value))
-    && regexpNumber.test(String(control.get('password')?.value))
+    regexpLetter.test(String(control.value))
+    && regexpNumber.test(String(control.value))
   ) {
     return null;
   }
@@ -34,7 +34,7 @@ export const passwordSpecialValidator: ValidatorFn = (
 ): ValidationErrors | null => {
   const regexp = /!|@|\]|\?|#/gm;
 
-  if (regexp.test(String(control.get('password')?.value))) {
+  if (regexp.test(String(control.value))) {
     return null;
   }
   return { passwordSpecialValidator: true };

@@ -98,7 +98,8 @@
         <div class="start">Please enter a creation date</div>
       }
       @if (
-        form.errors?.["dateValidator"] && form.controls["createDate"].value
+        form.controls["createDate"].errors?.["dateValidator"] &&
+        form.controls["createDate"].value
       ) {
         <div class="alert">The date is invalid</div>
       }

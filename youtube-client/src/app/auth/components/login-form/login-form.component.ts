@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import {
   passwordLetterNumberValidator,
@@ -14,29 +14,32 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
-  constructor(private loginService: LoginService) {}
+  constructor(
+    private loginService: LoginService,
+    private formBuilder: FormBuilder,
+  ) {}
 
-  form = new FormGroup(
-    {
-      login: new FormControl('', [
+  form = this.formBuilder.group({
+    login: [
+      '',
+      [
         Validators.required,
         Validators.pattern(
           /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
         ),
-      ]),
-      password: new FormControl('', [
+      ],
+    ],
+    password: [
+      '',
+      [
         Validators.required,
         Validators.minLength(8),
-      ]),
-    },
-    {
-      validators: [
         passwordUpperLowValidator,
         passwordLetterNumberValidator,
         passwordSpecialValidator,
       ],
-    },
-  );
+    ],
+  });
 
   errorsMessage() {
     const errors = [
@@ -65,7 +68,9 @@ export class LoginFormComponent {
       },
     ];
 
-    const currentErrors = Object.keys((this.form.errors as object) || {});
+    const currentErrors = Object.keys(
+      (this.form.controls.password.errors as object) || {},
+    );
 
     return errors.filter((el) => currentErrors.includes(el.errorValid));
   }

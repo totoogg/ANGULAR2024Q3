@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
-  FormGroup, FormControl, Validators, FormArray,
+  FormControl,
+  Validators,
+  FormArray,
+  FormBuilder,
 } from '@angular/forms';
 import { dateValidator } from '../../../shared/validators/dataValid';
 
@@ -11,23 +14,21 @@ import { dateValidator } from '../../../shared/validators/dataValid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
-  form = new FormGroup(
-    {
-      title: new FormControl('', [
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20),
-      ]),
-      description: new FormControl('', [Validators.maxLength(255)]),
-      img: new FormControl('', [Validators.required]),
-      link: new FormControl('', [Validators.required]),
-      createDate: new FormControl(this.startValueDate(), [Validators.required]),
-      tags: new FormArray([new FormControl('', Validators.required)]),
-    },
-    {
-      validators: dateValidator,
-    },
-  );
+  constructor(private formBuilder: FormBuilder) {}
+
+  form = this.formBuilder.group({
+    title: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+    ],
+    description: ['', Validators.maxLength(255)],
+    img: ['', Validators.required],
+    link: ['', Validators.required],
+    createDate: [this.startValueDate(), [Validators.required, dateValidator]],
+    tags: this.formBuilder.array([
+      this.formBuilder.control('', Validators.required),
+    ]),
+  });
 
   startValueDate() {
     const date = new Date();
