@@ -27,7 +27,7 @@
     @if (showSort) {
       <div class="header__sort">
         Sorting by:
-        <app-custom-button class="button" (click)="handleClickSortDate()"
+        <app-custom-button class="button" (clickCustomEvent)="handleClickSortDate()"
           ><p
             class="button__content"
             [ngClass]="{
@@ -39,7 +39,7 @@
             date
           </p></app-custom-button
         >
-        <app-custom-button class="button" (click)="handleClickSortView()"
+        <app-custom-button class="button" (clickCustomEvent)="handleClickSortView()"
           ><p
             class="button__content"
             [ngClass]="{
@@ -69,11 +69,11 @@
     </p>
     <app-custom-button class="user__icon"></app-custom-button>
     @if (loginService.isLogin$ | async) {
-      <app-custom-button class="user__logout" (click)="handleClickLogout()"
+      <app-custom-button class="user__logout" (clickCustomEvent)="handleClickLogout()"
         >Logout</app-custom-button
       >
     } @else {
-      <app-custom-button class="user__logout" (click)="handleClickLogin()"
+      <app-custom-button class="user__logout" (clickCustomEvent)="handleClickLogin()"
         >Login</app-custom-button
       >
     }

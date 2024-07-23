@@ -3,7 +3,7 @@
 } @else if (videoService.video | async) {
   <div class="wrapper">
     <div class="container">
-      <app-custom-button class="detail__button" (click)="handleClickBack()"
+      <app-custom-button class="detail__button" (clickCustomEvent)="handleClickBack()"
         ><div class="button__icon"></div
       ></app-custom-button>
       <div class="detail__content">

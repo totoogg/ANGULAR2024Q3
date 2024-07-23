@@ -109,7 +109,7 @@
         <div class="line__label">Tags</div>
         <app-custom-button
           class="button__add button"
-          (mouseup)="addTags()"
+          (clickCustomEvent)="addTags()"
           [disabled]="checkLengthTags()"
           >Add tag</app-custom-button
         >
@@ -142,7 +142,7 @@
       </div>
     </div>
     <div class="form__buttons">
-      <app-custom-button class="button__reset button" (mouseup)="reset()"
+      <app-custom-button class="button__reset button" (clickCustomEvent)="reset()"
         >Reset</app-custom-button
       >
       <app-custom-button
