@@ -6,6 +6,7 @@ import {
   FormBuilder,
 } from '@angular/forms';
 import { dateValidator } from '../../../shared/validators/dataValid';
+import { urlValidator } from '../../../shared/validators/urlValid';
 
 @Component({
   selector: 'app-admin',
@@ -19,14 +20,48 @@ export class AdminComponent {
   form = this.formBuilder.group({
     title: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+      {
+        validators: [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
+        updateOn: 'blur',
+      },
     ],
-    description: ['', Validators.maxLength(255)],
-    img: ['', Validators.required],
-    link: ['', Validators.required],
-    createDate: [this.startValueDate(), [Validators.required, dateValidator]],
+    description: [
+      '',
+      {
+        validators: [Validators.maxLength(255)],
+        updateOn: 'blur',
+      },
+    ],
+    img: [
+      '',
+      {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      },
+    ],
+    link: [
+      '',
+      {
+        validators: [Validators.required, urlValidator],
+        updateOn: 'blur',
+      },
+    ],
+    createDate: [
+      this.startValueDate(),
+      {
+        validators: [Validators.required, dateValidator],
+        updateOn: 'blur',
+      },
+    ],
     tags: this.formBuilder.array([
-      this.formBuilder.control('', Validators.required),
+      this.formBuilder.control('', {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      }),
     ]),
   });
 
@@ -43,6 +78,10 @@ export class AdminComponent {
     (<FormArray> this.form.controls.tags).push(
       new FormControl('', Validators.required),
     );
+  }
+
+  deleteTag(index: number) {
+    (<FormArray> this.form.controls.tags).removeAt(index);
   }
 
   checkLengthTags() {
@@ -66,6 +105,7 @@ export class AdminComponent {
   handleSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);
+      this.reset();
     }
   }
 }

@@ -22,12 +22,15 @@ export class LoginFormComponent {
   form = this.formBuilder.group({
     login: [
       '',
-      [
-        Validators.required,
-        Validators.pattern(
-          /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
-        ),
-      ],
+      {
+        validators: [
+          Validators.required,
+          Validators.pattern(
+            /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+          ),
+        ],
+        updateOn: 'blur',
+      },
     ],
     password: [
       '',

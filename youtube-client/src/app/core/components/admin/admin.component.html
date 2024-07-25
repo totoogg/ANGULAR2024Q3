@@ -19,10 +19,16 @@
       @if (form.controls["title"].value?.length === 0) {
         <div class="start">Please enter a title</div>
       }
-      @if (form.controls["title"].errors?.["minlength"]) {
+      @if (
+        form.controls["title"].errors?.["minlength"] &&
+        form.controls.title.touched
+      ) {
         <div class="alert">The title is too short</div>
       }
-      @if (form.controls["title"].errors?.["maxlength"]) {
+      @if (
+        form.controls["title"].errors?.["maxlength"] &&
+        form.controls.title.touched
+      ) {
         <div class="alert">The title is too long</div>
       }
     </div>
@@ -44,7 +50,10 @@
             form.controls.description.touched,
         }"
       ></div>
-      @if (form.controls["description"].errors?.["maxlength"]) {
+      @if (
+        form.controls["description"].errors?.["maxlength"] &&
+        form.controls.description.touched
+      ) {
         <div class="alert">The description is too long</div>
       }
     </div>
@@ -75,6 +84,13 @@
       @if (form.controls["link"].value?.length === 0) {
         <div class="start">Please enter a link to the video</div>
       }
+      @if (
+        form.controls["link"].errors?.["urlValidator"] &&
+        form.controls["link"].value &&
+        form.controls.link.touched
+      ) {
+        <div class="alert">The link is invalid</div>
+      }
     </div>
     <div class="form__line">
       <label for="createDate" class="line__label">Creation date</label>
@@ -99,7 +115,8 @@
       }
       @if (
         form.controls["createDate"].errors?.["dateValidator"] &&
-        form.controls["createDate"].value
+        form.controls["createDate"].value &&
+        form.controls.createDate.touched
       ) {
         <div class="alert">The date is invalid</div>
       }
@@ -116,25 +133,35 @@
       </div>
       <div formArrayName="tags">
         @for (phone of getFormsControls()["controls"]; track $index) {
-          <div>
-            <input
-              type="text"
-              id="tags"
-              class="line__input"
-              formControlName="{{ $index }}"
-            />
+          <div class="block_tags">
+            <div class="content_input">
+              <input
+                type="text"
+                id="tags"
+                class="line__input"
+                [value]="form.controls.tags.value[$index]"
+                formControlName="{{ $index }}"
+              />
+              <div
+                class="line"
+                [ngClass]="{
+                  valid:
+                    form.controls.tags.controls[$index].valid &&
+                    form.controls.tags.controls[$index].touched,
+                  invalid:
+                    form.controls.tags.controls[$index].invalid &&
+                    form.controls.tags.controls[$index].touched,
+                }"
+              ></div>
+            </div>
+            @if (form.controls.tags.length > 1) {
+              <app-custom-button
+                class="delete_tag"
+                (clickCustomEvent)="deleteTag($index)"
+                ><span></span><span></span
+              ></app-custom-button>
+            }
           </div>
-          <div
-            class="line"
-            [ngClass]="{
-              valid:
-                form.controls.tags.controls[$index].valid &&
-                form.controls.tags.controls[$index].touched,
-              invalid:
-                form.controls.tags.controls[$index].invalid &&
-                form.controls.tags.controls[$index].touched,
-            }"
-          ></div>
           @if (form.controls.tags.controls[$index].value?.length === 0) {
             <div class="start">Please enter a tag</div>
           }
