@@ -76,7 +76,10 @@ export class AdminComponent {
 
   addTags() {
     (<FormArray> this.form.controls.tags).push(
-      new FormControl('', Validators.required),
+      new FormControl('', {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      }),
     );
   }
 
@@ -98,7 +101,10 @@ export class AdminComponent {
     });
     (<FormArray> this.form.controls.tags).clear();
     (<FormArray> this.form.controls.tags).push(
-      new FormControl('', Validators.required),
+      new FormControl('', {
+        validators: [Validators.required],
+        updateOn: 'blur',
+      }),
     );
   }
 

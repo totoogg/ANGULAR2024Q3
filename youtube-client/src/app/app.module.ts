@@ -1,11 +1,7 @@
 import { isDevMode, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {
-  HttpClientModule,
-  provideHttpClient,
-  withInterceptors,
-} from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DevLoggerService } from './core/services/dev-logger.service';
@@ -19,13 +15,7 @@ function myFactory() {
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    CoreModule,
-  ],
+  imports: [BrowserModule, ReactiveFormsModule, AppRoutingModule, CoreModule],
   providers: [
     { provide: 'Logger', useFactory: myFactory },
     provideHttpClient(withInterceptors([apiInterceptor])),

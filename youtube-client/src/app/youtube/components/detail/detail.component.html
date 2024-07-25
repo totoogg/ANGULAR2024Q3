@@ -23,7 +23,7 @@
               {{ video?.snippet?.title }}
             </p>
             <p class="header__date">
-              {{ video?.snippet?.publishedAt || "" | formatDateCustom }}
+              {{ video?.snippet?.publishedAt || "" | date:'EEEE, MMMM d, y' }}
             </p>
           </div>
           <div class="description__main">

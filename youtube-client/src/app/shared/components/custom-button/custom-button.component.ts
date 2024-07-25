@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-custom-button',
   templateUrl: './custom-button.component.html',
   styleUrl: './custom-button.component.scss',
