@@ -125,6 +125,10 @@ export class HeaderComponent implements OnDestroy {
     this.router.navigate(['main']);
   }
 
+  handleClickAdmin() {
+    this.router.navigate(['admin']);
+  }
+
   ngOnDestroy() {
     this.videoServiceAllSubscription?.unsubscribe();
   }

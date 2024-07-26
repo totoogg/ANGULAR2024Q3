@@ -64,6 +64,7 @@
     }
   </div>
   <div class="header__user">
+    <app-custom-button class="user__admin" (clickCustomEvent)="handleClickAdmin()">Admin</app-custom-button>
     <p class="user__text" [title]="loginService.user">
       {{ loginService.user | sliceTitle: 9 }}
     </p>

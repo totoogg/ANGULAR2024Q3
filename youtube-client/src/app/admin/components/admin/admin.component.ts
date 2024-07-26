@@ -15,7 +15,9 @@ import { urlValidator } from '../../../shared/validators/urlValid';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminComponent {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {}
 
   form = this.formBuilder.group({
     title: [
