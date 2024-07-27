@@ -3,6 +3,8 @@ import { IItem } from './search-item.model';
 export interface IData {
   kind: string;
   etag: string;
+  nextPageToken: string;
+  prevPageToken: string;
   pageInfo: IPageInfo;
   items: IItem[];
 }

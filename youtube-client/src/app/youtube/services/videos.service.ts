@@ -25,6 +25,8 @@ import { IDataVideo } from '../models/seach-video';
 export class VideosService {
   constructor(private http: HttpClient) {}
 
+  responseVideo : IDataVideo | undefined = undefined;
+
   private loading = new BehaviorSubject<boolean>(false);
 
   loading$ = this.loading.asObservable();
@@ -37,21 +39,25 @@ export class VideosService {
 
   video$ = this.video.asObservable();
 
-  getAll(str: string): Observable<IData | string> {
+  getAll(str: string, page?: string): Observable<IData | string> {
     return this.http
       .get<IDataVideo>('search', {
       params: new HttpParams({
         fromObject: {
           type: 'video',
           part: 'snippet',
-          maxResults: 15,
+          maxResults: 20,
           q: str,
+          pageToken: page || '',
         },
       }),
     })
       .pipe(
         debounceTime(500),
         retry(2),
+        tap((res) => {
+          this.responseVideo = res;
+        }),
         map((v) => v.items.map((el) => el.id.videoId).join(',')),
         switchMap((id) => this.getAllById(id)),
         catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),

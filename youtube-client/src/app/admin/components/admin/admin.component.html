@@ -70,6 +70,13 @@
       @if (form.controls["img"].value?.length === 0) {
         <div class="start">Please enter a link to the image</div>
       }
+      @if (
+        form.controls["img"].errors?.["urlValidator"] &&
+        form.controls["img"].value &&
+        form.controls.img.touched
+      ) {
+        <div class="alert">The link is invalid</div>
+      }
     </div>
     <div class="form__line">
       <label for="link" class="line__label">Link video</label>

@@ -20,6 +20,16 @@
     ) {
       <app-search-item [video]="video"></app-search-item>
     }
+    <div class="results__paginator">
+      <mat-paginator
+        [length]="200"
+        aria-label="Select page"
+        [pageSize]="20"
+        [pageIndex]="currentPage"
+        (page)="handlePageEvent($event)"
+      >
+      </mat-paginator>
+    </div>
   </div>
 } @else if (
   (findService.startPush$ | async) === false &&

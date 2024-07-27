@@ -1,19 +1,13 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
-  "plugins": [
-    "simple-import-sort"
-  ],
+  "ignorePatterns": ["projects/**/*"],
+  "plugins": ["simple-import-sort"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "extends": [
         "airbnb-base",
         "airbnb-typescript/base",
@@ -29,6 +23,10 @@
         "class-methods-use-this": 0,
         "import/prefer-default-export": 0,
         "@typescript-eslint/no-explicit-any": "error",
+        "import/no-extraneous-dependencies": [
+          "error",
+          { "devDependencies": true }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -48,9 +46,7 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility"
@@ -58,12 +54,8 @@
       "rules": {}
     },
     {
-      "files": [
-        "*.ts"
-      ],
-      "extends": [
-        "plugin:@ngrx/all"
-      ]
+      "files": ["*.ts"],
+      "extends": ["plugin:@ngrx/all"]
     }
   ]
 }

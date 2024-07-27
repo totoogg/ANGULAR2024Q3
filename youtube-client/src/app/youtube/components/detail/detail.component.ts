@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Location } from '@angular/common';
 import { VideosService } from '../../services/videos.service';
 
 @Component({
@@ -17,6 +18,7 @@ import { VideosService } from '../../services/videos.service';
 export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
+    private location: Location,
     private activeRouter: ActivatedRoute,
     public videoService: VideosService,
   ) {}
@@ -37,7 +39,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   handleClickBack() {
-    this.router.navigate(['main']);
+    this.location.back();
   }
 
   randomDislike(str?: string) {

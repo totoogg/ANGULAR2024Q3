@@ -41,7 +41,7 @@ export class AdminComponent {
     img: [
       '',
       {
-        validators: [Validators.required],
+        validators: [Validators.required, urlValidator],
         updateOn: 'blur',
       },
     ],

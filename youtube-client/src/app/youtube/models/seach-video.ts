@@ -2,6 +2,8 @@ export interface IDataVideo {
   kind: string;
   etag: string;
   pageInfo: IPageInfo;
+  nextPageToken: string;
+  prevPageToken: string;
   items: IItem[];
 }
 
