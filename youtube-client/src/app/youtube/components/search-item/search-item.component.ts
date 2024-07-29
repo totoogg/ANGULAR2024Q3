@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { IItem } from '../../models/search-item.model';
 import { VideosService } from '../../services/videos.service';
+import { ICustomCard } from '../../../admin/models/customCard.model';
 
 @Component({
   selector: 'app-search-item',
@@ -9,13 +15,26 @@ import { VideosService } from '../../services/videos.service';
   styleUrl: './search-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchItemComponent {
-  @Input() video: IItem | null = null;
+export class SearchItemComponent implements OnInit {
+  @Input() video: IItem | ICustomCard | null = null;
+
+  videoItem: IItem | null = null;
+
+  customCard: ICustomCard | null = null;
 
   constructor(
     private router: Router,
     private videoService: VideosService,
   ) {}
+
+  ngOnInit(): void {
+    if (this.video && 'kind' in this.video) {
+      this.videoItem = this.video;
+    }
+    if (this.video && 'videoLink' in this.video) {
+      this.customCard = this.video;
+    }
+  }
 
   handleClickButton() {
     if (this.video?.id) {
@@ -25,7 +44,7 @@ export class SearchItemComponent {
   }
 
   randomDislike(): number {
-    if (this.video) {
+    if (this.video && 'kind' in this.video) {
       return Math.round(Number(this.video.statistics.likeCount) / 100);
     }
     return 0;

@@ -1,8 +1,17 @@
 export interface ICustomCard {
-  title: string;
-  description: string;
-  imgLink: string;
-  videoLink: string;
-  createDate: string;
   id: string;
+  videoLink: string;
+  snippet: {
+    description: string;
+    publishedAt: string;
+    title: string;
+    thumbnails: {
+      high: {
+        url: string;
+      };
+    };
+  };
+  statistics:{
+    viewCount: string;
+  }
 }

@@ -1,13 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { ISort } from '../../shared/models/ISort';
 import { IItem } from '../models/search-item.model';
+import { ICustomCard } from '../../admin/models/customCard.model';
 
 @Pipe({
   name: 'sortVideos',
   standalone: true,
 })
 export class SortVideosPipe implements PipeTransform {
-  transform(products: IItem[], sort: ISort): IItem[] {
+  transform(products: (IItem | ICustomCard)[], sort: ISort): (IItem | ICustomCard)[] {
     if (!sort.activeSortDate && !sort.activeSortView) return products;
     if (sort.activeSortDate) {
       if (sort.ascDate) {

@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { IFind } from '../../../shared/models/IFind';
 import { ISort } from '../../../shared/models/ISort';
-import { VideosService } from '../../../youtube/services/videos.service';
 import { FindService } from '../../services/find.service';
 import { FindWordService } from '../../services/find-word.service';
 import { SortVideoService } from '../../services/sort-video.service';
 import { LoginService } from '../../../auth/services/login.service';
+import * as YoutubeAction from '../../../redux/actions/youtube.action';
 
 @Component({
   selector: 'app-header',
@@ -15,17 +15,15 @@ import { LoginService } from '../../../auth/services/login.service';
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent {
   constructor(
     private router: Router,
     public loginService: LoginService,
     public sortVideoService: SortVideoService,
     private findWordService: FindWordService,
     private findService: FindService,
-    private videoService: VideosService,
+    private store: Store,
   ) {}
-
-  videoServiceAllSubscription: Subscription | undefined;
 
   value = '';
 
@@ -97,12 +95,7 @@ export class HeaderComponent implements OnDestroy {
       this.findService.changeOption(obj);
 
       if (this.value.trim().length > 2) {
-        this.videoService.loadingChange(true);
-        this.videoServiceAllSubscription = this.videoService
-          .getAll(this.value.trim())
-          .subscribe(() => {
-            this.videoService.loadingChange(false);
-          });
+        this.store.dispatch(YoutubeAction.searchYoutubeVideos());
       }
 
       this.router.navigate(['main']);
@@ -127,9 +120,5 @@ export class HeaderComponent implements OnDestroy {
 
   handleClickAdmin() {
     this.router.navigate(['admin']);
-  }
-
-  ngOnDestroy() {
-    this.videoServiceAllSubscription?.unsubscribe();
   }
 }

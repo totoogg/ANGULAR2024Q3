@@ -23,6 +23,7 @@
         "class-methods-use-this": 0,
         "import/prefer-default-export": 0,
         "@typescript-eslint/no-explicit-any": "error",
+        "arrow-body-style": 0,
         "import/no-extraneous-dependencies": [
           "error",
           { "devDependencies": true }
@@ -52,10 +53,6 @@
         "plugin:@angular-eslint/template/accessibility"
       ],
       "rules": {}
-    },
-    {
-      "files": ["*.ts"],
-      "extends": ["plugin:@ngrx/all"]
     }
   ]
 }

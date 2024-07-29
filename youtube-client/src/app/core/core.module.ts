@@ -8,7 +8,13 @@ import { CustomButtonComponent } from '../shared/components/custom-button/custom
 
 @NgModule({
   declarations: [NotFoundComponent, HeaderComponent],
-  imports: [ReactiveFormsModule, CommonModule, SliceTitlePipe, FormsModule, CustomButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    SliceTitlePipe,
+    FormsModule,
+    CustomButtonComponent,
+  ],
   exports: [NotFoundComponent, HeaderComponent],
 })
 export class CoreModule {}

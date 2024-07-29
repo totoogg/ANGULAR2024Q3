@@ -1,18 +1,19 @@
-@if (videoService.loading$ | async) {
+@if (loading$ | async) {
   <p class="main__start">Loading...</p>
-} @else if (((findService.valuePush$ | async) || "").length < 3) {
+} @else if (
+  ((findService.valuePush$ | async) || "").length < 3 &&
+  ((showCard$ | async) || []).length === 0
+) {
   <p class="main__start">Enter a search term of at least 3 characters</p>
 } @else if (
-  (findService.startPush$ | async) === false &&
-  (findService.valuePush$ | async) &&
   (
-    (videoService.videos$ | async) || []
+    (showCard$ | async) || []
     | filterVideos: (findWordService.word$ | async) || ""
   ).length
 ) {
   <div class="main__results">
     @for (
-      video of (videoService.videos$ | async) || []
+      video of (showCard$ | async) || []
         | filterVideos: (findWordService.word$ | async) || ""
         | sortVideos
           : (sortVideoService.sortPush$ | async) || sortVideoService.sort;
@@ -20,22 +21,27 @@
     ) {
       <app-search-item [video]="video"></app-search-item>
     }
-    <div class="results__paginator">
-      <mat-paginator
-        [length]="200"
-        aria-label="Select page"
-        [pageSize]="20"
-        [pageIndex]="currentPage"
-        (page)="handlePageEvent($event)"
-      >
-      </mat-paginator>
-    </div>
+    @if (
+      ((fullCards$ | async) || []).length > 20 ||
+      videoService.responseVideo?.pageInfo?.totalResults
+    ) {
+      <div class="results__paginator">
+        <mat-paginator
+          [length]="videoService.responseVideo?.pageInfo?.totalResults"
+          aria-label="Select page"
+          [pageSize]="20"
+          [pageIndex]="currentPage$ | async"
+          (page)="handlePageEvent($event)"
+        >
+        </mat-paginator>
+      </div>
+    }
   </div>
 } @else if (
   (findService.startPush$ | async) === false &&
   (findService.valuePush$ | async) &&
   (
-    (videoService.videos$ | async) || []
+    (showCard$ | async) || []
     | filterVideos: (findWordService.word$ | async) || ""
   ).length === 0
 ) {
