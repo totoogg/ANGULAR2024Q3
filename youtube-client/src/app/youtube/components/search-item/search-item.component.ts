@@ -5,9 +5,11 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { IItem } from '../../models/search-item.model';
 import { VideosService } from '../../services/videos.service';
 import { ICustomCard } from '../../../admin/models/customCard.model';
+import * as CustomAction from '../../../redux/actions/custom.action';
 
 @Component({
   selector: 'app-search-item',
@@ -25,6 +27,7 @@ export class SearchItemComponent implements OnInit {
   constructor(
     private router: Router,
     private videoService: VideosService,
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +43,14 @@ export class SearchItemComponent implements OnInit {
     if (this.video?.id) {
       this.videoService.cleanVideo();
       this.router.navigate(['main', this.video?.id]);
+    }
+  }
+
+  handleClickButtonRemove() {
+    if (this.customCard) {
+      this.store.dispatch(
+        CustomAction.removeCustomCard({ id: this.customCard.id }),
+      );
     }
   }
 

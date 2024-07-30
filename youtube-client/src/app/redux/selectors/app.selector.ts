@@ -1,5 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { getRouterSelectors } from '@ngrx/router-store';
 import { AppState } from '../reducers/app.reducer';
+
+export const { selectRouteParams } = getRouterSelectors();
 
 export const selectGetAppState = createFeatureSelector<AppState>('app');
 
@@ -36,4 +39,10 @@ export const selectGetShowCards = createSelector(
 export const selectGetFullCards = createSelector(
   selectGetAppState,
   (state: AppState) => state.fullCards,
+);
+
+export const selectGetId = createSelector(
+  selectGetAppState,
+  selectRouteParams,
+  (state: AppState, { id }) => state.fullCards.find((el) => el.id === id),
 );

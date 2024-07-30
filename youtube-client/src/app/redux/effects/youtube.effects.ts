@@ -79,9 +79,11 @@ export class YoutubeEffects {
       tap(() => {
         this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
       }),
-      map((res) => YoutubeAction.updateFullCards({ videos: res.videos })),
+      map((res) => {
+        this.store.dispatch(AppActions.setLoadingState({ isLoading: false }));
+        return YoutubeAction.updateFullCards({ videos: res.videos });
+      }),
       catchError(() => of(YoutubeAction.updateYoutubeFailed())),
-      finalize(() => this.store.dispatch(AppActions.setLoadingState({ isLoading: false }))),
     );
   });
 
@@ -91,9 +93,11 @@ export class YoutubeEffects {
       tap(() => {
         this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
       }),
-      map(() => YoutubeAction.updateShowCards()),
+      map(() => {
+        this.store.dispatch(AppActions.setLoadingState({ isLoading: false }));
+        return YoutubeAction.updateShowCards();
+      }),
       catchError(() => of(YoutubeAction.updateYoutubeFailed())),
-      finalize(() => this.store.dispatch(AppActions.setLoadingState({ isLoading: false }))),
     );
   });
 }

@@ -1,9 +1,9 @@
 <div class="item">
   <div class="item__poster">
     <img
-    [src]="video?.snippet?.thumbnails?.high?.url"
-    [alt]="video?.snippet?.title || 'custom card'"
-  />
+      [src]="video?.snippet?.thumbnails?.high?.url"
+      [alt]="video?.snippet?.title || 'custom card'"
+    />
   </div>
   @if (videoItem) {
     <div class="item__statistics">
@@ -28,15 +28,34 @@
   <p class="item__title" [title]="video?.snippet?.title">
     {{ video?.snippet?.title || "" | sliceTitle }}
   </p>
-  <app-custom-button
-    class="item__button-block"
-    (clickCustomEvent)="handleClickButton()"
-  >
-    <p class="content_button">more...</p>
-  </app-custom-button>
+  @if (videoItem) {
+    <app-custom-button
+      class="item__button-block"
+      (clickCustomEvent)="handleClickButton()"
+    >
+      <p class="content_button">more...</p>
+    </app-custom-button>
+  }
+  @if (customCard) {
+    <div class="item__buttons">
+      <app-custom-button
+        class="item__button-block-custom"
+        (clickCustomEvent)="handleClickButton()"
+      >
+        <p class="content_button">more...</p>
+      </app-custom-button>
+      <app-custom-button
+        class="item__button-block-custom"
+        (clickCustomEvent)="handleClickButtonRemove()"
+      >
+        <p class="content_button">remove</p>
+      </app-custom-button>
+    </div>
+  }
+
   <div
-      class="item__line"
-      appColorLine
-      [publishedAt]="video?.snippet?.publishedAt || ''"
-    ></div>
+    class="item__line"
+    appColorLine
+    [publishedAt]="video?.snippet?.publishedAt || ''"
+  ></div>
 </div>

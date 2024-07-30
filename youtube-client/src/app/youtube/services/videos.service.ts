@@ -25,7 +25,7 @@ import { IDataVideo } from '../models/seach-video';
 export class VideosService {
   constructor(private http: HttpClient) {}
 
-  responseVideo : IDataVideo | undefined = undefined;
+  responseVideo: IDataVideo | undefined = undefined;
 
   private loading = new BehaviorSubject<boolean>(false);
 
@@ -35,7 +35,7 @@ export class VideosService {
 
   videos$ = this.videos.asObservable();
 
-  private video = new BehaviorSubject<IItem | undefined>(undefined);
+  private video = new BehaviorSubject<IItem | null>(null);
 
   video$ = this.video.asObservable();
 
@@ -107,6 +107,10 @@ export class VideosService {
   }
 
   cleanVideo() {
-    this.video.next(undefined);
+    this.video.next(null);
+  }
+
+  changeVideo(video: IItem) {
+    this.video.next(video);
   }
 }

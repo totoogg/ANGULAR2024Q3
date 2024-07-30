@@ -23,7 +23,7 @@
               {{ video?.snippet?.title }}
             </p>
             <p class="header__date">
-              {{ video?.snippet?.publishedAt || "" | date:'EEEE, MMMM d, y' }}
+              {{ video?.snippet?.publishedAt || "" | date: "EEEE, MMMM d, y" }}
             </p>
           </div>
           <div class="description__main">
@@ -32,24 +32,34 @@
               {{ video?.snippet?.description }}
             </p>
           </div>
-          <div class="main__statistics">
-            <div class="statistics__view stat">
-              <div class="view__icon"></div>
-              {{ video?.statistics?.viewCount }}
+          @if (video.statistics.likeCount !== undefined) {
+            <div class="main__statistics">
+              <div class="statistics__view stat">
+                <div class="view__icon"></div>
+                {{ video?.statistics?.viewCount }}
+              </div>
+              <div class="statistics__like stat">
+                <div class="like__icon"></div>
+                {{ video?.statistics?.likeCount }}
+              </div>
+              <div class="statistics__dislike stat">
+                <div class="dislike__icon"></div>
+                {{ randomDislike(video?.statistics?.likeCount) }}
+              </div>
+              <div class="statistics__comments stat">
+                <div class="comment__icon"></div>
+                {{ video?.statistics?.commentCount }}
+              </div>
             </div>
-            <div class="statistics__like stat">
-              <div class="like__icon"></div>
-              {{ video?.statistics?.likeCount }}
-            </div>
-            <div class="statistics__dislike stat">
-              <div class="dislike__icon"></div>
-              {{ randomDislike(video?.statistics?.likeCount) }}
-            </div>
-            <div class="statistics__comments stat">
-              <div class="comment__icon"></div>
-              {{ video?.statistics?.commentCount }}
-            </div>
-          </div>
+          } @else {
+            <app-custom-button
+              class="main__button"
+              (clickCustomEvent)="handleClickButtonRemove()"
+            >
+              <p class="content_button">remove</p>
+              </app-custom-button
+            >
+          }
           <div
             class="item__line"
             appColorLine

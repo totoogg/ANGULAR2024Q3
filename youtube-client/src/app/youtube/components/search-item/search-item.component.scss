@@ -82,6 +82,32 @@
     text-align: right;
   }
 
+  .item__buttons {
+    width: 223px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 15px;
+    height: 32px;
+
+    .item__button-block-custom {
+      width: 45%;
+      height: 32px;
+      box-shadow: 1px 0px 3px #2f80ed;
+      background-color: #2f80ed;
+      border-radius: 5px;
+
+      &:hover {
+        background-color: #60a5fa;
+      }
+
+      .content_button {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
   .item__button-block {
     width: 120px;
     height: 32px;

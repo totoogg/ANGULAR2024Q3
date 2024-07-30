@@ -7,6 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DevLoggerService } from './core/services/dev-logger.service';
@@ -29,10 +30,11 @@ function myFactory() {
     ReactiveFormsModule,
     AppRoutingModule,
     CoreModule,
-    StoreModule.forRoot({ app: appReducer }, {}),
+    StoreModule.forRoot({ app: appReducer, router: routerReducer }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([YoutubeEffects]),
     FormsModule,
+    StoreRouterConnectingModule.forRoot(),
   ],
   providers: [
     { provide: 'Logger', useFactory: myFactory },
