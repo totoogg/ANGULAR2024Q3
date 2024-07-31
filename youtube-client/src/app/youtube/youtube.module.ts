@@ -17,12 +17,12 @@ import { DetailComponent } from './components/detail/detail.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
 import { ColorLineDirective } from './directives/color-line.directive';
 import { DetailPageComponent } from './pages/detail-page/detail-page.component';
-import { SearchItemComponent } from './components/search-item/search-item.component';
 import { FilterVideosPipe } from './pipes/filter-videos.pipe';
 import { SortVideosPipe } from './pipes/sort-videos.pipe';
 import { SliceTitlePipe } from './pipes/slice-title.pipe';
 import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 import { PaginatorService } from '../core/services/paginator.service';
+import { CoreModule } from '../core/core.module';
 
 const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
 
@@ -37,7 +37,6 @@ const routes: Routes = [
     DetailPageComponent,
     DetailComponent,
     SearchResultsComponent,
-    SearchItemComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -49,8 +48,8 @@ const routes: Routes = [
     CustomButtonComponent,
     MatPaginatorModule,
     NzIconModule.forRoot(icons),
+    CoreModule,
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorService }],
-  exports: [SearchItemComponent],
 })
 export class YoutubeModule {}

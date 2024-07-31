@@ -6,7 +6,7 @@ export interface FavoriteState {
 }
 
 export const initialState: FavoriteState = {
-  favoriteId: ['B-ib1mUWlnY'],
+  favoriteId: [],
 };
 
 export const favoriteReducer = createReducer(

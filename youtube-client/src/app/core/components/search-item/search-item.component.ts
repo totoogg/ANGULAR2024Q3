@@ -7,12 +7,12 @@ import {
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { IItem } from '../../models/search-item.model';
-import { VideosService } from '../../services/videos.service';
 import { ICustomCard } from '../../../admin/models/customCard.model';
 import * as CustomAction from '../../../redux/actions/custom.action';
-import * as FavoriteSelectors from '../../../core/store/selectors/core.selector';
-import * as FavoriteActions from '../../../core/store/actions/core.action';
+import * as FavoriteSelectors from '../../store/selectors/core.selector';
+import * as FavoriteActions from '../../store/actions/core.action';
+import { IItem } from '../../../youtube/models/search-item.model';
+import { VideosService } from '../../../youtube/services/videos.service';
 
 @Component({
   selector: 'app-search-item',
