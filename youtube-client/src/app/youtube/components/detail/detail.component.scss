@@ -31,7 +31,7 @@
     .button__icon {
       background: url(../../../assets/back.svg) center no-repeat;
       background-size: contain;
-      width: 13x;
+      width: 13px;
       height: 16px;
     }
 
@@ -149,12 +149,38 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
-  max-width: 300px;
-  margin-bottom: 15px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 400px;
   position: absolute;
-  bottom: 0px;
+  bottom: 15px;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  @media (max-width: 300px) {
+    flex-wrap: wrap;
+  }
+
+  .item__button_favorite {
+    height: 32px;
+    width: 32px;
+
+    .icon-border {
+      fill: #2f80ed;
+    }
+
+    .icon-inside {
+      fill: rgba($color: #000000, $alpha: 0.0);
+
+      &:hover {
+        fill: #60a5fa;
+      }
+    }
+
+    .choice {
+      fill: #60a5fa;
+    }
+  }
 
   .stat {
     display: flex;
@@ -219,4 +245,9 @@
   padding-top: 50px;
   text-align: center;
   font-size: 30px;
+}
+
+.content_button {
+  padding: 0;
+  margin: 0;
 }
