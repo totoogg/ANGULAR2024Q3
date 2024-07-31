@@ -5,6 +5,13 @@ import {
   MatPaginatorIntl,
   MatPaginatorModule,
 } from '@angular/material/paginator';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import {
+  AccountBookFill,
+  AlertFill,
+  AlertOutline,
+} from '@ant-design/icons-angular/icons';
 import { MainComponent } from './pages/main/main.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { SearchResultsComponent } from './components/search-results/search-results.component';
@@ -16,6 +23,8 @@ import { SortVideosPipe } from './pipes/sort-videos.pipe';
 import { SliceTitlePipe } from './pipes/slice-title.pipe';
 import { CustomButtonComponent } from '../shared/components/custom-button/custom-button.component';
 import { PaginatorService } from '../core/services/paginator.service';
+
+const icons: IconDefinition[] = [AccountBookFill, AlertOutline, AlertFill];
 
 const routes: Routes = [
   { path: '', title: 'MainPage', component: MainComponent },
@@ -39,7 +48,9 @@ const routes: Routes = [
     SliceTitlePipe,
     CustomButtonComponent,
     MatPaginatorModule,
+    NzIconModule.forRoot(icons),
   ],
   providers: [{ provide: MatPaginatorIntl, useClass: PaginatorService }],
+  exports: [SearchItemComponent],
 })
 export class YoutubeModule {}

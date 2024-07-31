@@ -149,6 +149,25 @@ form {
     }
   }
 
+  .user__favorite {
+    height: 24px;
+    width: 30px;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: #2f80ed;
+    border: none;
+    box-shadow: 1px 0px 3px #2f80ed;
+    margin-right: 8px;
+
+    &:hover {
+      background-color: #85b9ff;
+    }
+
+    .favorite_icon {
+      color: #ffffff;
+    }
+  }
+
   .user__icon {
     width: 24px;
     height: 24px;

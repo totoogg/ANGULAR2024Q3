@@ -35,6 +35,10 @@ export class VideosService {
 
   videos$ = this.videos.asObservable();
 
+  private favoriteVideos = new BehaviorSubject<IItem[]>([]);
+
+  favoriteVideos$ = this.favoriteVideos.asObservable();
+
   private video = new BehaviorSubject<IItem | null>(null);
 
   video$ = this.video.asObservable();
@@ -79,6 +83,25 @@ export class VideosService {
         tap((videos) => {
           this.videos.next(videos.items);
         }),
+        catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
+      );
+  }
+
+  getAllByFavorite(str: string): Observable<IData | string> {
+    return this.http
+      .get<IData>('videos', {
+      params: new HttpParams({
+        fromObject: {
+          part: 'snippet,statistics',
+          id: str,
+        },
+      }),
+    })
+      .pipe(
+        tap((videos) => {
+          this.favoriteVideos.next(videos.items);
+        }),
+        retry(2),
         catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
       );
   }

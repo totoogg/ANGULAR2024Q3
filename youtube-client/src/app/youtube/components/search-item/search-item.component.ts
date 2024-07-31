@@ -6,10 +6,13 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { IItem } from '../../models/search-item.model';
 import { VideosService } from '../../services/videos.service';
 import { ICustomCard } from '../../../admin/models/customCard.model';
 import * as CustomAction from '../../../redux/actions/custom.action';
+import * as FavoriteSelectors from '../../../core/store/selectors/core.selector';
+import * as FavoriteActions from '../../../core/store/actions/core.action';
 
 @Component({
   selector: 'app-search-item',
@@ -24,6 +27,8 @@ export class SearchItemComponent implements OnInit {
 
   customCard: ICustomCard | null = null;
 
+  favorite$ = new Observable<string | undefined>();
+
   constructor(
     private router: Router,
     private videoService: VideosService,
@@ -33,6 +38,9 @@ export class SearchItemComponent implements OnInit {
   ngOnInit(): void {
     if (this.video && 'kind' in this.video) {
       this.videoItem = this.video;
+      this.favorite$ = this.store.select(
+        FavoriteSelectors.selectGetFavoriteId(this.videoItem.id),
+      );
     }
     if (this.video && 'videoLink' in this.video) {
       this.customCard = this.video;
@@ -50,6 +58,14 @@ export class SearchItemComponent implements OnInit {
     if (this.customCard) {
       this.store.dispatch(
         CustomAction.removeCustomCard({ id: this.customCard.id }),
+      );
+    }
+  }
+
+  handleClickButtonFavorite() {
+    if (this.videoItem) {
+      this.store.dispatch(
+        FavoriteActions.toggleVideoInFavorite({ id: this.videoItem.id }),
       );
     }
   }

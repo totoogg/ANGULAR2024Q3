@@ -121,4 +121,8 @@ export class HeaderComponent {
   handleClickAdmin() {
     this.router.navigate(['admin']);
   }
+
+  handleClickFavorite() {
+    this.router.navigate(['favorite']);
+  }
 }

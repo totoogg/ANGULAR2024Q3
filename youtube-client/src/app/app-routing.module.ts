@@ -26,11 +26,14 @@ const routes: Routes = [
     path: 'admin',
     title: 'AdminPage',
     canActivate: [permissionGuard],
-    loadChildren: () => import('./admin/admin.module').then(
-      (m) => m.AdminModule,
-    ),
+    loadChildren: () => import('./admin/admin.module').then((m) => m.AdminModule),
   },
-
+  {
+    path: 'favorite',
+    title: 'FavoritePage',
+    canActivate: [permissionGuard],
+    loadChildren: () => import('./favorite/favorite.module').then((m) => m.FavoriteModule),
+  },
   { path: '**', component: NotFoundComponent },
 ];
 

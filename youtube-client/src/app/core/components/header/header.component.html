@@ -27,7 +27,9 @@
     @if (showSort) {
       <div class="header__sort">
         Sorting by:
-        <app-custom-button class="button" (clickCustomEvent)="handleClickSortDate()"
+        <app-custom-button
+          class="button"
+          (clickCustomEvent)="handleClickSortDate()"
           ><p
             class="button__content"
             [ngClass]="{
@@ -39,7 +41,9 @@
             date
           </p></app-custom-button
         >
-        <app-custom-button class="button" (clickCustomEvent)="handleClickSortView()"
+        <app-custom-button
+          class="button"
+          (clickCustomEvent)="handleClickSortView()"
           ><p
             class="button__content"
             [ngClass]="{
@@ -64,17 +68,36 @@
     }
   </div>
   <div class="header__user">
-    <app-custom-button class="user__admin" (clickCustomEvent)="handleClickAdmin()">Admin</app-custom-button>
+    <app-custom-button
+      title="Favorite Page"
+      class="user__favorite"
+      (clickCustomEvent)="handleClickFavorite()"
+      ><span
+        nz-icon
+        [nzType]="'heart'"
+        [nzTheme]="'fill'"
+        class="favorite_icon"
+      ></span>
+    </app-custom-button>
+    <app-custom-button
+      class="user__admin"
+      (clickCustomEvent)="handleClickAdmin()"
+      >Admin</app-custom-button
+    >
     <p class="user__text" [title]="loginService.user">
       {{ loginService.user | sliceTitle: 9 }}
     </p>
     <app-custom-button class="user__icon"></app-custom-button>
     @if (loginService.isLogin$ | async) {
-      <app-custom-button class="user__logout" (clickCustomEvent)="handleClickLogout()"
+      <app-custom-button
+        class="user__logout"
+        (clickCustomEvent)="handleClickLogout()"
         >Logout</app-custom-button
       >
     } @else {
-      <app-custom-button class="user__logout" (clickCustomEvent)="handleClickLogin()"
+      <app-custom-button
+        class="user__logout"
+        (clickCustomEvent)="handleClickLogin()"
         >Login</app-custom-button
       >
     }
