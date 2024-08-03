@@ -45,13 +45,11 @@ export class CoreEffects {
   updateFavorite$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(
-        FavoriteActions.addVideoInFavorite,
-        FavoriteActions.removeVideoInFavorite,
+        FavoriteActions.updateFavoriteData,
       ),
       tap(() => {
         this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
       }),
-      map((action) => action.id),
       concatMap((action) => of(action).pipe(
         withLatestFrom(
           this.store.select(FavoriteSelectors.selectGetFavorite),
@@ -64,6 +62,16 @@ export class CoreEffects {
           AppActions.setLoadingState({ isLoading: false }),
         )),
       )),
+    );
+  });
+
+  removeFavorite$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(FavoriteActions.removeVideoInFavorite),
+      map(({ id }) => {
+        this.videoService.changeFavoriteVideo(id);
+        return FavoriteActions.updateFavoriteSuccess();
+      }),
     );
   });
 }

@@ -50,12 +50,17 @@ export class DetailComponent implements OnInit, OnDestroy {
         if (el) {
           this.videoService.changeVideo(el as IItem);
         } else {
-          this.videoServiceGetByIdSubscription = this.videoService.getById(this.id).subscribe();
-          this.videoServiceVideoIdSubscription = this.videoService.video$.subscribe((video) => {
-            if (video === undefined) {
-              this.router.navigate(['notFound']);
-            }
-          });
+          this.videoServiceGetByIdSubscription = this.videoService
+            .getById(this.id)
+            .subscribe();
+          // this.videoServiceVideoIdSubscription = this.videoService.video$.subscribe((video) => {
+          //   if (video === undefined) {
+          //     this.router.navigate(['notFound']);
+          //   }
+          // });
+          if (this.videoService.video$() === undefined) {
+            this.router.navigate(['notFound']);
+          }
         }
       });
     this.favorite$ = this.store.select(
@@ -80,9 +85,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   handleClickButtonFavorite() {
-    this.store.dispatch(
-      FavoriteActions.toggleVideoInFavorite({ id: this.id }),
-    );
+    this.store.dispatch(FavoriteActions.toggleVideoInFavorite({ id: this.id }));
   }
 
   ngOnDestroy() {

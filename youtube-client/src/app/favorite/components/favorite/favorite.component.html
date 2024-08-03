@@ -1,10 +1,10 @@
 @if (loading$ | async) {
   <p class="main__start">Loading...</p>
-} @else if (((videoService.favoriteVideos$ | async) || []).length === 0) {
+} @else if (((videoService.favoriteVideos$()) || []).length === 0) {
   <p class="main__start">No favorite videos</p>
-} @else if (((videoService.favoriteVideos$ | async) || []).length) {
+} @else if (((videoService.favoriteVideos$()) || []).length) {
   <div class="main__results">
-    @for (video of videoService.favoriteVideos$ | async; track video.id) {
+    @for (video of videoService.favoriteVideos$(); track video.id) {
       <app-search-item [video]="video"></app-search-item>
     }
   </div>

@@ -15,6 +15,10 @@ export const removeVideoInFavorite = createAction(
   props<{ id: string }>(),
 );
 
+export const updateFavoriteData = createAction(
+  '[Favorite] Update Favorite Data',
+);
+
 export const updateFavoriteFailed = createAction(
   '[Favorite] Update Favorite Failed',
 );
