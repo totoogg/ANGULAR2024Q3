@@ -1,6 +1,5 @@
 export interface IItem {
   kind: string;
-  etag: string;
   id: string;
   snippet: ISnippet;
   statistics: IStatistics;
@@ -8,31 +7,17 @@ export interface IItem {
 
 export interface ISnippet {
   publishedAt: string;
-  channelId: string;
   title: string;
   description: string;
   thumbnails: IThumbnails;
-  channelTitle: string;
-  tags: string[];
-  categoryId: string;
-  liveBroadcastContent: string;
-  localized: ILocalized;
-  defaultAudioLanguage: string;
-  defaultLanguage?: string;
 }
 
 export interface IThumbnails {
-  default: ISizeImage;
-  medium: ISizeImage;
   high: ISizeImage;
-  standard: ISizeImage;
-  maxres: ISizeImage;
 }
 
 export interface ISizeImage {
   url: string;
-  width: number;
-  height: number;
 }
 
 export interface ILocalized {

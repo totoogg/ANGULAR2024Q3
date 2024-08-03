@@ -1,7 +1,7 @@
 @if (loading$ | async) {
   <p class="main__start">Loading...</p>
 }
-@if (videoService.video$(); as video) {
+@if (videoComputed(); as video) {
   <div class="wrapper">
     <div class="container">
       <app-custom-button
@@ -32,7 +32,7 @@
               {{ video?.snippet?.description }}
             </p>
           </div>
-          @if (video.statistics.likeCount !== undefined) {
+          @if (videoItem) {
             <div class="main__statistics">
               <div class="statistics__view stat">
                 <div class="view__icon"></div>
@@ -40,15 +40,15 @@
               </div>
               <div class="statistics__like stat">
                 <div class="like__icon"></div>
-                {{ video?.statistics?.likeCount }}
+                {{ videoItem.statistics.likeCount }}
               </div>
               <div class="statistics__dislike stat">
                 <div class="dislike__icon"></div>
-                {{ randomDislike(video?.statistics?.likeCount) }}
+                {{ randomDislike(videoItem.statistics.likeCount) }}
               </div>
               <div class="statistics__comments stat">
                 <div class="comment__icon"></div>
-                {{ video?.statistics?.commentCount }}
+                {{ videoItem.statistics.commentCount }}
               </div>
               <app-custom-button
                 class="item__button_favorite"

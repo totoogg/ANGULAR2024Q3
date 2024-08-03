@@ -1,19 +1,50 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
+  effect,
   OnDestroy,
   OnInit,
+  signal,
+  Signal,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import {
+  map, Observable, Subscription, switchMap,
+} from 'rxjs';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { VideosService } from '../../services/videos.service';
 import * as AppSelectors from '../../../redux/selectors/app.selector';
 import * as CustomAction from '../../../redux/actions/custom.action';
 import * as FavoriteSelectors from '../../../core/store/selectors/core.selector';
 import * as FavoriteActions from '../../../core/store/actions/core.action';
 import { IItem } from '../../models/search-item.model';
+import { ICustomCard } from '../../../admin/models/customCard.model';
+import { IData } from '../../models/search-response.model';
+
+const initialValue: IItem = {
+  kind: '',
+  id: '',
+  snippet: {
+    title: '',
+    publishedAt: '',
+    description: '',
+    thumbnails: {
+      high: {
+        url: '',
+      },
+    },
+  },
+  statistics: {
+    viewCount: '',
+    likeCount: '',
+    dislikeCount: '',
+    favoriteCount: '',
+    commentCount: '',
+  },
+};
 
 @Component({
   selector: 'app-detail',
@@ -22,11 +53,15 @@ import { IItem } from '../../models/search-item.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailComponent implements OnInit, OnDestroy {
-  private id: string = '';
+  private id = signal('');
 
   favorite$ = new Observable<string | undefined>();
 
   loading$ = this.store.select(AppSelectors.selectGetIsLoading);
+
+  videoItem: IItem | undefined = undefined;
+
+  customCard: ICustomCard | undefined = undefined;
 
   constructor(
     private router: Router,
@@ -34,7 +69,13 @@ export class DetailComponent implements OnInit, OnDestroy {
     private activeRouter: ActivatedRoute,
     public videoService: VideosService,
     private store: Store,
-  ) {}
+  ) {
+    effect(() => {
+      if (!this.videoByIdStore() && !this.requestVideoByIdSignal()) {
+        this.router.navigate(['notFound']);
+      }
+    }, { allowSignalWrites: true });
+  }
 
   videoServiceVideoSubscription: Subscription | undefined;
 
@@ -42,9 +83,39 @@ export class DetailComponent implements OnInit, OnDestroy {
 
   videoServiceVideoIdSubscription: Subscription | undefined;
 
+  videoByIdStore: Signal<ICustomCard | IItem | undefined> = toSignal(
+    this.store.select(AppSelectors.selectGetId),
+  );
+
+  requestVideoByIdSignal = toSignal(
+    toObservable(this.id).pipe(
+      switchMap((id) => this.videoService.getById(id).pipe(map((el) => (el as IData).items[0]))),
+    ),
+    { initialValue },
+  );
+
+  videoComputed: Signal<ICustomCard | IItem | undefined | null> = computed(
+    () => {
+      if (this.videoByIdStore()) {
+        if ('kind' in this.videoByIdStore()!) {
+          this.videoItem = this.videoByIdStore() as IItem;
+        }
+        if ('videoLink' in this.videoByIdStore()!) {
+          this.customCard = this.videoByIdStore() as ICustomCard;
+        }
+        return this.videoByIdStore();
+      }
+
+      this.videoItem = this.requestVideoByIdSignal() as IItem;
+
+      return this.requestVideoByIdSignal();
+    },
+  );
+
   ngOnInit(): void {
-    this.id = this.activeRouter.snapshot.paramMap.get('id') as string;
-    this.videoServiceVideoSubscription = this.store
+    this.id.set(this.activeRouter.snapshot.paramMap.get('id') as string);
+
+    /*  this.videoServiceVideoSubscription = this.store
       .select(AppSelectors.selectGetId)
       .subscribe((el) => {
         if (el) {
@@ -62,9 +133,10 @@ export class DetailComponent implements OnInit, OnDestroy {
             this.router.navigate(['notFound']);
           }
         }
-      });
+      }); */
+
     this.favorite$ = this.store.select(
-      FavoriteSelectors.selectGetFavoriteId(this.id),
+      FavoriteSelectors.selectGetFavoriteId(this.id()),
     );
   }
 
@@ -80,12 +152,14 @@ export class DetailComponent implements OnInit, OnDestroy {
   }
 
   handleClickButtonRemove() {
-    this.store.dispatch(CustomAction.removeCustomCard({ id: this.id }));
+    this.store.dispatch(CustomAction.removeCustomCard({ id: this.id() }));
     this.handleClickBack();
   }
 
   handleClickButtonFavorite() {
-    this.store.dispatch(FavoriteActions.toggleVideoInFavorite({ id: this.id }));
+    this.store.dispatch(
+      FavoriteActions.toggleVideoInFavorite({ id: this.id() }),
+    );
   }
 
   ngOnDestroy() {
