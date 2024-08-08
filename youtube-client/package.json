@@ -6,8 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "test": "jest --verbose",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch"
   },
   "private": true,
   "dependencies": {
