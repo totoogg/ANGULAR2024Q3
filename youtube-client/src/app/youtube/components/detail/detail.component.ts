@@ -84,7 +84,7 @@ export class DetailComponent implements OnInit, OnDestroy {
   videoServiceVideoIdSubscription: Subscription | undefined;
 
   videoByIdStore: Signal<ICustomCard | IItem | undefined> = toSignal(
-    this.store.select(AppSelectors.selectGetId),
+    this.store.select(AppSelectors.selectGetId(this.id())),
   );
 
   requestVideoByIdSignal = toSignal(

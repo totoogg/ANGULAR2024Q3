@@ -41,8 +41,10 @@ export const selectGetFullCards = createSelector(
   (state: AppState) => state.fullCards,
 );
 
-export const selectGetId = createSelector(
-  selectGetAppState,
-  selectRouteParams,
-  (state: AppState, { id }) => state.fullCards.find((el) => el.id === id),
-);
+// export const selectGetId = createSelector(
+//   selectGetAppState,
+//   selectRouteParams,
+//   (state: AppState, { id }) => state.fullCards.find((el) => el.id === id),
+// );
+
+export const selectGetId = (id: string) => createSelector(selectGetAppState, (state: AppState) => state.fullCards.find((el) => el.id === id));
