@@ -20,4 +20,9 @@ describe('NotFoundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.not-found__text')?.textContent).toContain('Sorry, smth went wrong((');
+  });
 });

@@ -26,4 +26,9 @@ describe('FavoriteComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.main__start')?.textContent).toContain('No favorite videos');
+  });
 });

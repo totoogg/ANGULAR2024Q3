@@ -23,4 +23,18 @@ describe('AdminComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.form__title')?.textContent).toContain('Create new card');
+  });
+
+  it('should submit button button', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.button__submit')?.textContent).toContain('Create card');
+  });
+
+  it('checkLengthTags()', () => {
+    expect(component.checkLengthTags()).toBe(false);
+  });
 });

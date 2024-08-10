@@ -44,4 +44,25 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have as value \'demo-angular-jest\'', () => {
+    component.value = 'demo-angular-jest';
+    expect(component.value).toEqual('demo-angular-jest');
+  });
+
+  it('should render the value', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const el = compiled.querySelector('input[name="search"]') as HTMLInputElement;
+    el.value = 'demo-angular-jest';
+    expect(el?.value).toContain('demo-angular-jest');
+  });
+
+  it('should have as showSort \'demo-angular-jest\'', () => {
+    expect(component.showSort).toEqual(false);
+  });
+
+  it('should have as extraValue \'demo-angular-jest\'', () => {
+    component.extraValue = 'demo-angular-jest';
+    expect(component.extraValue).toEqual('demo-angular-jest');
+  });
 });

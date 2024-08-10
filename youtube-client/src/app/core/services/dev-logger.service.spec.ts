@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-
 import { DevLoggerService } from './dev-logger.service';
 
 describe('DevLoggerService', () => {
   let service: DevLoggerService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        DevLoggerService,
+      ],
+    });
     service = TestBed.inject(DevLoggerService);
   });
 

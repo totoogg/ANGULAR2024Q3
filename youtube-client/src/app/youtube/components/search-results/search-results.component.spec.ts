@@ -31,4 +31,9 @@ describe('SearchResultsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should render the title', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.main__start')?.textContent).toContain('Enter a search term of at least 3 characters');
+  });
 });
