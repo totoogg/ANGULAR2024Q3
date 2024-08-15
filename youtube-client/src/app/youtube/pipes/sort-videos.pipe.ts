@@ -9,25 +9,25 @@ import { ICustomCard } from '../../admin/models/customCard.model';
 })
 export class SortVideosPipe implements PipeTransform {
   transform(products: (IItem | ICustomCard)[], sort: ISort): (IItem | ICustomCard)[] {
-    if (!sort.activeSortDate && !sort.activeSortView) return products;
+    if (!sort.activeSortDate && !sort.activeSortView) return [...products];
     if (sort.activeSortDate) {
       if (sort.ascDate) {
-        return products.sort(
+        return [...products].sort(
           (a, b) => new Date(a.snippet.publishedAt).getTime()
             - new Date(b.snippet.publishedAt).getTime(),
         );
       }
-      return products.sort(
+      return [...products].sort(
         (a, b) => new Date(b.snippet.publishedAt).getTime()
           - new Date(a.snippet.publishedAt).getTime(),
       );
     }
     if (sort.ascView) {
-      return products.sort(
+      return [...products].sort(
         (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount),
       );
     }
-    return products.sort(
+    return [...products].sort(
       (a, b) => Number(a.statistics.viewCount) - Number(b.statistics.viewCount),
     );
   }

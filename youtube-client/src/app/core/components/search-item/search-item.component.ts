@@ -49,7 +49,6 @@ export class SearchItemComponent implements OnInit {
 
   handleClickButton() {
     if (this.video?.id) {
-      this.videoService.cleanVideo();
       this.router.navigate(['main', this.video?.id]);
     }
   }

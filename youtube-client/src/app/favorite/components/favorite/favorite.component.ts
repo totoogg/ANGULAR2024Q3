@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as FavoriteSelectors from '../../../core/redux/selectors/core.selector';
-import { VideosService } from '../../../youtube/services/videos.service';
 
 @Component({
   selector: 'app-favorite',
@@ -12,7 +11,6 @@ import { VideosService } from '../../../youtube/services/videos.service';
 export class FavoriteComponent {
   constructor(
     private store: Store,
-    public videoService: VideosService,
   ) {}
 
   favorite$ = this.store.select(FavoriteSelectors.selectGetFavoriteVideos);

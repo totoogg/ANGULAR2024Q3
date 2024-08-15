@@ -1,7 +1,5 @@
-import { Injectable, signal } from '@angular/core';
-import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Injectable } from '@angular/core';
 import {
-  BehaviorSubject,
   catchError,
   debounceTime,
   map,
@@ -17,7 +15,6 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { IItem } from '../models/search-item.model';
 import { IData } from '../models/search-response.model';
 import { IDataVideo } from '../models/seach-video';
 import * as YoutubeAction from '../../redux/actions/youtube.action';
@@ -27,18 +24,6 @@ import * as YoutubeAction from '../../redux/actions/youtube.action';
 })
 export class VideosService {
   constructor(private http: HttpClient, private store: Store) {}
-
-  private loading = new BehaviorSubject<boolean>(false);
-
-  loading$ = this.loading.asObservable();
-
-  private favoriteVideos = signal<IItem[]>([]);
-
-  favoriteVideos$ = toSignal(toObservable(this.favoriteVideos));
-
-  private video = signal<IItem | null>(null);
-
-  video$ = toSignal(toObservable(this.video));
 
   getAll(str: string, page?: string): Observable<IData | string> {
     return this.http
@@ -97,26 +82,7 @@ export class VideosService {
     })
       .pipe(
         retry(2),
-        tap((videos) => {
-          this.video.set(videos.items[0]);
-        }),
         catchError((e: HttpErrorResponse) => of(`Bad Promise: ${e}`)),
       );
-  }
-
-  loadingChange(state: boolean) {
-    this.loading.next(state);
-  }
-
-  cleanVideo() {
-    this.video.set(null);
-  }
-
-  changeVideo(video: IItem) {
-    this.video.set(video);
-  }
-
-  changeFavoriteVideo(id: string) {
-    this.favoriteVideos.update((prev) => prev.filter((video) => video.id !== id));
   }
 }
