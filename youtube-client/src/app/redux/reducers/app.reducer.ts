@@ -55,6 +55,20 @@ export const appReducer = createReducer(
     }),
   ),
   on(
+    YoutubeAction.updateYoutubePageNext,
+    (state): AppState => ({
+      ...state,
+      page: state.page + 1,
+    }),
+  ),
+  on(
+    YoutubeAction.updateYoutubePagePrev,
+    (state): AppState => ({
+      ...state,
+      page: state.page - 1,
+    }),
+  ),
+  on(
     YoutubeAction.updateTokenNext,
     (state, { token }): AppState => ({
       ...state,
@@ -70,6 +84,14 @@ export const appReducer = createReducer(
   ),
   on(
     YoutubeAction.updateAllVideos,
+    (state, { videos }): AppState => ({
+      ...state,
+      isLoading: false,
+      allVideos: { ...Object.fromEntries(Object.entries(state.allVideos).filter((el) => 'videoLink' in el[1])), ...videos },
+    }),
+  ),
+  on(
+    YoutubeAction.updateAddVideos,
     (state, { videos }): AppState => ({
       ...state,
       allVideos: Object.keys(videos)[0] in state.allVideos ? { ...state.allVideos } : { ...state.allVideos, ...videos },

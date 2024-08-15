@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as FavoriteSelectors from '../../../core/store/selectors/core.selector';
+import * as FavoriteSelectors from '../../../core/redux/selectors/core.selector';
 import { VideosService } from '../../../youtube/services/videos.service';
 
 @Component({

@@ -40,10 +40,10 @@ export class YoutubeEffects {
             acc[cur.id] = cur;
             return acc;
           }, {} as { [id: string]: IItem });
-          return YoutubeAction.updateAllVideos({ videos: a });
+          return YoutubeAction.updateAddVideos({ videos: a });
         }),
         catchError(() => of(YoutubeAction.updateYoutubeFailed())),
-        finalize(() => this.store.dispatch(
+        finalize(() => of(
           AppActions.setLoadingState({ isLoading: false }),
         )),
       )),
@@ -53,9 +53,6 @@ export class YoutubeEffects {
   updatePagePrev$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(YoutubeAction.updateYoutubePagePrev),
-      tap(() => {
-        this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
-      }),
       concatMap((action) => of(action).pipe(
         withLatestFrom(
           this.store.select(AppSelectors.selectGetTokenPrev),
@@ -64,9 +61,6 @@ export class YoutubeEffects {
       switchMap((req) => this.videoService.getAll(this.findService.value.trim(), req[1]).pipe(
         map(() => YoutubeAction.updateShowVideos()),
         catchError(() => of(YoutubeAction.updateYoutubeFailed())),
-        finalize(() => this.store.dispatch(
-          AppActions.setLoadingState({ isLoading: false }),
-        )),
       )),
     );
   });
@@ -86,18 +80,13 @@ export class YoutubeEffects {
           return YoutubeAction.updateAllVideos({ videos: a });
         }),
         catchError(() => of(YoutubeAction.updateYoutubeFailed())),
-        finalize(() => {
-          return this.store.dispatch(
-            AppActions.setLoadingState({ isLoading: false }),
-          );
-        }),
       )),
     );
   });
 
   updateShowVideos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(YoutubeAction.updateAllVideos, CustomAction.addCustomCard, CustomAction.removeCustomCard),
+      ofType(YoutubeAction.updateAllVideos, YoutubeAction.updateAddVideos, CustomAction.addCustomCard, CustomAction.removeCustomCard),
       tap(() => {
         this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
       }),

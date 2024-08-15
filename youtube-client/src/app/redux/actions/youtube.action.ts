@@ -25,6 +25,11 @@ export const updateAllVideos = createAction(
   props<{ videos: object }>(),
 );
 
+export const updateAddVideos = createAction(
+  '[Main Page] Update Add Videos',
+  props<{ videos: object }>(),
+);
+
 export const updateTokenPrev = createAction(
   '[Main Page] Update Token Prev',
   props<{ token: string }>(),

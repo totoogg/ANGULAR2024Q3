@@ -5,8 +5,6 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -16,8 +14,6 @@ import { apiInterceptor } from './core/interceptor/api.interceptor';
 import { CoreModule } from './core/core.module';
 import { appReducer } from './redux/reducers/app.reducer';
 import { YoutubeEffects } from './redux/effects/youtube.effects';
-
-registerLocaleData(en);
 
 function myFactory() {
   return isDevMode() ? new DevLoggerService() : new ProdLoggerService();
