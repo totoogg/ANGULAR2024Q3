@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { SliceTitlePipe } from '../youtube/pipes/slice-title.pipe';
@@ -15,10 +14,8 @@ const routes: Routes = [
   declarations: [FavoriteComponent],
   imports: [
     RouterModule.forChild(routes),
-    ReactiveFormsModule,
     CommonModule,
     SliceTitlePipe,
-    FormsModule,
     CustomButtonComponent,
     CoreModule,
   ],

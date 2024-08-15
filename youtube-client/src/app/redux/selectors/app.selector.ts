@@ -36,7 +36,7 @@ export const selectGetTotal = createSelector(
   (state: AppState) => state.total,
 );
 
-export const selectGetId = (id: string) => createSelector(selectGetAppState, (state: AppState) => Object.values(state.allVideos).find((el) => el.id === id));
+export const selectGetVideo = (id: string) => createSelector(selectGetAppState, (state: AppState) => Object.values(state.allVideos).find((el) => el.id === id));
 
 export const selectGetShowVideos = createSelector(
   selectGetAppState,

@@ -77,7 +77,7 @@ export class DetailComponent implements OnInit {
   }
 
   videoByIdStore: Signal<ICustomCard | IItem | undefined> = toSignal(
-    this.store.select(AppSelectors.selectGetId(this.id())),
+    this.store.select(AppSelectors.selectGetVideo(this.id())),
   );
 
   requestVideoByIdSignal = toSignal(
