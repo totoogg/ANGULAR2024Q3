@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
-import { VideosService } from '../../services/videos.service';
 import { FindService } from '../../../core/services/find.service';
 import { FindWordService } from '../../../core/services/find-word.service';
 import { SortVideoService } from '../../../core/services/sort-video.service';
@@ -14,33 +13,29 @@ import * as AppSelectors from '../../../redux/selectors/app.selector';
   styleUrl: './search-results.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent {
   currentPage$ = this.store.select(AppSelectors.selectGetPage);
 
   loading$ = this.store.select(AppSelectors.selectGetIsLoading);
 
-  showCard$ = this.store.select(AppSelectors.selectGetShowCards);
+  showCard$ = this.store.select(AppSelectors.selectGetShowVideos);
 
-  fullCards$ = this.store.select(AppSelectors.selectGetFullCards);
+  fullCards$ = this.store.select(AppSelectors.selectGetAllVideos);
+
+  total$ = this.store.select(AppSelectors.selectGetTotal);
 
   constructor(
-    public videoService: VideosService,
     public findService: FindService,
     public findWordService: FindWordService,
     public sortVideoService: SortVideoService,
     private store: Store,
   ) {}
 
-  ngOnInit(): void {
-    this.store.dispatch(YoutubeActions.updateShowCards());
-  }
-
   handlePageEvent(e: PageEvent) {
     if (!e.previousPageIndex || e.pageIndex > e.previousPageIndex) {
       this.store.dispatch(
         YoutubeActions.updateYoutubePageNext({
           page: e.pageIndex,
-          tokenPage: this.videoService.responseVideo?.nextPageToken || '',
         }),
       );
     }
@@ -49,7 +44,6 @@ export class SearchResultsComponent implements OnInit {
       this.store.dispatch(
         YoutubeActions.updateYoutubePagePrev({
           page: e.pageIndex,
-          tokenPage: this.videoService.responseVideo?.prevPageToken || '',
         }),
       );
     }

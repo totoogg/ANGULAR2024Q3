@@ -3,12 +3,12 @@ import { IItem } from '../../youtube/models/search-item.model';
 
 export const updateYoutubePageNext = createAction(
   '[Main Page] Update Page Next',
-  props<{ page: number; tokenPage: string }>(),
+  props<{ page: number }>(),
 );
 
 export const updateYoutubePagePrev = createAction(
   '[Main Page] Update Page Prev',
-  props<{ page: number; tokenPage: string }>(),
+  props<{ page: number }>(),
 );
 
 export const updateYoutubeFailed = createAction(
@@ -20,13 +20,28 @@ export const updateYoutubeVideos = createAction(
   props<{ videos: IItem[] }>(),
 );
 
-export const updateShowCards = createAction(
-  '[Main Page] Update Show Cards',
+export const updateAllVideos = createAction(
+  '[Main Page] Update All Videos',
+  props<{ videos: object }>(),
 );
 
-export const updateFullCards = createAction(
-  '[Main Page] Update Full Cards',
-  props<{ videos: IItem[] }>(),
+export const updateTokenPrev = createAction(
+  '[Main Page] Update Token Prev',
+  props<{ token: string }>(),
+);
+
+export const updateTokenNext = createAction(
+  '[Main Page] Update Token Next',
+  props<{ token: string }>(),
+);
+
+export const updateTotalResult = createAction(
+  '[Main Page] Update Total Result',
+  props<{ total: number }>(),
+);
+
+export const updateShowVideos = createAction(
+  '[Main Page] Update Show Videos',
 );
 
 export const searchYoutubeVideos = createAction(

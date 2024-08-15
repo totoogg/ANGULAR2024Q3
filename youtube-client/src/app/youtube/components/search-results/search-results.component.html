@@ -23,11 +23,11 @@
     }
     @if (
       ((fullCards$ | async) || []).length > 20 ||
-      videoService.responseVideo?.pageInfo?.totalResults
+      (total$ | async)
     ) {
       <div class="results__paginator">
         <mat-paginator
-          [length]="videoService.responseVideo?.pageInfo?.totalResults"
+          [length]="total$ | async"
           aria-label="Select page"
           [pageSize]="20"
           [pageIndex]="currentPage$ | async"

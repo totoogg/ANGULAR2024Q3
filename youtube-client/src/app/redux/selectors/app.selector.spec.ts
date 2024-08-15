@@ -86,22 +86,15 @@ describe('Selectors', () => {
 
   const initialState: AppState = {
     isLoading: false,
-    customCards: [user, user2],
     page: 2,
-    showCards: [...videos, user, user2],
     tokenPage: '1',
-    videos: [...videos],
-    fullCards: [...videos, user, user2],
+    allVideos: {},
+    showVideos: [],
   };
 
   it('should select isLoading', () => {
     const result = AppSelectors.selectGetAppState.projector(initialState.isLoading);
     expect(result).toEqual(false);
-  });
-
-  it('should select GetCustomsCards', () => {
-    const result = AppSelectors.selectGetCustomsCards.projector(initialState);
-    expect(result).toStrictEqual([user, user2]);
   });
 
   it('should select GetPage', () => {

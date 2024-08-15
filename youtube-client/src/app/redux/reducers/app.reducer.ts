@@ -7,22 +7,24 @@ import { IItem } from '../../youtube/models/search-item.model';
 
 export interface AppState {
   isLoading: boolean;
-  customCards: ICustomCard[];
   page: number;
-  tokenPage: string;
-  videos: IItem[];
-  showCards: (ICustomCard | IItem)[];
-  fullCards: (ICustomCard | IItem)[];
+  tokenPagePrev: string;
+  tokenPageNext: string;
+  allVideos: {
+    [id: string]: ICustomCard | IItem
+  };
+  showVideos: string[];
+  total: number;
 }
 
 export const initialState: AppState = {
   isLoading: false,
-  customCards: [],
   page: 0,
-  showCards: [],
-  tokenPage: '',
-  videos: [],
-  fullCards: [],
+  tokenPagePrev: '',
+  tokenPageNext: '',
+  allVideos: {},
+  showVideos: [],
+  total: 0,
 };
 
 export const appReducer = createReducer(
@@ -38,63 +40,59 @@ export const appReducer = createReducer(
     CustomActions.addCustomCard,
     (state, { customCards }): AppState => ({
       ...state,
-      customCards: [...state.customCards, customCards],
-      fullCards: [customCards, ...state.fullCards],
+      allVideos: { ...customCards, ...state.allVideos },
     }),
   ),
   on(CustomActions.removeCustomCard, (state, { id }) => ({
     ...state,
-    customCards: [...state.customCards].filter((el) => el.id !== id),
-    fullCards: [...state.fullCards].filter((el) => el.id !== id),
+    allVideos: { ...Object.fromEntries(Object.entries(state.allVideos).filter((el) => el[0] !== id)) },
   })),
   on(
     YoutubeAction.searchYoutubeVideos,
     (state): AppState => ({
       ...state,
       page: 0,
-      tokenPage: '',
-      fullCards: [...state.customCards],
     }),
   ),
   on(
-    YoutubeAction.updateYoutubePageNext,
-    (state, { page, tokenPage }): AppState => ({
+    YoutubeAction.updateTokenNext,
+    (state, { token }): AppState => ({
       ...state,
-      page,
-      tokenPage,
+      tokenPageNext: token,
     }),
   ),
   on(
-    YoutubeAction.updateYoutubePagePrev,
-    (state, { page, tokenPage }): AppState => ({
+    YoutubeAction.updateTokenPrev,
+    (state, { token }): AppState => ({
       ...state,
-      page,
-      tokenPage,
-      fullCards: [...state.fullCards].slice(0, -20),
+      tokenPagePrev: token,
     }),
   ),
   on(
-    YoutubeAction.updateYoutubeVideos,
+    YoutubeAction.updateAllVideos,
     (state, { videos }): AppState => ({
       ...state,
-      videos: [...videos],
+      allVideos: Object.keys(videos)[0] in state.allVideos ? { ...state.allVideos } : { ...state.allVideos, ...videos },
     }),
   ),
   on(
-    YoutubeAction.updateFullCards,
-    (state, { videos }): AppState => ({
+    YoutubeAction.updateTotalResult,
+    (state, { total }): AppState => ({
       ...state,
-      fullCards: [...state.fullCards, ...videos],
+      total,
     }),
   ),
   on(
-    YoutubeAction.updateShowCards,
+    YoutubeAction.updateShowVideos,
     (state): AppState => ({
       ...state,
-      showCards: [...state.fullCards].slice(
+      showVideos: Object.keys(state.allVideos).slice(
         state.page * 20,
         state.page * 20 + 20,
-      ),
+      ).length < 20 ? Object.keys(state.allVideos).slice(-20) : Object.keys(state.allVideos).slice(
+          state.page * 20,
+          state.page * 20 + 20,
+        ),
     }),
   ),
 );

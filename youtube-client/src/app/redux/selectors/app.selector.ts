@@ -11,40 +11,34 @@ export const selectGetIsLoading = createSelector(
   (state) => state.isLoading,
 );
 
-export const selectGetCustomsCards = createSelector(
-  selectGetAppState,
-  (state: AppState) => state.customCards,
-);
-
 export const selectGetPage = createSelector(
   selectGetAppState,
   (state: AppState) => state.page,
 );
 
-export const selectGetTokenPage = createSelector(
+export const selectGetTokenNext = createSelector(
   selectGetAppState,
-  (state: AppState) => state.tokenPage,
+  (state: AppState) => state.tokenPageNext,
 );
 
-export const selectGetVideos = createSelector(
+export const selectGetTokenPrev = createSelector(
   selectGetAppState,
-  (state: AppState) => state.videos,
+  (state: AppState) => state.tokenPagePrev,
 );
 
-export const selectGetShowCards = createSelector(
+export const selectGetAllVideos = createSelector(
   selectGetAppState,
-  (state: AppState) => state.showCards,
+  (state: AppState) => Object.values(state.allVideos),
 );
 
-export const selectGetFullCards = createSelector(
+export const selectGetTotal = createSelector(
   selectGetAppState,
-  (state: AppState) => state.fullCards,
+  (state: AppState) => state.total,
 );
 
-// export const selectGetId = createSelector(
-//   selectGetAppState,
-//   selectRouteParams,
-//   (state: AppState, { id }) => state.fullCards.find((el) => el.id === id),
-// );
+export const selectGetId = (id: string) => createSelector(selectGetAppState, (state: AppState) => Object.values(state.allVideos).find((el) => el.id === id));
 
-export const selectGetId = (id: string) => createSelector(selectGetAppState, (state: AppState) => state.fullCards.find((el) => el.id === id));
+export const selectGetShowVideos = createSelector(
+  selectGetAppState,
+  (state: AppState) => state.showVideos.map((el) => state.allVideos[el]),
+);

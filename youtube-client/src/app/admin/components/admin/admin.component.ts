@@ -123,7 +123,11 @@ export class AdminComponent {
         },
       };
 
-      this.store.dispatch(CustomAction.addCustomCard({ customCards: card }));
+      const cardNew = {
+        [card.id]: card,
+      };
+
+      this.store.dispatch(CustomAction.addCustomCard({ customCards: cardNew }));
 
       this.reset();
     }

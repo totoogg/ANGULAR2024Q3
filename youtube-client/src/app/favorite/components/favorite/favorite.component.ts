@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as FavoriteSelectors from '../../../core/store/selectors/core.selector';
-import * as FavoriteActions from '../../../core/store/actions/core.action';
 import { VideosService } from '../../../youtube/services/videos.service';
 
 @Component({
@@ -10,15 +9,11 @@ import { VideosService } from '../../../youtube/services/videos.service';
   styleUrl: './favorite.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FavoriteComponent implements OnInit {
+export class FavoriteComponent {
   constructor(
     private store: Store,
     public videoService: VideosService,
   ) {}
 
-  loading$ = this.store.select(FavoriteSelectors.selectGetIsLoading);
-
-  ngOnInit(): void {
-    this.store.dispatch(FavoriteActions.updateFavoriteData());
-  }
+  favorite$ = this.store.select(FavoriteSelectors.selectGetFavoriteVideos);
 }
