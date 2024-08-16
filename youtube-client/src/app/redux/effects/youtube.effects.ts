@@ -53,6 +53,9 @@ export class YoutubeEffects {
   updatePagePrev$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(YoutubeAction.updateYoutubePagePrev),
+      tap(() => {
+        this.store.dispatch(AppActions.setLoadingState({ isLoading: true }));
+      }),
       concatMap((action) => of(action).pipe(
         withLatestFrom(
           this.store.select(AppSelectors.selectGetTokenPrev),

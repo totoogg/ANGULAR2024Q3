@@ -108,6 +108,7 @@ export const appReducer = createReducer(
     YoutubeAction.updateShowVideos,
     (state): AppState => ({
       ...state,
+      isLoading: false,
       showVideos: Object.keys(state.allVideos).slice(
         state.page * 20,
         state.page * 20 + 20,
