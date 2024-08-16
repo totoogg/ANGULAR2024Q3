@@ -1,10 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { routerReducer } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { SearchResultsComponent } from './search-results.component';
-import { appReducer } from '../../../redux/reducers/app.reducer';
 import { SortVideosPipe } from '../../pipes/sort-videos.pipe';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
 
@@ -15,9 +13,8 @@ describe('SearchResultsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SearchResultsComponent],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideMockStore({ })],
       imports: [
-        StoreModule.forRoot({ app: appReducer, router: routerReducer }),
         FilterVideosPipe,
         SortVideosPipe,
       ],

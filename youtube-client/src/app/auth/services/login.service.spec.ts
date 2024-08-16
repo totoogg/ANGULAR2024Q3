@@ -1,14 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { lastValueFrom } from 'rxjs';
 import { LoginService } from './login.service';
-import { DevLoggerService } from '../../core/services/dev-logger.service';
 
 describe('LoginService', () => {
   let service: LoginService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: 'Logger', useClass: DevLoggerService }],
+      providers: [{
+        provide: 'Logger',
+        useValue: {
+          logMessage() {},
+        },
+      }],
     });
     service = TestBed.inject(LoginService);
   });

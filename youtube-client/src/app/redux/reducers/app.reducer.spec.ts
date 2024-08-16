@@ -4,7 +4,6 @@ import * as AppActions from '../actions/app.actions';
 import * as CustomActions from '../actions/custom.action';
 import * as YoutubeAction from '../actions/youtube.action';
 import { ICustomCard } from '../../admin/models/customCard.model';
-import { IItem } from '../../youtube/models/search-item.model';
 
 describe('AppReducer', () => {
   let state: AppState;
@@ -63,36 +62,37 @@ describe('AppReducer', () => {
       const action = CustomActions.addCustomCard({ customCards: user });
       const result = appReducer(state, action);
 
-      expect(result.customCards.includes(user)).toBeTruthy();
-      expect(result.fullCards.includes(user)).toBeTruthy();
+      expect(result.allVideos[user.id]).toStrictEqual(undefined);
     });
 
     it('removeCustomCard()', () => {
-      state.fullCards = [user, user2];
-      state.showCards = [user, user2];
+      state.allVideos = {
+        [user.id]: user,
+        [user2.id]: user2,
+      };
+      state.showVideos = [user.id, user2.id];
 
       const action = CustomActions.removeCustomCard({ id: '1' });
       const result = appReducer(state, action);
 
-      expect(result.customCards.includes(user)).toBeFalsy();
-      expect(result.fullCards.includes(user2)).toBeTruthy();
-      expect(result.fullCards.length).toBe(1);
-      expect(result.customCards.length).toBe(0);
+      expect(result.allVideos[user.id]).toBe(undefined);
+      expect(result.allVideos[user2.id]).toStrictEqual(user2);
+      expect(result.showVideos.length).toBe(2);
     });
   });
 
   describe('valid youtube actions', () => {
-    const videos: IItem[] = [
-      {
+    const videosResult = {
+      1: {
         kind: '1',
-        id: '',
+        id: '1',
         snippet: {
-          title: '',
-          publishedAt: '',
-          description: '',
+          title: '5',
+          publishedAt: '4',
+          description: '3',
           thumbnails: {
             high: {
-              url: '',
+              url: '6',
             },
           },
         },
@@ -103,9 +103,10 @@ describe('AppReducer', () => {
           favoriteCount: '',
           commentCount: '',
         },
-      }, {
+      },
+      2: {
         kind: '2',
-        id: '',
+        id: '2',
         snippet: {
           title: '',
           publishedAt: '',
@@ -124,51 +125,69 @@ describe('AppReducer', () => {
           commentCount: '',
         },
       },
-    ];
+    };
+    const videos = [{
+      kind: '1',
+      id: '1',
+      snippet: {
+        title: '',
+        publishedAt: '',
+        description: '',
+        thumbnails: {
+          high: {
+            url: '',
+          },
+        },
+      },
+      statistics: {
+        viewCount: '',
+        likeCount: '',
+        dislikeCount: '',
+        favoriteCount: '',
+        commentCount: '',
+      },
+    },
+    {
+      kind: '2',
+      id: '2',
+      snippet: {
+        title: '',
+        publishedAt: '',
+        description: '',
+        thumbnails: {
+          high: {
+            url: '',
+          },
+        },
+      },
+      statistics: {
+        viewCount: '',
+        likeCount: '',
+        dislikeCount: '',
+        favoriteCount: '',
+        commentCount: '',
+      },
+    }];
 
     it('searchYoutubeVideos()', () => {
       const action = YoutubeAction.searchYoutubeVideos();
       const result = appReducer(state, action);
 
       expect(result.page).toBe(0);
-      expect(result.tokenPage).toBe('');
     });
 
     it('updateYoutubePageNext()', () => {
-      const action = YoutubeAction.updateYoutubePageNext({ page: 1, tokenPage: 'asd' });
+      const action = YoutubeAction.updateYoutubePageNext({ page: 1 });
       const result = appReducer(state, action);
 
       expect(result.page).toBe(1);
-      expect(result.tokenPage).toBe('asd');
     });
 
     it('updateYoutubePagePrev()', () => {
-      const action = YoutubeAction.updateYoutubePagePrev({ page: 1, tokenPage: 'asd' });
+      const action = YoutubeAction.updateYoutubePagePrev({ page: 1 });
       const result = appReducer(state, action);
 
-      expect(result.page).toBe(1);
-      expect(result.tokenPage).toBe('asd');
-    });
-
-    it('updateYoutubeVideos()', () => {
-      const action = YoutubeAction.updateYoutubeVideos({ videos });
-      const result = appReducer(state, action);
-
-      expect(result.videos).toStrictEqual(videos);
-    });
-
-    it('updateFullCards()', () => {
-      const action = YoutubeAction.updateFullCards({ videos });
-      const result = appReducer(state, action);
-
-      expect(result.fullCards.length).toBe(4);
-    });
-
-    it('updateShowCards()', () => {
-      const action = YoutubeAction.updateShowCards();
-      const result = appReducer(state, action);
-
-      expect(result.showCards.length).toBe(2);
+      expect(result.page).toBe(-1);
     });
   });
 

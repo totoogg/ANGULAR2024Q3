@@ -1,47 +1,43 @@
-import { ICustomCard } from '../../admin/models/customCard.model';
-import { IItem } from '../../youtube/models/search-item.model';
 import { AppState } from '../reducers/app.reducer';
 import * as AppSelectors from './app.selector';
 
 describe('Selectors', () => {
-  const user: ICustomCard = {
-    id: '1',
-    videoLink: '2',
-    snippet: {
-      description: '3',
-      publishedAt: '4',
-      title: '5',
-      thumbnails: {
-        high: {
-          url: '6',
+  const videos = {
+    1: {
+      id: '1',
+      videoLink: '2',
+      snippet: {
+        description: '3',
+        publishedAt: '4',
+        title: '5',
+        thumbnails: {
+          high: {
+            url: '6',
+          },
         },
       },
-    },
-    statistics: {
-      viewCount: '7',
-    },
-  };
-
-  const user2: ICustomCard = {
-    id: '2',
-    videoLink: '2',
-    snippet: {
-      description: '3',
-      publishedAt: '4',
-      title: '5',
-      thumbnails: {
-        high: {
-          url: '6',
-        },
+      statistics: {
+        viewCount: '7',
       },
     },
-    statistics: {
-      viewCount: '7',
+    2: {
+      id: '2',
+      videoLink: '2',
+      snippet: {
+        description: '3',
+        publishedAt: '4',
+        title: '5',
+        thumbnails: {
+          high: {
+            url: '6',
+          },
+        },
+      },
+      statistics: {
+        viewCount: '7',
+      },
     },
-  };
-
-  const videos: IItem[] = [
-    {
+    3: {
       kind: '1',
       id: '3',
       snippet: {
@@ -61,7 +57,8 @@ describe('Selectors', () => {
         favoriteCount: '',
         commentCount: '',
       },
-    }, {
+    },
+    4: {
       kind: '2',
       id: '4',
       snippet: {
@@ -82,14 +79,16 @@ describe('Selectors', () => {
         commentCount: '',
       },
     },
-  ];
+  };
 
   const initialState: AppState = {
     isLoading: false,
     page: 2,
-    tokenPage: '1',
-    allVideos: {},
-    showVideos: [],
+    tokenPagePrev: '',
+    tokenPageNext: '',
+    allVideos: { ...videos },
+    showVideos: ['1', '2', '3', '4'],
+    total: 0,
   };
 
   it('should select isLoading', () => {
@@ -102,28 +101,33 @@ describe('Selectors', () => {
     expect(result).toEqual(2);
   });
 
-  it('should select GetTokenPage', () => {
-    const result = AppSelectors.selectGetTokenPage.projector(initialState);
-    expect(result).toEqual('1');
+  it('should select GetTokenNext', () => {
+    const result = AppSelectors.selectGetTokenNext.projector(initialState);
+    expect(result).toEqual('');
   });
 
-  it('should select GetVideos', () => {
-    const result = AppSelectors.selectGetVideos.projector(initialState);
-    expect(result).toStrictEqual([...videos]);
+  it('should select GetTokenPrev', () => {
+    const result = AppSelectors.selectGetTokenPrev.projector(initialState);
+    expect(result).toEqual('');
   });
 
-  it('should select GetShowCards', () => {
-    const result = AppSelectors.selectGetShowCards.projector(initialState);
-    expect(result).toStrictEqual([...videos, user, user2]);
+  it('should select GetAllVideos', () => {
+    const result = AppSelectors.selectGetAllVideos.projector(initialState);
+    expect(result).toStrictEqual(Object.values(videos));
   });
 
-  it('should select GetFullCards', () => {
-    const result = AppSelectors.selectGetFullCards.projector(initialState);
-    expect(result).toStrictEqual([...videos, user, user2]);
+  it('should select GetShowVideos', () => {
+    const result = AppSelectors.selectGetShowVideos.projector(initialState);
+    expect(result).toStrictEqual(Object.values(videos));
   });
 
-  it('should select GetId', () => {
-    const result = AppSelectors.selectGetId('1').projector(initialState);
-    expect(result).toStrictEqual(user);
+  it('should select GetTotal', () => {
+    const result = AppSelectors.selectGetTotal.projector(initialState);
+    expect(result).toBe(0);
+  });
+
+  it('should select GetVideo', () => {
+    const result = AppSelectors.selectGetVideo('1').projector(initialState);
+    expect(result).toStrictEqual(videos['1']);
   });
 });

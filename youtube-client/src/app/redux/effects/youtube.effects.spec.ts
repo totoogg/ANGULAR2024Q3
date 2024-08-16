@@ -33,9 +33,9 @@ describe('Todo effects', () => {
   });
 
   it('should updatePageNext', (done) => {
-    actions$ = of(YoutubeAction.updateYoutubePageNext({ page: 1, tokenPage: 'asd' }));
+    actions$ = of(YoutubeAction.updateYoutubePageNext({ page: 1 }));
     effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateYoutubeVideos({
+      expect(action).toEqual(YoutubeAction.updateAddVideos({
         videos: [],
       }));
     });
@@ -43,47 +43,27 @@ describe('Todo effects', () => {
   });
 
   it('should updatePagePrev', (done) => {
-    actions$ = of(YoutubeAction.updateYoutubePagePrev({ page: 1, tokenPage: 'asd' }));
-    effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateYoutubeVideos({
-        videos: [],
-      }));
+    actions$ = of(YoutubeAction.updateYoutubePagePrev({ page: 1 }));
+    effects$.updatePagePrev$.subscribe((action) => {
+      expect(action).toEqual(YoutubeAction.updateShowVideos());
     });
     done();
   });
 
-  it('should searchVideos', (done) => {
+  it('should searchAllVideos', (done) => {
     actions$ = of(YoutubeAction.searchYoutubeVideos());
-    effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateYoutubeVideos({
+    effects$.searchAllVideos$.subscribe((action) => {
+      expect(action).toEqual(YoutubeAction.updateAllVideos({
         videos: [],
       }));
     });
     done();
   });
 
-  it('should updateFullCards', (done) => {
-    actions$ = of(YoutubeAction.updateYoutubeVideos({ videos: [] }));
-    effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateFullCards({
-        videos: [],
-      }));
-    });
-    done();
-  });
-
-  it('should updateShowCards', (done) => {
-    actions$ = of(YoutubeAction.updateFullCards({ videos: [] }));
-    effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateShowCards());
-    });
-    done();
-  });
-
-  it('should updateShowCards', (done) => {
-    actions$ = of(CustomAction.removeCustomCard({ id: '1' }));
-    effects$.updatePageNext$.subscribe((action) => {
-      expect(action).toEqual(YoutubeAction.updateShowCards());
+  it('should updateShowVideos', (done) => {
+    actions$ = of(YoutubeAction.updateAllVideos({ videos: [] }));
+    effects$.updateShowVideos$.subscribe((action) => {
+      expect(action).toEqual(YoutubeAction.updateShowVideos());
     });
     done();
   });

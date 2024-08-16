@@ -1,14 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { routerReducer } from '@ngrx/router-store';
+import { MockProvider } from 'ng-mocks';
+import { Store, StoreModule } from '@ngrx/store';
 import { MainComponent } from './main.component';
 import { CoreModule } from '../../../core/core.module';
 import { SearchResultsComponent } from '../../components/search-results/search-results.component';
 import { FilterVideosPipe } from '../../pipes/filter-videos.pipe';
-import { appReducer } from '../../../redux/reducers/app.reducer';
 
 describe('MainComponent', () => {
   let component: MainComponent;
@@ -19,11 +18,11 @@ describe('MainComponent', () => {
       declarations: [MainComponent, SearchResultsComponent],
       imports: [
         CoreModule,
-        StoreModule.forRoot({ app: appReducer, router: routerReducer }),
         EffectsModule.forRoot([]),
         FilterVideosPipe,
+        StoreModule.forRoot({}),
       ],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), MockProvider(Store)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainComponent);
