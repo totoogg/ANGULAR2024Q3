@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MockComponent } from 'ng-mocks';
 import { AdminComponent } from './admin.component';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
@@ -10,7 +11,7 @@ describe('AdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, CustomButtonComponent],
+      imports: [StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, MockComponent(CustomButtonComponent)],
       declarations: [AdminComponent],
     })
       .compileComponents();

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MockComponent } from 'ng-mocks';
 import { CustomButtonComponent } from './custom-button.component';
 
 describe('CustomButtonComponent', () => {
@@ -8,7 +8,7 @@ describe('CustomButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomButtonComponent],
+      imports: [MockComponent(CustomButtonComponent)],
     })
       .compileComponents();
 

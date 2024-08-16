@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MockComponent } from 'ng-mocks';
 import { LoginFormComponent } from './login-form.component';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 
@@ -11,7 +12,7 @@ describe('LoginFormComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [LoginFormComponent],
       providers: [{ provide: 'Logger', useValue: {} }],
-      imports: [ReactiveFormsModule, CustomButtonComponent],
+      imports: [ReactiveFormsModule, MockComponent(CustomButtonComponent)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginFormComponent);

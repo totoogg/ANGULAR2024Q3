@@ -10,6 +10,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { provideMockStore } from '@ngrx/store/testing';
+import { MockComponent } from 'ng-mocks';
 import { HeaderComponent } from './header.component';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
 import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
@@ -28,7 +29,7 @@ describe('HeaderComponent', () => {
         provideMockStore({}),
       ],
       imports: [SliceTitlePipe,
-        CustomButtonComponent, NzIconModule.forRoot(icons),
+        MockComponent(CustomButtonComponent), NzIconModule.forRoot(icons),
         SliceTitlePipe,
         FormsModule],
     })

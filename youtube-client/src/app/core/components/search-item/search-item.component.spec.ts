@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideMockStore } from '@ngrx/store/testing';
+import { MockComponent } from 'ng-mocks';
 import { SearchItemComponent } from './search-item.component';
 import { SliceTitlePipe } from '../../../youtube/pipes/slice-title.pipe';
 import { CustomButtonComponent } from '../../../shared/components/custom-button/custom-button.component';
@@ -17,7 +18,7 @@ describe('SearchItemComponent', () => {
       providers: [provideHttpClient(), provideHttpClientTesting(), provideMockStore({ })],
       imports: [
         SliceTitlePipe,
-        CustomButtonComponent,
+        MockComponent(CustomButtonComponent),
         ColorLineDirective,
       ],
     }).compileComponents();
