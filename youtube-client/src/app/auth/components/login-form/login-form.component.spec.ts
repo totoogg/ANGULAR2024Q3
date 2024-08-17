@@ -55,4 +55,85 @@ describe('LoginFormComponent', () => {
     ];
     expect(component.errorsMessage()).toStrictEqual(result);
   });
+
+  it('should check login error', () => {
+    const hostElement = fixture.nativeElement;
+    const nameInput = hostElement.querySelector('#login');
+    const nameDisplay = hostElement.querySelector('.form__login > .start');
+    const newInputVal = 'quick BROWN fOx';
+    nameInput.value = newInputVal;
+    nameInput.dispatchEvent(new Event('input'));
+    nameInput.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    const error = hostElement.querySelector('.form__login > .alert');
+
+    expect(nameDisplay.textContent).toBe('Please enter a login email');
+    expect(error.textContent).toBe('The login email is invalid');
+    expect(hostElement.querySelector('.form__button').disabled).toBeFalsy();
+  });
+
+  it('should check login right', () => {
+    const hostElement = fixture.nativeElement;
+    const nameInput = hostElement.querySelector('#login');
+    const nameDisplay = hostElement.querySelector('.form__login > .start');
+    const newInputVal = 'asd@asd.asd';
+    nameInput.value = newInputVal;
+    nameInput.dispatchEvent(new Event('input'));
+    nameInput.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    const error = hostElement.querySelector('.form__login > .alert');
+
+    expect(nameDisplay.textContent).toBe('Please enter a login email');
+    expect(error).toBe(null);
+    expect(hostElement.querySelector('.form__button').disabled).toBeFalsy();
+  });
+
+  it('should check password error', () => {
+    const hostElement = fixture.nativeElement;
+    const nameInput = hostElement.querySelector('#password');
+    const nameDisplay = hostElement.querySelector('.form__password > .start');
+    const newInputVal = 'asd@asd.asd';
+    nameInput.value = newInputVal;
+    nameInput.dispatchEvent(new Event('input'));
+    nameInput.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    const error = hostElement.querySelectorAll('.form__password > .alert');
+
+    expect(nameDisplay.textContent).toBe('Please enter a password');
+    expect(error.length).toBe(2);
+    expect(hostElement.querySelector('.form__button').disabled).toBeFalsy();
+  });
+
+  it('should check password right', () => {
+    const hostElement = fixture.nativeElement;
+    const nameInput = hostElement.querySelector('#password');
+    const nameDisplay = hostElement.querySelector('.form__password > .start');
+    const newInputVal = 'Aa@2asdasdasd';
+    nameInput.value = newInputVal;
+    nameInput.dispatchEvent(new Event('input'));
+    nameInput.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+    const error = hostElement.querySelectorAll('.form__password > .alert');
+
+    expect(nameDisplay.textContent).toBe('Please enter a password');
+    expect(error.length).toBe(0);
+    expect(hostElement.querySelector('.form__button').disabled).toBeFalsy();
+  });
+
+  it('should check correct form', () => {
+    const hostElement = fixture.nativeElement;
+    const nameInputLogin = hostElement.querySelector('#login');
+    const nameInputPassword = hostElement.querySelector('#password');
+    const newInputValLogin = 'asd@asd.asd';
+    const newInputValPassword = 'Aa@2asdasdasd';
+    nameInputLogin.value = newInputValLogin;
+    nameInputPassword.value = newInputValPassword;
+    nameInputLogin.dispatchEvent(new Event('input'));
+    nameInputLogin.dispatchEvent(new Event('blur'));
+    nameInputPassword.dispatchEvent(new Event('input'));
+    nameInputPassword.dispatchEvent(new Event('blur'));
+    fixture.detectChanges();
+
+    expect(hostElement.querySelector('.form__button').disabled).toBeUndefined();
+  });
 });

@@ -20,4 +20,11 @@ describe('CustomButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('click', () => {
+    const comp = new CustomButtonComponent();
+
+    comp.clickCustomEvent.subscribe((action) => expect(action).toBe('click'));
+    comp.handleClickButton();
+  });
 });
