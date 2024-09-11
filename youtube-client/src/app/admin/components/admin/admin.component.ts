@@ -101,6 +101,10 @@ export class AdminComponent {
       createDate: this.startValueDate(),
       tags: [''],
     });
+    while (this.form.controls.tags.length - 1) {
+      this.form.controls.tags.removeAt(this.form.controls.tags.length - 1);
+    }
+    this.form.controls.tags.reset(['']);
   }
 
   handleSubmit() {
